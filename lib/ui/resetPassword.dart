@@ -186,7 +186,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                               },
                                         child: isReset == false
                                             ? Text(
-                                                'Reset',
+                                                'Reset ',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline1,
