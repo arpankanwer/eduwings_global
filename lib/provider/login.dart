@@ -9,6 +9,8 @@ class LoginProvider with ChangeNotifier {
   String urlBase = "https://eduwingserp.com/Api/v1/mobile/";
   String apiKey = "ZUthbndlckluZGlhTHVkaGlhbmE=";
   String loginServerApi = "CheckUsernamePassword.php";
+  String resetPasswordApi = "resetPassword.php";
+  var resetResponse;
 
   Future setSharedData(userData) async {
     final prefs = await SharedPreferences.getInstance();
@@ -61,6 +63,19 @@ class LoginProvider with ChangeNotifier {
         counselorMobNo: prefs.getString('counselorMobNo').toString(),
         formId: prefs.getString('formId').toString(),
         isLogged: prefs.getString('isLogged').toString());
+  }
+
+  Future resetPassword(formId, oldPassword, newPassword) async {
+    final response =
+        await http.post(Uri.parse('$urlBase' + '$resetPasswordApi'), headers: {
+      'APIKEY': '$apiKey'
+    }, body: {
+      "formid": '$formId',
+      "oldpassword": '$oldPassword',
+      "newpassword": '$newPassword',
+    });
+    resetResponse = json.decode(response.body);
+    return response;
   }
 
   Future logout() async {

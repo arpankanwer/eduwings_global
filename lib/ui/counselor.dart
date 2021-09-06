@@ -1,5 +1,10 @@
+// import 'dart:html';
+
+import 'package:eduwings_global/classes/user.dart';
+import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:provider/provider.dart';
 
 class CounselorSupport extends StatefulWidget {
   const CounselorSupport({Key? key}) : super(key: key);
@@ -9,6 +14,38 @@ class CounselorSupport extends StatefulWidget {
 }
 
 class _CounselorSupportState extends State<CounselorSupport> {
+  User user = User(
+      ein: '',
+      studentName: '',
+      fName: '',
+      lName: '',
+      email: '',
+      countryName: '',
+      stateName: '',
+      cityName: '',
+      passport: '',
+      dob: '',
+      gender: '',
+      address: '',
+      profileImage: '',
+      mobNo: '',
+      counselorName: '',
+      counselorMobNo: '',
+      formId: '',
+      isLogged: '');
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<LoginProvider>(context, listen: false)
+        .getSharedData()
+        .then((value) {
+      setState(() {
+        user = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -18,7 +55,7 @@ class _CounselorSupportState extends State<CounselorSupport> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Your Counselor',
+          'My Counselor',
         ),
         leading: IconButton(
           icon: Icon(Icons.sort_outlined),
@@ -45,11 +82,95 @@ class _CounselorSupportState extends State<CounselorSupport> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: Column(children: [
-                      SizedBox(
-                        width: mediaQuery.width,
-                      )
-                    ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: mediaQuery.width * 0.04),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: mediaQuery.height * 0.03,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            "https://eu.ui-avatars.com/api/?name=${user.counselorName}&background=2f855a&color=fff"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(70.0),
+                                      border: Border.all(
+                                        color: Colors.yellowAccent,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: mediaQuery.height * 0.02,
+                                  ),
+                                  Text(
+                                    user.counselorName,
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
+                                  ),
+                                  SizedBox(
+                                    height: mediaQuery.height * 0.04,
+                                  ),
+                                  Container(
+                                    width: mediaQuery.width * 0.3,
+                                    height: mediaQuery.width * 0.11,
+                                    child: ElevatedButton(
+                                      style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20))),
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Call',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: mediaQuery.height * 0.02,
+                                  ),
+                                  Container(
+                                    // width: mediaQuery.width * 0.3,
+                                    height: mediaQuery.width * 0.11,
+                                    child: ElevatedButton(
+                                      style: TextButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20))),
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Whatsapp',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Text(user.counselorMobNo),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -58,6 +179,5 @@ class _CounselorSupportState extends State<CounselorSupport> {
         ),
       ),
     );
-    ;
   }
 }

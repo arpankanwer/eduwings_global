@@ -32,10 +32,10 @@ class _HomePageState extends State<HomePage> {
 
     return ZoomDrawer(
       borderRadius: 40,
-      angle: -3,
+      angle: -1,
       showShadow: true,
       backgroundColor: Colors.orangeAccent,
-      // slideWidth: mediaQuery.width,
+      slideWidth: mediaQuery.width*0.7,
       style: DrawerStyle.Style1,
       mainScreen: getScreen(),
       menuScreen: Builder(

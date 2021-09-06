@@ -1,5 +1,8 @@
+import 'package:eduwings_global/classes/user.dart';
+import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:provider/provider.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -24,6 +27,124 @@ class _ResetPasswordState extends State<ResetPassword> {
   FocusNode newPasswordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
 
+  User user = User(
+      ein: '',
+      studentName: '',
+      fName: '',
+      lName: '',
+      email: '',
+      countryName: '',
+      stateName: '',
+      cityName: '',
+      passport: '',
+      dob: '',
+      gender: '',
+      address: '',
+      profileImage: '',
+      mobNo: '',
+      counselorName: '',
+      counselorMobNo: '',
+      formId: '',
+      isLogged: '');
+
+  successDialog(message) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        title: SizedBox(
+          height: 40,
+          width: 40,
+          child: Container(
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.green),
+            child: Icon(
+              Icons.done_outline,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ),
+        content: Container(
+            child: Text(
+          message.toString(),
+          style: Theme.of(context).textTheme.headline3,
+          textAlign: TextAlign.center,
+        )),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(fontSize: 18, color: Colors.blue),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  errorDialog(message) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        title: SizedBox(
+          height: 40,
+          width: 40,
+          child: Container(
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+            child: Icon(
+              Icons.error_outline_outlined,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ),
+        content: Container(
+            child: Text(
+          message.toString(),
+          style: Theme.of(context).textTheme.headline3,
+          textAlign: TextAlign.center,
+        )),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // widget.tabController.animateTo(0);
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(fontSize: 18, color: Colors.blue),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<LoginProvider>(context, listen: false)
+        .getSharedData()
+        .then((value) {
+      setState(() {
+        user = value;
+      });
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -42,13 +163,17 @@ class _ResetPasswordState extends State<ResetPassword> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Eduwings Global',
+          'Reset Password',
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.sort_outlined),
+          onPressed: () => ZoomDrawer.of(context)!.toggle(),
         ),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        // onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
           height: mediaQuery.height,
           decoration: BoxDecoration(
@@ -88,7 +213,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Text(
-                                      'Student Login',
+                                      'Reset Your Password',
                                       style:
                                           Theme.of(context).textTheme.subtitle2,
                                     ),
@@ -117,7 +242,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       child: confirmPasswordField(context),
                                     ),
                                     SizedBox(
-                                      height: mediaQuery.height * 0.01,
+                                      height: mediaQuery.height * 0.02,
                                     ),
                                     Container(
                                       width: mediaQuery.width * 0.3,
@@ -142,47 +267,57 @@ class _ResetPasswordState extends State<ResetPassword> {
                                                 setState(() {
                                                   isReset = true;
                                                 });
-                                                setState(() {
-                                                  isReset = false;
+                                                Provider.of<LoginProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .resetPassword(
+                                                        user.formId,
+                                                        oldPassword.text,
+                                                        newPassword.text)
+                                                    .then((value) {
+                                                  setState(() {
+                                                    isReset = false;
+                                                  });
+                                                  if (value.statusCode == 200) {
+                                                    if (Provider.of<LoginProvider>(
+                                                                    context,
+                                                                    listen: false)
+                                                                .resetResponse[
+                                                            'success'] ==
+                                                        1) {
+                                                      Provider.of<LoginProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .logout()
+                                                          .then((value) {
+                                                        Navigator.of(context)
+                                                            .pushReplacementNamed(
+                                                                '/login');
+                                                        successDialog(Provider.of<
+                                                                        LoginProvider>(
+                                                                    context,
+                                                                    listen: false)
+                                                                .resetResponse[
+                                                            'message']);
+                                                      });
+                                                    } else {
+                                                      errorDialog(Provider.of<
+                                                                      LoginProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .resetResponse[
+                                                          'message']);
+                                                    }
+                                                  } else {
+                                                    setState(() {
+                                                      isReset = false;
+                                                    });
+                                                    errorDialog(
+                                                        'Something went Wrong');
+                                                    throw Exception(
+                                                        'Failed to Connect');
+                                                  }
                                                 });
-                                                // Provider.of<LoginProvider>(context,
-                                                //         listen: false)
-                                                //     .login(mobNo.text, password.text)
-                                                //     .then(
-                                                //   (response) {
-                                                //     setState(() {
-                                                //       isLogin = false;
-                                                //     });
-                                                //     if (response.statusCode == 200) {
-                                                //       var userData =
-                                                //           json.decode(response.body);
-                                                //       if (userData.length == 0) {
-                                                //         ScaffoldMessenger.of(context)
-                                                //             .showSnackBar(
-                                                //           SnackBar(
-                                                //             content: Text(
-                                                //                 'Invalid Mobile No. or Password'),
-                                                //             backgroundColor:
-                                                //                 Colors.red,
-                                                //           ),
-                                                //         );
-                                                //       } else {
-                                                //         Provider.of<LoginProvider>(
-                                                //                 context,
-                                                //                 listen: false)
-                                                //             .setSharedData(
-                                                //                 userData[0])
-                                                //             .then((value) => Navigator
-                                                //                     .of(context)
-                                                //                 .pushReplacementNamed(
-                                                //                     '/homePage'));
-                                                //       }
-                                                //     } else {
-                                                //       throw Exception(
-                                                //           'Failed to Connect');
-                                                //     }  
-                                                //   },
-                                                // );
                                               },
                                         child: isReset == false
                                             ? Text(
@@ -304,7 +439,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       keyboardType: TextInputType.text,
       validator: (value) {
         if (value!.length < 7) return 'Enter Minimum 7 Letters Password';
-        if (value != newPassword.text) return 'Password Not Matched';
+        if (value != newPassword.text) return "Password doesn't match";
       },
       obscureText: confirmPasswordObscureText,
       style: Theme.of(context).textTheme.headline3,

@@ -49,7 +49,11 @@ class MyApp extends StatelessWidget {
             labelStyle: TextStyle(
                 color: Color.fromRGBO(2, 42, 70, 1),
                 fontSize: 17,
-                fontWeight: FontWeight.w500),
+                fontWeight: FontWeight.w400),
+            hintStyle: TextStyle(
+                color: Color.fromRGBO(2, 42, 70, 1),
+                fontSize: 17,
+                fontWeight: FontWeight.w400),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(color: Colors.black),
