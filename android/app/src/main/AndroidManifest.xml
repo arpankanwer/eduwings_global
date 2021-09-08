@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eduwings_global">
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="eduwings_global"
         android:icon="@mipmap/ic_launcher">
