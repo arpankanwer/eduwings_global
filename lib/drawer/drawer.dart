@@ -1,22 +1,22 @@
 import 'package:eduwings_global/classes/user.dart';
 import 'package:eduwings_global/provider/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../classes/drawerItem.dart';
 
 class DrawerItems {
-  static const dashBoard =
-      DrawerItem(title: 'My DashBoard', icon: Icons.dashboard);
+  static const dashBoard = DrawerItem(
+      title: 'My DashBoard', icon: CupertinoIcons.person_alt_circle_fill);
   static const profile =
-      DrawerItem(title: 'Profile', icon: Icons.account_circle_outlined);
-  static const applicationStatus =
-      DrawerItem(title: 'Application Status', icon: Icons.star_outline_sharp);
+      DrawerItem(title: 'Profile', icon: CupertinoIcons.profile_circled);
+  static const applicationStatus = DrawerItem(
+      title: 'Application Status', icon: CupertinoIcons.star_circle_fill);
   static const notifications =
-      DrawerItem(title: 'Notifications', icon: Icons.notification_important);
-  static const callCounselor =
-      DrawerItem(title: 'Counselor Support', icon: Icons.call);
+      DrawerItem(title: 'Notifications', icon: CupertinoIcons.bell_fill);
+  static const callCounselor = DrawerItem(
+      title: 'Counselor Support', icon: CupertinoIcons.phone_circle_fill);
   static const resetPassword =
       DrawerItem(title: 'Reset Password', icon: Icons.password);
   static const aboutEduwings =

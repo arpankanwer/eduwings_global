@@ -72,12 +72,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
           brightness: Brightness.light,
-          // accentColor: Colors.black,
-          //  primarySwatch: Colors.purple,
           primarySwatch: Colors.green,
           primaryColor: Color.fromRGBO(2, 42, 70, 1),
           errorColor: Colors.red,
-          //          accentColor: Colors.amber,
           fontFamily: 'RobotoMono',
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline1: TextStyle(
@@ -129,13 +126,12 @@ class MyApp extends StatelessWidget {
                 ),
               ),
           appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(
-                    fontFamily: 'Open Sans',
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+            backgroundColor: Color.fromRGBO(2, 42, 70, 1),
+            titleTextStyle: TextStyle(
+              fontFamily: 'Open Sans',
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         initialRoute: '/',
