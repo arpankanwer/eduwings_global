@@ -37,6 +37,9 @@ dev_dependencies:
   shared_preferences: ^2.0.7
   flutter_zoom_drawer: ^2.1.1
   url_launcher: ^6.0.10
+  carousel_slider: ^4.0.0
+  smooth_page_indicator: ^1.0.0+2
+  cached_network_image: ^3.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

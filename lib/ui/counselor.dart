@@ -1,10 +1,13 @@
 // import 'dart:html';
 
+import 'dart:io';
+
 import 'package:eduwings_global/classes/user.dart';
 import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CounselorSupport extends StatefulWidget {
   const CounselorSupport({Key? key}) : super(key: key);
@@ -33,6 +36,34 @@ class _CounselorSupportState extends State<CounselorSupport> {
       counselorMobNo: '',
       formId: '',
       isLogged: '');
+
+  openWhatsapp(counselorMobNo) async {
+    var whatsappAndroid =
+        "whatsapp://send?phone=+91" + counselorMobNo + "&text=hi";
+    var whatappIos =
+        "https://wa.me/+91${counselorMobNo}?text=${Uri.parse("hi")}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunch(whatappIos)) {
+        await launch(whatappIos, forceSafariVC: false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Whatsapp not Installed"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } else {
+      // android , web
+      if (await canLaunch(whatsappAndroid)) {
+        await launch(whatsappAndroid);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Whatsapp not Installed"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -133,7 +164,9 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20))),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        launch('tel:${user.counselorMobNo}');
+                                      },
                                       child: Text(
                                         'Call',
                                         style: Theme.of(context)
@@ -154,7 +187,9 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20))),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        openWhatsapp(user.counselorMobNo);
+                                      },
                                       child: Text(
                                         'Whatsapp',
                                         style: Theme.of(context)

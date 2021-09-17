@@ -10,9 +10,7 @@ import 'provider/login.dart';
 import 'ui/loginScreen.dart';
 import 'ui/homePage.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 enum DeviceType { Phone, Tablet }
 
