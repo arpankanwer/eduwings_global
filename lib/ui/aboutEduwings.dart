@@ -58,7 +58,7 @@ class AboutEduwings extends StatelessWidget {
                               ),
                               title: Column(
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                     "Eduwings Global",
                                     style: TextStyle(
                                       color: Colors.black54,
@@ -169,10 +169,14 @@ class AboutEduwings extends StatelessWidget {
                                         maxWidth: 40,
                                         maxHeight: 40,
                                       ),
-                                      // child: Image.asset("assets/icons/aboutus.png",
-                                      //     fit: BoxFit.cover),
+                                      child: Image.asset(
+                                          "assets/icons/aboutus.png",
+                                          fit: BoxFit.cover),
                                     ),
-                                    new Text("Website")
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Text("Website")
                                   ],
                                 ),
                               ),
@@ -189,10 +193,14 @@ class AboutEduwings extends StatelessWidget {
                                         maxWidth: 40,
                                         maxHeight: 40,
                                       ),
-                                      // child: Image.asset("assets/icons/icnfb.png",
-                                      //     fit: BoxFit.cover),
+                                      child: Image.asset(
+                                          "assets/icons/icnfb.png",
+                                          fit: BoxFit.cover),
                                     ),
-                                    new Text("Facebook")
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Text("Facebook")
                                   ],
                                 ),
                               ),
@@ -209,10 +217,14 @@ class AboutEduwings extends StatelessWidget {
                                         maxWidth: 40,
                                         maxHeight: 40,
                                       ),
-                                      // child: Image.asset("assets/icons/icninstagram.png",
-                                      //     fit: BoxFit.cover),
+                                      child: Image.asset(
+                                          "assets/icons/icninstagram.png",
+                                          fit: BoxFit.cover),
                                     ),
-                                    new Text("Instagram")
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Text("Instagram")
                                   ],
                                 ),
                               ),

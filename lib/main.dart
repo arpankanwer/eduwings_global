@@ -1,3 +1,7 @@
+import 'package:eduwings_global/ui/aboutEduwings.dart';
+import 'package:eduwings_global/ui/counselor.dart';
+import 'package:eduwings_global/ui/profilePage.dart';
+import 'package:eduwings_global/ui/resetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -107,7 +111,9 @@ class MyApp extends StatelessWidget {
                 ),
                 headline6: TextStyle(
                   fontFamily: 'RobotoMono',
-                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                  letterSpacing: 1.2,
                   color: Color.fromRGBO(2, 42, 70, 1),
                 ),
                 subtitle1: TextStyle(
@@ -137,6 +143,10 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/login': (context) => LoginScreen(),
           '/homePage': (context) => HomePage(),
+          '/profilePage': (context) => Profile(fromDrawer: false,),
+          '/callCounselor': (context) => CounselorSupport(),
+          '/resetPassword': (context) => ResetPassword(),
+          '/aboutEduwings': (context) => AboutEduwings(),
         },
       ),
     );

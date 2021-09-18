@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       case DrawerItems.dashBoard:
         return DashBoardPage();
       case DrawerItems.profile:
-        return Profile();
+        return Profile(fromDrawer: true,);
       case DrawerItems.applicationStatus:
         return DashBoardPage();
       case DrawerItems.notifications:

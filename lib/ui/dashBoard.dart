@@ -116,7 +116,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     carouselController: imageController,
                                     itemCount: urlImages.length,
                                     options: CarouselOptions(
-                                      
                                       viewportFraction: 0.8,
                                       initialPage: 0,
                                       enlargeCenterPage: true,
@@ -141,6 +140,501 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                   height: mediaQuery.height * 0.01,
                                 ),
                                 buildIndicator(),
+                                SizedBox(
+                                  height: mediaQuery.height * 0.02,
+                                ),
+                                Container(
+                                  child: Text(
+                                    "Menu",
+                                    textAlign: TextAlign.justify,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: mediaQuery.height * 0.02,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/profilePage');
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 45,
+                                              maxHeight: 45,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/consent.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "My Profile",
+                                            style: TextStyle(
+                                              letterSpacing: 0.2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/calendar.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Appointment",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    //  Refer Friend Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/bracelet.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Refer Friend",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    //  Application Status Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/aircraft.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Application\nStatus",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: mediaQuery.height * 0.02,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    // Notifications Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 45,
+                                              maxHeight: 45,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/nP.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Notifications",
+                                            style: TextStyle(
+                                              letterSpacing: 0.2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Call Counselor Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/headset.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Call\nCounselor",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    // Whatsapp Counselor Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/whatsappcounselor.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Whatsapp\nCounselor",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    // Complaints and Suggestions Sections
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/satisfaction.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "Complaints &\nSuggestions",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: mediaQuery.height * 0.02,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    //  Sections
+                                    // Coding for empty Sections Starts Here
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+//                        child: Image.asset("assets/icons/icnfb.png",
+//                            fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+//                      new Text("")
+                                        ],
+                                      ),
+                                    ),
+                                    // Coding for empty Sections Ends Here
+                                    InkWell(
+                                      onTap: () {
+                                        // Function Calling From #SocialMediaLinks.dart# File
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/chatting.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text("Testimonial")
+                                        ],
+                                      ),
+                                    ),
+                                    // Coding for Testimonial Sections Ends Here
+                                    // Coding for Ielts Section Starts Here
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/ielts.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text("IELTS")
+                                        ],
+                                      ),
+                                    ),
+                                    // Coding for Ielts Sections Ends Here
+                                    // Coding for empty Sections Starts Here
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+//                        child: Image.asset("assets/icons/icnfb.png",
+//                            fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+//                      new Text("")
+                                        ],
+                                      ),
+                                    ),
+                                    // Coding for empty Sections Ends Here
+                                  ],
+                                ),
+                                // Row no.3 For First Four Menu Items Ends Here!
+                                SizedBox(
+                                  height: mediaQuery.height * 0.02,
+                                ),
+                                // Row no.4 For First Four Menu Items Starts Here!
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    // Website Sections
+                                    InkWell(
+                                      onTap: () {
+                                        // WebsiteURL(); // Function Calling From #SocialMediaLinks.dart# File
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/aboutus.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text("Website")
+                                        ],
+                                      ),
+                                    ),
+                                    // Facebook Sections
+                                    InkWell(
+                                      onTap: () {
+                                        // FacebookURL(); // Function Calling From #SocialMediaLinks.dart# File
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/icnfb.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text("Facebook")
+                                        ],
+                                      ),
+                                    ),
+                                    // Instagram Section
+                                    InkWell(
+                                      onTap: () {
+                                        // InstagramURL(); // Fuctions Calling From #SocialMediaLinks.dart# File
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/icninstagram.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text("Instagram")
+                                        ],
+                                      ),
+                                    ),
+                                    // About Section
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25,
+                                              minHeight: 25,
+                                              maxWidth: 40,
+                                              maxHeight: 40,
+                                            ),
+                                            child: Image.asset(
+                                                "assets/icons/aboutus.png",
+                                                fit: BoxFit.cover),
+                                          ),
+                                          SizedBox(
+                                            height: mediaQuery.height * 0.01,
+                                          ),
+                                          Text(
+                                            "About\nEduwings",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // Row no.4 For First Four Menu Items Ends Here!
+                                // Coding For Divider Section Starts Here !
+                                SizedBox(
+                                  height: mediaQuery.height * 0.01,
+                                ),
+                                // Coding For Divider Section Ends Here !
+                                // Coding For News&Higglights Section Starts Here !
+
+                                // Coding For News&Higglights Section Ends Here !
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 10),
+                                            child: new Text(
+                                              "News & Highlights",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Image.asset(
+                                          "assets/images/news.jpg",
+                                          height: 150,
+                                        ),
+                                      ],
+                                    ),
+//              SizedBox(height: 200, child: Swipers()),
+                                  ),
+                                ) // Calling For Swiper Function Which is Defined at Last Here !
                               ],
                             ),
                           ),

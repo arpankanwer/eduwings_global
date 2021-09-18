@@ -11,7 +11,8 @@ import '../provider/login.dart';
 import '../provider/profileProvider.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  final bool fromDrawer;
+  const Profile({Key? key, required this.fromDrawer}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -78,10 +79,15 @@ class _ProfileState extends State<Profile> {
         title: Text(
           'Your Profile',
         ),
-        leading: IconButton(
-          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
-          onPressed: () => ZoomDrawer.of(context)!.toggle(),
-        ),
+        leading: widget.fromDrawer == true
+            ? IconButton(
+                icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
+                onPressed: () => ZoomDrawer.of(context)!.toggle(),
+              )
+            : IconButton(
+                icon: Icon(CupertinoIcons.back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
       ),
       body: Container(
         height: mediaQuery.height,
