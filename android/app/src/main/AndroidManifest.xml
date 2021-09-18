@@ -2,7 +2,7 @@
     package="com.example.eduwings_global">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="eduwings_global"
+        android:label="Eduwings Global"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
