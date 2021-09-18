@@ -116,11 +116,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     carouselController: imageController,
                                     itemCount: urlImages.length,
                                     options: CarouselOptions(
+                                      
+                                      viewportFraction: 0.8,
                                       initialPage: 0,
                                       enlargeCenterPage: true,
                                       enlargeStrategy:
                                           CenterPageEnlargeStrategy.height,
-                                      enableInfiniteScroll: false,
+                                      enableInfiniteScroll: true,
                                       height: 200,
                                       autoPlay: true,
                                       onPageChanged: (index, reason) {
