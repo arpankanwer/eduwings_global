@@ -1,8 +1,10 @@
-import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
+
+import '../classes/user.dart';
+
+import '../provider/login.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);

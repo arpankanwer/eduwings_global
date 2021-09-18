@@ -1,4 +1,3 @@
-import 'package:eduwings_global/provider/profileProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'screens/splashScreen.dart';
 
 import 'provider/login.dart';
+import 'provider/profileProvider.dart';
 
 import 'ui/loginScreen.dart';
 import 'ui/homePage.dart';

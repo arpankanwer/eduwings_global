@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
-import 'package:eduwings_global/provider/profileProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
+import '../classes/user.dart';
+
+import '../provider/login.dart';
+import '../provider/profileProvider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);

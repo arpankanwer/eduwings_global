@@ -1,10 +1,11 @@
-import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../classes/drawerItem.dart';
+import '../classes/user.dart';
+
+import '../provider/login.dart';
 
 class DrawerItems {
   static const dashBoard = DrawerItem(

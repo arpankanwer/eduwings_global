@@ -1,18 +1,14 @@
-import 'package:eduwings_global/classes/drawerItem.dart';
-import 'package:eduwings_global/ui/aboutEduwings.dart';
-import 'package:eduwings_global/ui/counselor.dart';
-import 'package:eduwings_global/ui/profilePage.dart';
-import 'package:eduwings_global/ui/resetPassword.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import '../provider/login.dart';
-
-import '../classes/user.dart';
-
 import '../drawer/drawer.dart';
+
+import '../ui/aboutEduwings.dart';
+import '../ui/counselor.dart';
+import '../ui/profilePage.dart';
+import '../ui/resetPassword.dart';
+
+import '../classes/drawerItem.dart';
 
 import 'dashBoard.dart';
 
@@ -35,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       angle: -1,
       showShadow: true,
       backgroundColor: Colors.orangeAccent,
-      slideWidth: mediaQuery.width*0.7,
+      slideWidth: mediaQuery.width * 0.7,
       style: DrawerStyle.Style1,
       mainScreen: getScreen(),
       menuScreen: Builder(

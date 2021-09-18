@@ -2,12 +2,14 @@
 
 import 'dart:io';
 
-import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../classes/user.dart';
+
+import '../provider/login.dart';
 
 class CounselorSupport extends StatefulWidget {
   const CounselorSupport({Key? key}) : super(key: key);

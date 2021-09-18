@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:eduwings_global/classes/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../classes/user.dart';
 
 class LoginProvider with ChangeNotifier {
   String urlBase = "https://eduwingserp.com/Api/v1/mobile/";
