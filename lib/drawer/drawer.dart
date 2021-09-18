@@ -15,13 +15,13 @@ class DrawerItems {
   static const applicationStatus = DrawerItem(
       title: 'Application Status', icon: CupertinoIcons.star_circle_fill);
   static const notifications =
-      DrawerItem(title: 'Notifications', icon: CupertinoIcons.bell_fill);
+      DrawerItem(title: 'Notifications', icon: CupertinoIcons.bell_circle_fill);
   static const callCounselor = DrawerItem(
       title: 'Counselor Support', icon: CupertinoIcons.phone_circle_fill);
   static const resetPassword =
-      DrawerItem(title: 'Reset Password', icon: Icons.password);
-  static const aboutEduwings =
-      DrawerItem(title: 'About Eduwings', icon: Icons.info);
+      DrawerItem(title: 'Reset Password', icon: CupertinoIcons.lock_circle_fill);
+  static const aboutEduwings = DrawerItem(
+      title: 'About Eduwings', icon: CupertinoIcons.info_circle_fill);
 
   static const allDrawerItems = <DrawerItem>[
     dashBoard,
@@ -135,7 +135,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 ListTile(
                   selectedTileColor: Colors.black26,
                   // selected: widget.currentOption == item,
-                  leading: Icon(Icons.logout_outlined, color: Colors.white),
+                  leading: Icon(CupertinoIcons.exclamationmark_octagon_fill, color: Colors.white),
                   title: Text('Logout', style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Provider.of<LoginProvider>(context, listen: false)

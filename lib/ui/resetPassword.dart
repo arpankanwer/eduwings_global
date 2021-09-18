@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
@@ -168,7 +169,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           'Reset Password',
         ),
         leading: IconButton(
-          icon: Icon(Icons.sort_outlined),
+          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
           onPressed: () => ZoomDrawer.of(context)!.toggle(),
         ),
       ),

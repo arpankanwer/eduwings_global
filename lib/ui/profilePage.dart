@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -78,7 +79,7 @@ class _ProfileState extends State<Profile> {
           'Your Profile',
         ),
         leading: IconButton(
-          icon: Icon(Icons.sort_outlined),
+          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
           onPressed: () => ZoomDrawer.of(context)!.toggle(),
         ),
       ),

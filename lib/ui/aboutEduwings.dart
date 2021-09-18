@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
@@ -14,7 +15,7 @@ class AboutEduwings extends StatelessWidget {
         centerTitle: true,
         title: Text('About Eduwings'),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
           onPressed: () => ZoomDrawer.of(context)!.toggle(),
         ),
       ),
@@ -42,8 +43,8 @@ class AboutEduwings extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(10.0, 20.0, 15.0, 0.0),
+                            padding: const EdgeInsets.fromLTRB(
+                                10.0, 20.0, 15.0, 0.0),
                             child: ListTile(
                               leading: ConstrainedBox(
                                 constraints: BoxConstraints(
@@ -66,8 +67,8 @@ class AboutEduwings extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        25.0, 0.0, 25.0, 0.0),
                                     child: Divider(
                                       thickness: 1.0,
                                     ),
