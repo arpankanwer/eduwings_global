@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -13,8 +11,9 @@ import '../classes/user.dart';
 import '../provider/login.dart';
 
 class CounselorSupport extends StatefulWidget {
-  const CounselorSupport({Key? key}) : super(key: key);
-
+  final bool fromDrawer;
+  const CounselorSupport({Key? key, required this.fromDrawer})
+      : super(key: key);
   @override
   _CounselorSupportState createState() => _CounselorSupportState();
 }
@@ -91,10 +90,15 @@ class _CounselorSupportState extends State<CounselorSupport> {
         title: Text(
           'My Counselor',
         ),
-        leading: IconButton(
-          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
-          onPressed: () => ZoomDrawer.of(context)!.toggle(),
-        ),
+        leading: widget.fromDrawer == true
+            ? IconButton(
+                icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
+                onPressed: () => ZoomDrawer.of(context)!.toggle(),
+              )
+            : IconButton(
+                icon: Icon(CupertinoIcons.back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
       ),
       body: Container(
         height: mediaQuery.height,

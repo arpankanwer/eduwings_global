@@ -53,17 +53,17 @@ class _HomePageState extends State<HomePage> {
       case DrawerItems.dashBoard:
         return DashBoardPage();
       case DrawerItems.profile:
-        return Profile(fromDrawer: true,);
+        return Profile(fromDrawer: true);
       case DrawerItems.applicationStatus:
         return DashBoardPage();
       case DrawerItems.notifications:
         return DashBoardPage();
       case DrawerItems.callCounselor:
-        return CounselorSupport();
+        return CounselorSupport(fromDrawer: true);
       case DrawerItems.resetPassword:
         return ResetPassword();
       case DrawerItems.aboutEduwings:
-        return AboutEduwings();
+        return AboutEduwings(fromDrawer: true);
     }
     return Container();
   }

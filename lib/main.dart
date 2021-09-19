@@ -143,10 +143,10 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/login': (context) => LoginScreen(),
           '/homePage': (context) => HomePage(),
-          '/profilePage': (context) => Profile(fromDrawer: false,),
-          '/callCounselor': (context) => CounselorSupport(),
+          '/profilePage': (context) => Profile(fromDrawer: false),
+          '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
           '/resetPassword': (context) => ResetPassword(),
-          '/aboutEduwings': (context) => AboutEduwings(),
+          '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
         },
       ),
     );

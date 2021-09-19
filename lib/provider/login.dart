@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../classes/user.dart';
 
@@ -93,5 +94,32 @@ class LoginProvider with ChangeNotifier {
       "khatacode": password,
     });
     return response;
+  }
+
+  websiteUrl() async {
+    const url = 'https://www.eduwingsglobal.com/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  facebookUrl() async {
+    const url = 'https://www.facebook.com/EduwingsGlobal/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  instagramUrl() async {
+    const url = 'https://instagram.com/eduwingsglobal';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

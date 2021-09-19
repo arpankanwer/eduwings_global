@@ -304,7 +304,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ),
                                     // Call Counselor Sections
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/callCounselor');
+                                      },
                                       child: Column(
                                         children: <Widget>[
                                           ConstrainedBox(
@@ -330,7 +333,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ),
                                     // Whatsapp Counselor Sections
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/callCounselor');
+                                      },
                                       child: Column(
                                         children: <Widget>[
                                           ConstrainedBox(
@@ -499,7 +505,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Website Sections
                                     InkWell(
                                       onTap: () {
-                                        // WebsiteURL(); // Function Calling From #SocialMediaLinks.dart# File
+                                        Provider.of<LoginProvider>(context,
+                                                listen: false)
+                                            .websiteUrl(); // Function Calling From #SocialMediaLinks.dart# File
                                       },
                                       child: Column(
                                         children: <Widget>[
@@ -524,7 +532,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Facebook Sections
                                     InkWell(
                                       onTap: () {
-                                        // FacebookURL(); // Function Calling From #SocialMediaLinks.dart# File
+                                        Provider.of<LoginProvider>(context,
+                                                listen: false)
+                                            .facebookUrl(); // Function Calling From #SocialMediaLinks.dart# File
                                       },
                                       child: Column(
                                         children: <Widget>[
@@ -549,7 +559,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Instagram Section
                                     InkWell(
                                       onTap: () {
-                                        // InstagramURL(); // Fuctions Calling From #SocialMediaLinks.dart# File
+                                        Provider.of<LoginProvider>(context,
+                                                listen: false)
+                                            .instagramUrl(); // Fuctions Calling From #SocialMediaLinks.dart# File
                                       },
                                       child: Column(
                                         children: <Widget>[
@@ -573,7 +585,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ),
                                     // About Section
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/aboutEduwings');
+                                      },
                                       child: Column(
                                         children: <Widget>[
                                           ConstrainedBox(

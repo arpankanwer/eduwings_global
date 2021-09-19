@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/login.dart';
 
 class AboutEduwings extends StatelessWidget {
-  const AboutEduwings({Key? key}) : super(key: key);
+  final bool fromDrawer;
+  const AboutEduwings({Key? key, required this.fromDrawer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +18,15 @@ class AboutEduwings extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text('About Eduwings'),
-        leading: IconButton(
-          icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
-          onPressed: () => ZoomDrawer.of(context)!.toggle(),
-        ),
+        leading: fromDrawer == true
+            ? IconButton(
+                icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
+                onPressed: () => ZoomDrawer.of(context)!.toggle(),
+              )
+            : IconButton(
+                icon: Icon(CupertinoIcons.back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
       ),
       body: Container(
         height: mediaQuery.height,
@@ -158,7 +167,9 @@ class AboutEduwings extends StatelessWidget {
                             children: <Widget>[
                               InkWell(
                                 onTap: () {
-                                  // WebsiteURL();
+                                  Provider.of<LoginProvider>(context,
+                                          listen: false)
+                                      .websiteUrl();
                                 },
                                 child: Column(
                                   children: <Widget>[
@@ -182,7 +193,9 @@ class AboutEduwings extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  // FacebookURL();
+                                  Provider.of<LoginProvider>(context,
+                                          listen: false)
+                                      .facebookUrl();
                                 },
                                 child: Column(
                                   children: <Widget>[
@@ -206,7 +219,9 @@ class AboutEduwings extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  // InstagramURL();
+                                  Provider.of<LoginProvider>(context,
+                                          listen: false)
+                                      .instagramUrl();
                                 },
                                 child: Column(
                                   children: <Widget>[
