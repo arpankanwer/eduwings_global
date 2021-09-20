@@ -238,6 +238,34 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // TextFormField passwordField1(context) {
+  //   return TextFormField(
+  //     restorationId: 'password_text_field',
+  //     decoration: InputDecoration(
+  //       filled: true,
+  //       hintText: widget.hintText,
+  //       labelText: widget.labelText,
+  //       helperText: widget.helperText,
+  //       suffixIcon: GestureDetector(
+  //         dragStartBehavior: DragStartBehavior.down,
+  //         onTap: () {
+  //           setState(() {
+  //             _obscureText.value = !_obscureText.value;
+  //           });
+  //         },
+  //         child: Icon(
+  //           _obscureText.value ? Icons.visibility : Icons.visibility_off,
+  //           semanticLabel: _obscureText.value
+  //               ? GalleryLocalizations.of(context)
+  //                   .demoTextFieldShowPasswordLabel
+  //               : GalleryLocalizations.of(context)
+  //                   .demoTextFieldHidePasswordLabel,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   TextFormField passwordField(context) {
     return TextFormField(
       focusNode: passwordFocusNode,
@@ -260,7 +288,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         suffixIcon: GestureDetector(
           onTap: () {
-            _obscureText = !_obscureText;
+            setState(() {
+              _obscureText = !_obscureText;
+            });
           },
           child: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,

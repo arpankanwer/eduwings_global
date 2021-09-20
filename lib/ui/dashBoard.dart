@@ -116,7 +116,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     carouselController: imageController,
                                     itemCount: urlImages.length,
                                     options: CarouselOptions(
-                                      viewportFraction: 0.8,
+                                      viewportFraction: 0.89,
                                       initialPage: 0,
                                       enlargeCenterPage: true,
                                       enlargeStrategy:
@@ -215,7 +215,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ),
                                     //  Refer Friend Sections
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/referFriend');
+                                      },
                                       child: Column(
                                         children: <Widget>[
                                           ConstrainedBox(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -94,6 +95,34 @@ class LoginProvider with ChangeNotifier {
       "khatacode": password,
     });
     return response;
+  }
+
+  openWhatsapp(context, counselorMobNo) async {
+    var whatsappAndroid =
+        "whatsapp://send?phone=+91" + counselorMobNo + "&text=hi";
+    var whatappIos =
+        "https://wa.me/+91${counselorMobNo}?text=${Uri.parse("hi")}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunch(whatappIos)) {
+        await launch(whatappIos, forceSafariVC: false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Whatsapp not Installed"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } else {
+      // android , web
+      if (await canLaunch(whatsappAndroid)) {
+        await launch(whatsappAndroid);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Whatsapp not Installed"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
   }
 
   websiteUrl() async {

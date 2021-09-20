@@ -1,7 +1,3 @@
-import 'package:eduwings_global/ui/aboutEduwings.dart';
-import 'package:eduwings_global/ui/counselor.dart';
-import 'package:eduwings_global/ui/profilePage.dart';
-import 'package:eduwings_global/ui/resetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +9,11 @@ import 'provider/profileProvider.dart';
 
 import 'ui/loginScreen.dart';
 import 'ui/homePage.dart';
+import 'ui/aboutEduwings.dart';
+import 'ui/counselor.dart';
+import 'ui/referFriend.dart';
+import 'ui/profilePage.dart';
+import 'ui/resetPassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -147,6 +148,7 @@ class MyApp extends StatelessWidget {
           '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
           '/resetPassword': (context) => ResetPassword(),
           '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
+          '/referFriend': (context) => ReferFriend(fromDrawer: false),
         },
       ),
     );
