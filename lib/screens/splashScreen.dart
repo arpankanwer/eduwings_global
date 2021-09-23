@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,15 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushReplacementNamed('/login');
       } else {
         Navigator.of(context).pushReplacementNamed('/homePage');
-        // Navigator.of(context).pushReplacementNamed('/login');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Image.asset('assets/splashScreen.png')),
+    return CupertinoPageScaffold(
+      backgroundColor: Colors.white,
+      child: Center(child: Image.asset('assets/splashScreen.png')),
     );
   }
 }

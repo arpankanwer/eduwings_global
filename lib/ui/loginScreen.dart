@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:eduwings_global/ui/forgotPassword.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../provider/login.dart';
 
@@ -34,14 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
 
-    return Scaffold(
-      // resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        centerTitle: true,
+    return PlatformScaffold(
+      appBar: PlatformAppBar(
         title: Text(
           'Eduwings Global',
         ),
+        material: (_, __) => MaterialAppBarData(centerTitle: true),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Container(
-                                      child: mobileNoField(context),
+                                      child: einField(context),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
@@ -111,79 +112,117 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      width: mediaQuery.width * 0.3,
-                                      // height: mediaQuery.width * 0.11,
-                                      child: ElevatedButton(
-                                        style: TextButton.styleFrom(
-                                            backgroundColor:
-                                                Theme.of(context).primaryColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        onPressed: () {
-                                          if (!loginForm.currentState!
-                                              .validate()) {
-                                            return;
-                                          }
-                                          loginForm.currentState!.save();
-                                          setState(() {
-                                            isLogin = true;
-                                          });
-                                          Provider.of<LoginProvider>(context,
-                                                  listen: false)
-                                              .login(mobNo.text, password.text)
-                                              .then(
-                                            (response) {
-                                              setState(() {
-                                                isLogin = false;
-                                              });
-                                              if (response.statusCode == 200) {
-                                                var userData =
-                                                    json.decode(response.body);
-                                                if (userData.length == 0) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                          'Invalid Mobile No. or Password'),
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                    ),
-                                                  );
-                                                } else {
-                                                  Provider.of<LoginProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .setSharedData(
-                                                          userData[0])
-                                                      .then((value) => Navigator
-                                                              .of(context)
-                                                          .pushReplacementNamed(
-                                                              '/homePage'));
-                                                }
-                                              } else {
-                                                throw Exception(
-                                                    'Failed to Connect');
-                                              }
-                                            },
-                                          );
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .pushNamed("/forgotPassword");
                                         },
+                                        child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text("Forgot Password?",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline5))),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
+                                    ),
+                                    Container(
+                                      // height: mediaQuery.height * 0.2,
+                                      // width: mediaQuery.width * 0.5,
+                                      child: CupertinoButton(
+                                        disabledColor: Colors.white,
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.circular(20),
+                                        onPressed: isLogin == true
+                                            ? null
+                                            : () {
+                                                if (!loginForm.currentState!
+                                                    .validate()) {
+                                                  return;
+                                                }
+                                                loginForm.currentState!.save();
+                                                setState(() {
+                                                  isLogin = true;
+                                                });
+                                                Provider.of<LoginProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .login(mobNo.text,
+                                                        password.text)
+                                                    .then(
+                                                  (response) {
+                                                    setState(() {
+                                                      isLogin = false;
+                                                    });
+                                                    if (response.statusCode ==
+                                                        200) {
+                                                      var userData =
+                                                          json.decode(
+                                                              response.body);
+                                                      if (userData.length ==
+                                                          0) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                                'Invalid Mobile No. or Password'),
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        Provider.of<LoginProvider>(
+                                                                context,
+                                                                listen: false)
+                                                            .setSharedData(
+                                                                userData[0])
+                                                            .then((value) => Navigator
+                                                                    .of(context)
+                                                                .pushReplacementNamed(
+                                                                    '/homePage'));
+                                                      }
+                                                    } else {
+                                                      throw Exception(
+                                                          'Failed to Connect');
+                                                    }
+                                                  },
+                                                );
+                                              },
                                         child: isLogin == false
                                             ? Text(
                                                 'Login',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline1,
+                                                    .headline4,
                                               )
                                             : Center(
                                                 child:
-                                                    CircularProgressIndicator(),
+                                                    CupertinoActivityIndicator(),
                                               ),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: mediaQuery.height * 0.01,
+                                      height: mediaQuery.height * 0.03,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text("Don't have an account? "),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    '/createAccount');
+                                          },
+                                          child: Text(
+                                            "Create your account.",
+                                            style: TextStyle(
+                                                color: Colors.deepOrange),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -203,8 +242,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  TextFormField mobileNoField(context) {
-    return TextFormField(
+  PlatformTextFormField einField(context) {
+    return PlatformTextFormField(
       focusNode: mobNoFocusNode,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) =>
@@ -219,55 +258,34 @@ class _LoginScreenState extends State<LoginScreen> {
       keyboardType: TextInputType.phone,
       validator: (value) {
         if (value?.isEmpty == true || value == null) {
-          return "Mobile No. can't be Empty";
+          return "EIN can't be Empty";
         }
-        // if (value.length != 10) {
-        //   return "Mobile No. must be 10 digits";
-        // }
         return null;
       },
       style: Theme.of(context).textTheme.headline3,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.phone,
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(),
+        placeholder: 'Enter EIN *',
+        prefix: Icon(
+          CupertinoIcons.phone,
           color: Theme.of(context).primaryColor,
         ),
-        hintText: 'Enter Mobile No. *',
-        labelText: 'Enter Mobile No. *',
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.phone,
+            color: Theme.of(context).primaryColor,
+          ),
+          hintText: 'Enter EIN *',
+          labelText: 'Enter EIN *',
+        ),
       ),
     );
   }
 
-  // TextFormField passwordField1(context) {
-  //   return TextFormField(
-  //     restorationId: 'password_text_field',
-  //     decoration: InputDecoration(
-  //       filled: true,
-  //       hintText: widget.hintText,
-  //       labelText: widget.labelText,
-  //       helperText: widget.helperText,
-  //       suffixIcon: GestureDetector(
-  //         dragStartBehavior: DragStartBehavior.down,
-  //         onTap: () {
-  //           setState(() {
-  //             _obscureText.value = !_obscureText.value;
-  //           });
-  //         },
-  //         child: Icon(
-  //           _obscureText.value ? Icons.visibility : Icons.visibility_off,
-  //           semanticLabel: _obscureText.value
-  //               ? GalleryLocalizations.of(context)
-  //                   .demoTextFieldShowPasswordLabel
-  //               : GalleryLocalizations.of(context)
-  //                   .demoTextFieldHidePasswordLabel,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  TextFormField passwordField(context) {
-    return TextFormField(
+  PlatformTextFormField passwordField(context) {
+    return PlatformTextFormField(
       focusNode: passwordFocusNode,
       textInputAction: TextInputAction.done,
       onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
@@ -281,24 +299,36 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       obscureText: _obscureText,
       style: Theme.of(context).textTheme.headline3,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.lock,
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(),
+        placeholder: 'Enter Password *',
+        prefix: Icon(
+          CupertinoIcons.lock_fill,
           color: Theme.of(context).primaryColor,
         ),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-          child: Icon(
-            _obscureText ? Icons.visibility_off : Icons.visibility,
-            semanticLabel: _obscureText ? 'Show Password' : 'Hide Password',
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.lock_fill,
+            color: Theme.of(context).primaryColor,
           ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(
+              _obscureText
+                  ? CupertinoIcons.eye_slash_fill
+                  : CupertinoIcons.eye_fill,
+              semanticLabel: _obscureText ? 'Show Password' : 'Hide Password',
+            ),
+          ),
+          hintText: 'Enter Password *',
+          labelText: 'Enter Password *',
         ),
-        hintText: 'Enter Password *',
-        labelText: 'Enter Password *',
       ),
     );
   }

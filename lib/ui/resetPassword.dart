@@ -379,7 +379,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         suffixIcon: GestureDetector(
           onTap: () {
-            oldPasswordObscureText = !oldPasswordObscureText;
+            setState(() {
+              oldPasswordObscureText = !oldPasswordObscureText;
+            });
           },
           child: Icon(
             oldPasswordObscureText ? Icons.visibility_off : Icons.visibility,
@@ -416,7 +418,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         suffixIcon: GestureDetector(
           onTap: () {
-            newPasswordObscureText = !newPasswordObscureText;
+            setState(() {
+              newPasswordObscureText = !newPasswordObscureText;
+            });
           },
           child: Icon(
             newPasswordObscureText ? Icons.visibility_off : Icons.visibility,
@@ -453,7 +457,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         suffixIcon: GestureDetector(
           onTap: () {
-            confirmPasswordObscureText = !confirmPasswordObscureText;
+            setState(() {
+              confirmPasswordObscureText = !confirmPasswordObscureText;
+            });
           },
           child: Icon(
             confirmPasswordObscureText

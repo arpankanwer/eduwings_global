@@ -5,6 +5,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
@@ -64,11 +65,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Scaffold(
+    return PlatformScaffold(
       // resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        centerTitle: true,
+      appBar: PlatformAppBar(
+        material: (_, __) => MaterialAppBarData(centerTitle: true),
+        // centerTitle: true,
         title: Text(
           'Welcome ${user.fName}',
         ),
@@ -122,7 +124,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                       enlargeStrategy:
                                           CenterPageEnlargeStrategy.height,
                                       enableInfiniteScroll: true,
-                                      height: 200,
+                                      height: mediaQuery.height * 0.2,
                                       autoPlay: true,
                                       onPageChanged: (index, reason) {
                                         setState(() {
@@ -676,7 +678,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         borderRadius: BorderRadius.circular(20),
         child: CachedNetworkImage(
           placeholder: (context, url) =>
-              Center(child: CircularProgressIndicator()),
+              Center(child: CupertinoActivityIndicator()),
           imageUrl: urlImage,
           fit: BoxFit.cover,
         ),

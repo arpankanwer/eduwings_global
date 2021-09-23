@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import 'provider/theme.dart';
 import 'screens/splashScreen.dart';
 
 import 'provider/login.dart';
@@ -14,6 +17,8 @@ import 'ui/counselor.dart';
 import 'ui/referFriend.dart';
 import 'ui/profilePage.dart';
 import 'ui/resetPassword.dart';
+import 'ui/createAccount.dart';
+import 'ui/forgotPassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,113 +48,66 @@ class MyApp extends StatelessWidget {
           value: ProfileProvider(),
         ),
       ],
-      child: MaterialApp(
+      child: PlatformApp(
         debugShowCheckedModeBanner: false,
         title: 'Eduwings Global',
-        theme: ThemeData(
-          inputDecorationTheme: InputDecorationTheme(
-            isDense: true,
-            labelStyle: TextStyle(
-                color: Color.fromRGBO(2, 42, 70, 1),
-                fontSize: 17,
-                fontWeight: FontWeight.w400),
-            hintStyle: TextStyle(
-                color: Color.fromRGBO(2, 42, 70, 1),
-                fontSize: 17,
-                fontWeight: FontWeight.w400),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.black),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.green),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.black38),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.red),
-            ),
-          ),
-          brightness: Brightness.light,
-          primarySwatch: Colors.green,
-          primaryColor: Color.fromRGBO(2, 42, 70, 1),
-          errorColor: Colors.red,
-          fontFamily: 'RobotoMono',
-          textTheme: ThemeData.light().textTheme.copyWith(
-                headline1: TextStyle(
-                  // for button text
-                  fontFamily: 'RobotoMono',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                headline2: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                headline3: TextStyle(
-                  // Textfield Text
-                  fontFamily: 'RobotoMono',
-                  fontSize: 17,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-                headline4: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-                headline5: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 18,
-                  color: Color.fromRGBO(2, 42, 70, 1),
-                ),
-                headline6: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
-                  letterSpacing: 1.2,
-                  color: Color.fromRGBO(2, 42, 70, 1),
-                ),
-                subtitle1: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-                subtitle2: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Color.fromRGBO(2, 42, 70, 1),
-            titleTextStyle: TextStyle(
-              fontFamily: 'Open Sans',
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        material: (_, __) => MaterialAppData(
+          theme: MyThemes.materialTheme,
+          initialRoute: '/',
+          onGenerateRoute: (RouteSettings settings) {
+            switch (settings.name) {
+              case '/':
+                return CupertinoPageRoute(
+                    builder: (_) => SplashScreen(), settings: settings);
+              case '/login':
+                return CupertinoPageRoute(
+                    builder: (_) => LoginScreen(), settings: settings);
+              case '/homePage':
+                return CupertinoPageRoute(
+                    builder: (_) => HomePage(), settings: settings);
+              case '/profilePage':
+                return CupertinoPageRoute(
+                    builder: (_) => Profile(fromDrawer: false),
+                    settings: settings);
+              case '/callCounselor':
+                return CupertinoPageRoute(
+                    builder: (_) => CounselorSupport(fromDrawer: false),
+                    settings: settings);
+              case '/resetPassword':
+                return CupertinoPageRoute(
+                    builder: (_) => ResetPassword(), settings: settings);
+              case '/aboutEduwings':
+                return CupertinoPageRoute(
+                    builder: (_) => AboutEduwings(fromDrawer: false),
+                    settings: settings);
+              case '/referFriend':
+                return CupertinoPageRoute(
+                    builder: (_) => ReferFriend(fromDrawer: false),
+                    settings: settings);
+              case '/createAccount':
+                return CupertinoPageRoute(
+                    builder: (_) => CreateAccount(), settings: settings);
+              case '/forgotPassword':
+                return CupertinoPageRoute(
+                    builder: (_) => ForgotPassword(), settings: settings);
+            }
+          },
+          // routes: {
+          //   '/': (context) => SplashScreen(),
+          //   '/login': (context) => LoginScreen(),
+          //   '/homePage': (context) => HomePage(),
+          //   '/profilePage': (context) => Profile(fromDrawer: false),
+          //   '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
+          //   '/resetPassword': (context) => ResetPassword(),
+          //   '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
+          //   '/referFriend': (context) => ReferFriend(fromDrawer: false),
+          //   '/createAccount': (context) => CreateAccount(),
+          //   '/forgotPassword': (context) => ForgotPassword(),
+          // },
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => SplashScreen(),
-          '/login': (context) => LoginScreen(),
-          '/homePage': (context) => HomePage(),
-          '/profilePage': (context) => Profile(fromDrawer: false),
-          '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
-          '/resetPassword': (context) => ResetPassword(),
-          '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
-          '/referFriend': (context) => ReferFriend(fromDrawer: false),
-        },
+        cupertino: (_, __) => CupertinoAppData(
+          theme: MyThemes.cupertinoTheme,
+        ),
       ),
     );
   }
