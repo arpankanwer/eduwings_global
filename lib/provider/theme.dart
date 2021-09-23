@@ -97,13 +97,30 @@ class MyThemes {
   );
 
   static final cupertinoTheme = CupertinoThemeData(
+    scaffoldBackgroundColor: Color.fromRGBO(2, 42, 70, 1),
     textTheme: CupertinoTextThemeData(
+      actionTextStyle: TextStyle(
+        fontFamily: 'RobotoMono',
+        fontSize: 20,
+        color: Colors.black,
+        // fontWeight: FontWeight.w600,
+      ),
+      primaryColor: Color.fromRGBO(2, 42, 70, 1),
+      navTitleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+      ),
+      tabLabelTextStyle:TextStyle(
+        fontSize: 17,
+        color: Colors.black,
+      ) ,
       textStyle: TextStyle(
+        fontSize: 17,
         color: Colors.white,
       ),
     ),
     primaryContrastingColor: Color.fromRGBO(2, 42, 70, 1),
     primaryColor: Color.fromRGBO(2, 42, 70, 1),
-    barBackgroundColor: Colors.red,
+    barBackgroundColor: Color.fromRGBO(2, 42, 70, 1),
   );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../provider/login.dart';
 
@@ -27,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return PlatformScaffold(
       backgroundColor: Colors.white,
-      child: Center(child: Image.asset('assets/splashScreen.png')),
+      body: Center(child: Image.asset('assets/splashScreen.png')),
     );
   }
 }

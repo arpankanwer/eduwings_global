@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'provider/theme.dart';
 import 'screens/splashScreen.dart';
@@ -48,65 +49,114 @@ class MyApp extends StatelessWidget {
           value: ProfileProvider(),
         ),
       ],
-      child: PlatformApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Eduwings Global',
-        material: (_, __) => MaterialAppData(
-          theme: MyThemes.materialTheme,
-          initialRoute: '/',
-          onGenerateRoute: (RouteSettings settings) {
-            switch (settings.name) {
-              case '/':
-                return CupertinoPageRoute(
-                    builder: (_) => SplashScreen(), settings: settings);
-              case '/login':
-                return CupertinoPageRoute(
-                    builder: (_) => LoginScreen(), settings: settings);
-              case '/homePage':
-                return CupertinoPageRoute(
-                    builder: (_) => HomePage(), settings: settings);
-              case '/profilePage':
-                return CupertinoPageRoute(
-                    builder: (_) => Profile(fromDrawer: false),
-                    settings: settings);
-              case '/callCounselor':
-                return CupertinoPageRoute(
-                    builder: (_) => CounselorSupport(fromDrawer: false),
-                    settings: settings);
-              case '/resetPassword':
-                return CupertinoPageRoute(
-                    builder: (_) => ResetPassword(), settings: settings);
-              case '/aboutEduwings':
-                return CupertinoPageRoute(
-                    builder: (_) => AboutEduwings(fromDrawer: false),
-                    settings: settings);
-              case '/referFriend':
-                return CupertinoPageRoute(
-                    builder: (_) => ReferFriend(fromDrawer: false),
-                    settings: settings);
-              case '/createAccount':
-                return CupertinoPageRoute(
-                    builder: (_) => CreateAccount(), settings: settings);
-              case '/forgotPassword':
-                return CupertinoPageRoute(
-                    builder: (_) => ForgotPassword(), settings: settings);
-            }
-          },
-          // routes: {
-          //   '/': (context) => SplashScreen(),
-          //   '/login': (context) => LoginScreen(),
-          //   '/homePage': (context) => HomePage(),
-          //   '/profilePage': (context) => Profile(fromDrawer: false),
-          //   '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
-          //   '/resetPassword': (context) => ResetPassword(),
-          //   '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
-          //   '/referFriend': (context) => ReferFriend(fromDrawer: false),
-          //   '/createAccount': (context) => CreateAccount(),
-          //   '/forgotPassword': (context) => ForgotPassword(),
-          // },
-        ),
-        cupertino: (_, __) => CupertinoAppData(
-          theme: MyThemes.cupertinoTheme,
+      child: PlatformProvider(
+        settings: PlatformSettingsData(
+            iosUsesMaterialWidgets: true,
+            platformStyle: PlatformStyleData(android: PlatformStyle.Material)),
+        builder: (context) => PlatformApp(
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          debugShowCheckedModeBanner: false,
+          title: 'Eduwings Global',
+          material: (_, __) => MaterialAppData(
+            theme: MyThemes.materialTheme,
+            initialRoute: '/',
+            onGenerateRoute: (RouteSettings settings) {
+              switch (settings.name) {
+                case '/':
+                  return CupertinoPageRoute(
+                      builder: (_) => SplashScreen(), settings: settings);
+                case '/login':
+                  return CupertinoPageRoute(
+                      builder: (_) => LoginScreen(), settings: settings);
+                case '/homePage':
+                  return CupertinoPageRoute(
+                      builder: (_) => HomePage(), settings: settings);
+                case '/profilePage':
+                  return CupertinoPageRoute(
+                      builder: (_) => Profile(fromDrawer: false),
+                      settings: settings);
+                case '/callCounselor':
+                  return CupertinoPageRoute(
+                      builder: (_) => CounselorSupport(fromDrawer: false),
+                      settings: settings);
+                case '/resetPassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ResetPassword(), settings: settings);
+                case '/aboutEduwings':
+                  return CupertinoPageRoute(
+                      builder: (_) => AboutEduwings(fromDrawer: false),
+                      settings: settings);
+                case '/referFriend':
+                  return CupertinoPageRoute(
+                      builder: (_) => ReferFriend(fromDrawer: false),
+                      settings: settings);
+                case '/createAccount':
+                  return CupertinoPageRoute(
+                      builder: (_) => CreateAccount(), settings: settings);
+                case '/forgotPassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ForgotPassword(), settings: settings);
+              }
+            },
+            // routes: {
+            //   '/': (context) => SplashScreen(),
+            //   '/login': (context) => LoginScreen(),
+            //   '/homePage': (context) => HomePage(),
+            //   '/profilePage': (context) => Profile(fromDrawer: false),
+            //   '/callCounselor': (context) => CounselorSupport(fromDrawer: false),
+            //   '/resetPassword': (context) => ResetPassword(),
+            //   '/aboutEduwings': (context) => AboutEduwings(fromDrawer: false),
+            //   '/referFriend': (context) => ReferFriend(fromDrawer: false),
+            //   '/createAccount': (context) => CreateAccount(),
+            //   '/forgotPassword': (context) => ForgotPassword(),
+            // },
+          ),
+          cupertino: (_, __) => CupertinoAppData(
+            theme: MyThemes.cupertinoTheme,
+            initialRoute: '/',
+            onGenerateRoute: (RouteSettings settings) {
+              switch (settings.name) {
+                case '/':
+                  return CupertinoPageRoute(
+                      builder: (_) => SplashScreen(), settings: settings);
+                case '/login':
+                  return CupertinoPageRoute(
+                      builder: (_) => LoginScreen(), settings: settings);
+                case '/homePage':
+                  return CupertinoPageRoute(
+                      builder: (_) => HomePage(), settings: settings);
+                case '/profilePage':
+                  return CupertinoPageRoute(
+                      builder: (_) => Profile(fromDrawer: false),
+                      settings: settings);
+                case '/callCounselor':
+                  return CupertinoPageRoute(
+                      builder: (_) => CounselorSupport(fromDrawer: false),
+                      settings: settings);
+                case '/resetPassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ResetPassword(), settings: settings);
+                case '/aboutEduwings':
+                  return CupertinoPageRoute(
+                      builder: (_) => AboutEduwings(fromDrawer: false),
+                      settings: settings);
+                case '/referFriend':
+                  return CupertinoPageRoute(
+                      builder: (_) => ReferFriend(fromDrawer: false),
+                      settings: settings);
+                case '/createAccount':
+                  return CupertinoPageRoute(
+                      builder: (_) => CreateAccount(), settings: settings);
+                case '/forgotPassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ForgotPassword(), settings: settings);
+              }
+            },
+          ),
         ),
       ),
     );

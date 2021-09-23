@@ -88,8 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Text(
                                       'Student Login',
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
+                                      style: platformThemeData(
+                                        context,
+                                        material: (data) =>
+                                            data.textTheme.subtitle2,
+                                        cupertino: (data) =>
+                                            data.textTheme.tabLabelTextStyle,
+                                      ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
@@ -101,13 +106,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Container(
-                                      child: einField(context),
+                                      child: einField(context, mediaQuery),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: passwordField(context),
+                                    Material(
+                                      child: Container(
+                                        child:
+                                            passwordField(context, mediaQuery),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
@@ -119,10 +127,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                         child: Align(
                                             alignment: Alignment.centerRight,
-                                            child: Text("Forgot Password?",
-                                                style: Theme.of(context)
+                                            child: Text(
+                                              "Forgot Password?",
+                                              style: platformThemeData(
+                                                context,
+                                                material: (data) =>
+                                                    data.textTheme.headline3,
+                                                cupertino: (data) => data
                                                     .textTheme
-                                                    .headline5))),
+                                                    .tabLabelTextStyle,
+                                              ),
+                                            ))),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
@@ -131,7 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       // width: mediaQuery.width * 0.5,
                                       child: CupertinoButton(
                                         disabledColor: Colors.white,
-                                        color: Theme.of(context).primaryColor,
+                                        color: platformThemeData(
+                                          context,
+                                          material: (data) => data.primaryColor,
+                                          cupertino: (data) =>
+                                              data.primaryColor,
+                                        ),
                                         borderRadius: BorderRadius.circular(20),
                                         onPressed: isLogin == true
                                             ? null
@@ -161,14 +181,42 @@ class _LoginScreenState extends State<LoginScreen> {
                                                               response.body);
                                                       if (userData.length ==
                                                           0) {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
+                                                        // ScaffoldMessenger.of(
+                                                        //         context)
+                                                        //     .showSnackBar(
+                                                        //   SnackBar(
+                                                        //     content: Text(
+                                                        //         'Invalid Mobile No. or Password'),
+                                                        //     backgroundColor:
+                                                        //         Colors.red,
+                                                        //   ),
+                                                        // );
+                                                        showDialog(
+                                                          useSafeArea: true,
+                                                          barrierDismissible:
+                                                              false,
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              CupertinoAlertDialog(
+                                                            title: Text(
+                                                                "Wrong Credentials"),
                                                             content: Text(
-                                                                'Invalid Mobile No. or Password'),
-                                                            backgroundColor:
-                                                                Colors.red,
+                                                                "Invalid EIN or Password"),
+                                                            actions: [
+                                                              CupertinoDialogAction(
+                                                                onPressed: () =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop(),
+                                                                child: Text(
+                                                                  "Close",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .red),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         );
                                                       } else {
@@ -192,9 +240,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: isLogin == false
                                             ? Text(
                                                 'Login',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline4,
+                                                style: platformThemeData(
+                                                  context,
+                                                  material: (data) =>
+                                                      data.textTheme.headline4,
+                                                  cupertino: (data) => data
+                                                      .textTheme
+                                                      .navTitleTextStyle,
+                                                ),
                                               )
                                             : Center(
                                                 child:
@@ -242,7 +295,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  PlatformTextFormField einField(context) {
+  PlatformTextFormField einField(context, mediaQuery) {
     return PlatformTextFormField(
       focusNode: mobNoFocusNode,
       textInputAction: TextInputAction.next,
@@ -262,19 +315,34 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return null;
       },
-      style: Theme.of(context).textTheme.headline3,
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
       cupertino: (_, __) => CupertinoTextFormFieldData(
-        decoration: BoxDecoration(),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
         placeholder: 'Enter EIN *',
-        prefix: Icon(
-          CupertinoIcons.phone,
-          color: Theme.of(context).primaryColor,
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.number_circle_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+              // size: 40,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
         ),
       ),
       material: (_, __) => MaterialTextFormFieldData(
         decoration: InputDecoration(
           prefixIcon: Icon(
-            CupertinoIcons.phone,
+            CupertinoIcons.number_circle_fill,
             color: Theme.of(context).primaryColor,
           ),
           hintText: 'Enter EIN *',
@@ -284,7 +352,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  PlatformTextFormField passwordField(context) {
+  PlatformTextFormField passwordField(context, mediaQuery) {
     return PlatformTextFormField(
       focusNode: passwordFocusNode,
       textInputAction: TextInputAction.done,
@@ -298,13 +366,27 @@ class _LoginScreenState extends State<LoginScreen> {
         if (value!.length < 7) return 'Enter Minimum 7 Letters Password';
       },
       obscureText: _obscureText,
-      style: Theme.of(context).textTheme.headline3,
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
       cupertino: (_, __) => CupertinoTextFormFieldData(
-        decoration: BoxDecoration(),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
         placeholder: 'Enter Password *',
-        prefix: Icon(
-          CupertinoIcons.lock_fill,
-          color: Theme.of(context).primaryColor,
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.lock_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
         ),
       ),
       material: (_, __) => MaterialTextFormFieldData(
@@ -332,4 +414,56 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  // TextFormField passwordField(context) {
+  //   return TextFormField(
+  //     focusNode: passwordFocusNode,
+  //     textInputAction: TextInputAction.done,
+  //     onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+  //     onSaved: (String? value) {
+  //       value = password.text;
+  //     },
+  //     controller: password,
+  //     keyboardType: TextInputType.text,
+  //     validator: (value) {
+  //       if (value!.length < 7) return 'Enter Minimum 7 Letters Password';
+  //     },
+  //     obscureText: _obscureText,
+  //     style: platformThemeData(
+  //       context,
+  //       material: (data) => data.textTheme.headline3,
+  //       cupertino: (data) => data.textTheme.actionTextStyle,
+  //     ),
+  //     decoration: Theme.of(context)..inputDecorationTheme,
+  //     // decoration: InputDecoration(
+  //     //   isDense: Theme.of(context).inputDecorationTheme.isDense,
+  //     //   labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+  //     //   hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+  //     //   border: Theme.of(context).inputDecorationTheme.border,
+  //     //   focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+  //     //   enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+  //     //   errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
+  //     //   prefixIcon: Icon(
+  //     //     CupertinoIcons.lock_fill,
+  //     //     color: Theme.of(context).primaryColor,
+  //     //   ),
+  //     //   suffixIcon: GestureDetector(
+  //     //     onTap: () {
+  //     //       setState(() {
+  //     //         _obscureText = !_obscureText;
+  //     //       });
+  //     //     },
+  //     //     child: Icon(
+  //     //       _obscureText
+  //     //           ? CupertinoIcons.eye_slash_fill
+  //     //           : CupertinoIcons.eye_fill,
+  //     //       semanticLabel: _obscureText ? 'Show Password' : 'Hide Password',
+  //     //     ),
+  //     //   ),
+  //     //   hintText: 'Enter Password *',
+  //     //   labelText: 'Enter Password *',
+  //     // ),
+  //   );
+  // }
+
 }
