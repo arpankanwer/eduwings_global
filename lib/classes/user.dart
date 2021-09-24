@@ -17,6 +17,7 @@ class User {
   String counselorMobNo;
   String formId;
   String isLogged;
+  String otp;
 
   User({
     required this.ein,
@@ -37,5 +38,6 @@ class User {
     required this.counselorMobNo,
     required this.formId,
     required this.isLogged,
+    required this.otp,
   });
 }

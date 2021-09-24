@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../classes/user.dart';
-
 import '../provider/login.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -17,21 +15,34 @@ class _CreateAccountState extends State<CreateAccount> {
   final createAccountForm = GlobalKey<FormState>();
   late FixedExtentScrollController qualificationController;
   late FixedExtentScrollController purposeController;
+  late FixedExtentScrollController genderController;
   int qualificationIndex = 0;
   int purposeIndex = 0;
+  int genderIndex = 0;
   bool isRegister = false;
 
   List qualificationList = [];
   List purposeList = [];
+  List genderList = [];
 
-  final TextEditingController fullName = TextEditingController();
+  final TextEditingController reference = TextEditingController();
+  final TextEditingController fName = TextEditingController();
+  final TextEditingController lName = TextEditingController();
   final TextEditingController mobNo = TextEditingController();
+  final TextEditingController whatsappMobNo = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController gender = TextEditingController();
   final TextEditingController qualification = TextEditingController();
   final TextEditingController ielts = TextEditingController();
   final TextEditingController purpose = TextEditingController();
 
-  FocusNode fullNameFocusNode = FocusNode();
+  FocusNode referenceFocusNode = FocusNode();
+  FocusNode fNameFocusNode = FocusNode();
+  FocusNode lNameFocusNode = FocusNode();
   FocusNode mobNoFocusNode = FocusNode();
+  FocusNode whatsappMobNoFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode genderFocusNode = FocusNode();
   FocusNode qualificationFocusNode = FocusNode();
   FocusNode ieltsFocusNode = FocusNode();
   FocusNode purposeFocusNode = FocusNode();
@@ -39,20 +50,29 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void initState() {
     super.initState();
+
     qualificationList =
         Provider.of<LoginProvider>(context, listen: false).qualificationList;
     purposeList =
         Provider.of<LoginProvider>(context, listen: false).purposeList;
+    genderList = Provider.of<LoginProvider>(context, listen: false).genderList;
+
     qualificationController =
         FixedExtentScrollController(initialItem: qualificationIndex);
     purposeController = FixedExtentScrollController(initialItem: purposeIndex);
+    genderController = FixedExtentScrollController(initialItem: genderIndex);
   }
 
   @override
   void dispose() {
     super.dispose();
-    fullNameFocusNode.dispose();
+    reference.dispose();
+    fNameFocusNode.dispose();
+    lNameFocusNode.dispose();
     mobNoFocusNode.dispose();
+    whatsappMobNoFocusNode.dispose();
+    emailFocusNode.dispose();
+    genderFocusNode.dispose();
     qualificationFocusNode.dispose();
     ieltsFocusNode.dispose();
     qualificationController.dispose();
@@ -129,13 +149,65 @@ class _CreateAccountState extends State<CreateAccount> {
                                       height: mediaQuery.height * 0.03,
                                     ),
                                     Container(
-                                      child: fullNameField(context, mediaQuery),
+                                      child: fNameField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: lNameField(context, mediaQuery),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Container(
                                       child: mobNoField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: whatsappMobNoField(
+                                          context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: emailField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          genderController.dispose();
+                                          genderController =
+                                              FixedExtentScrollController(
+                                                  initialItem: genderIndex);
+                                          showCupertinoModalPopup(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CupertinoActionSheet(
+                                                      actions: [
+                                                        genderSheet(mediaQuery,
+                                                            genderController)
+                                                      ],
+                                                      cancelButton:
+                                                          CupertinoActionSheetAction(
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
+                                                              child: Text(
+                                                                  'Cancel'))));
+                                        },
+                                        child: AbsorbPointer(
+                                          child:
+                                              genderField(context, mediaQuery),
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
@@ -237,72 +309,79 @@ class _CreateAccountState extends State<CreateAccount> {
                                               setState(() {
                                                 isRegister = true;
                                               });
-                                              // Provider.of<LoginProvider>(context,
-                                              //         listen: false)
-                                              //     .login(mobNo.text, password.text)
-                                              //     .then(
-                                              //   (response) {
-                                              //     setState(() {
-                                              //       isRegister = false;
-                                              //     });
-                                              //     if (response.statusCode == 200) {
-                                              //       var userData =
-                                              //           json.decode(response.body);
-                                              //       if (userData.length == 0) {
-                                              //         // ScaffoldMessenger.of(
-                                              //         //         context)
-                                              //         //     .showSnackBar(
-                                              //         //   SnackBar(
-                                              //         //     content: Text(
-                                              //         //         'Invalid Mobile No. or Password'),
-                                              //         //     backgroundColor:
-                                              //         //         Colors.red,
-                                              //         //   ),
-                                              //         // );
-                                              //         showDialog(
-                                              //           useSafeArea: true,
-                                              //           barrierDismissible: false,
-                                              //           context: context,
-                                              //           builder: (BuildContext
-                                              //                   context) =>
-                                              //               CupertinoAlertDialog(
-                                              //             title: Text(
-                                              //                 "Wrong Credentials"),
-                                              //             content: Text(
-                                              //                 "Invalid EIN or Password"),
-                                              //             actions: [
-                                              //               CupertinoDialogAction(
-                                              //                 onPressed: () =>
-                                              //                     Navigator.of(
-                                              //                             context)
-                                              //                         .pop(),
-                                              //                 child: Text(
-                                              //                   "Close",
-                                              //                   style: TextStyle(
-                                              //                       color:
-                                              //                           Colors.red),
-                                              //                 ),
-                                              //               ),
-                                              //             ],
-                                              //           ),
-                                              //         );
-                                              //       } else {
-                                              //         Provider.of<LoginProvider>(
-                                              //                 context,
-                                              //                 listen: false)
-                                              //             .setSharedData(
-                                              //                 userData[0])
-                                              //             .then((value) => Navigator
-                                              //                     .of(context)
-                                              //                 .pushReplacementNamed(
-                                              //                     '/homePage'));
-                                              //       }
-                                              //     } else {
-                                              //       throw Exception(
-                                              //           'Failed to Connect');
-                                              //     }
-                                              // },
-                                              // );
+                                              Provider.of<LoginProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .referFriend(
+                                                      fName.text,
+                                                      lName.text,
+                                                      mobNo.text,
+                                                      whatsappMobNo.text,
+                                                      email.text,
+                                                      gender.text,
+                                                      qualification.text,
+                                                      ielts.text,
+                                                      purpose.text,
+                                                      '0')
+                                                  .then((value) {
+                                                setState(() {
+                                                  isRegister = false;
+                                                });
+                                                if (value.statusCode == 200) {
+                                                  if (Provider.of<LoginProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .referResponse[
+                                                          'success'] ==
+                                                      1) {
+                                                    createAccountForm
+                                                        .currentState
+                                                        ?.reset();
+                                                    Navigator.of(context)
+                                                        .pushReplacementNamed(
+                                                            '/login');
+
+                                                    Provider.of<LoginProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .successDialog(
+                                                            context,
+                                                            Provider.of<LoginProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .referResponse[
+                                                                'message'],
+                                                            mediaQuery);
+                                                  } else {
+                                                    Provider.of<LoginProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .errorDialog(
+                                                            context,
+                                                            Provider.of<LoginProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .referResponse[
+                                                                'message'],
+                                                            mediaQuery);
+                                                  }
+                                                } else {
+                                                  setState(() {
+                                                    isRegister = false;
+                                                  });
+                                                  Provider.of<LoginProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .errorDialog(
+                                                          context,
+                                                          'Something went Wrong',
+                                                          mediaQuery);
+                                                  throw Exception(
+                                                      'Failed to Connect');
+                                                }
+                                              });
                                             },
                                       child: isRegister == false
                                           ? Text(
@@ -342,19 +421,19 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
-  PlatformTextFormField fullNameField(context, mediaQuery) {
+  PlatformTextFormField fNameField(context, mediaQuery) {
     return PlatformTextFormField(
-      focusNode: fullNameFocusNode,
+      focusNode: fNameFocusNode,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) =>
-          FocusScope.of(context).requestFocus(mobNoFocusNode),
+          FocusScope.of(context).requestFocus(lNameFocusNode),
       onSaved: (String? value) {
-        value = fullName.text;
+        value = fName.text;
       },
       onChanged: (String? value) {
-        value = fullName.text;
+        value = fName.text;
       },
-      controller: fullName,
+      controller: fName,
       keyboardType: TextInputType.text,
       validator: (value) {
         if (value?.isEmpty == true || value == null) {
@@ -399,12 +478,69 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
+  PlatformTextFormField lNameField(context, mediaQuery) {
+    return PlatformTextFormField(
+      focusNode: lNameFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) =>
+          FocusScope.of(context).requestFocus(mobNoFocusNode),
+      onSaved: (String? value) {
+        value = lName.text;
+      },
+      onChanged: (String? value) {
+        value = lName.text;
+      },
+      controller: lName,
+      keyboardType: TextInputType.text,
+      validator: (value) {
+        if (value?.isEmpty == true || value == null) {
+          return "Last Name can't be Empty";
+        }
+        return null;
+      },
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        placeholder: 'Enter Last Name *',
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.f_cursive_circle_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+              // size: 40,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
+        ),
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.f_cursive_circle_fill,
+            color: Theme.of(context).primaryColor,
+          ),
+          hintText: 'Enter Last Name *',
+          labelText: 'Enter Last Name *',
+        ),
+      ),
+    );
+  }
+
   PlatformTextFormField mobNoField(context, mediaQuery) {
     return PlatformTextFormField(
       focusNode: mobNoFocusNode,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) =>
-          FocusScope.of(context).requestFocus(ieltsFocusNode),
+          FocusScope.of(context).requestFocus(whatsappMobNoFocusNode),
       onSaved: (String? value) {
         value = mobNo.text;
       },
@@ -455,6 +591,178 @@ class _CreateAccountState extends State<CreateAccount> {
           ),
           hintText: 'Enter Mobile No. *',
           labelText: 'Enter Mobile No. *',
+        ),
+      ),
+    );
+  }
+
+  PlatformTextFormField whatsappMobNoField(context, mediaQuery) {
+    return PlatformTextFormField(
+      focusNode: whatsappMobNoFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) =>
+          FocusScope.of(context).requestFocus(emailFocusNode),
+      onSaved: (String? value) {
+        value = whatsappMobNo.text;
+      },
+      onChanged: (String? value) {
+        value = whatsappMobNo.text;
+      },
+      controller: whatsappMobNo,
+      keyboardType: TextInputType.phone,
+      validator: (value) {
+        if (value?.isEmpty == true || value == null) {
+          return "Whatsapp Mobile No. can't be Empty";
+        } else if (value.length < 10) {
+          return 'Invalid Whatsapp Mobile Number';
+        } else if (value.length > 10) {
+          return "Invalid Whatsapp Mobile Number";
+        }
+        return null;
+      },
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        placeholder: 'Enter Whatsapp Mobile No. *',
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.phone_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+              // size: 40,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
+        ),
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.phone_fill,
+            color: Theme.of(context).primaryColor,
+          ),
+          hintText: 'Enter Whatsapp Mobile No. *',
+          labelText: 'Enter Whatsapp Mobile No. *',
+        ),
+      ),
+    );
+  }
+
+  PlatformTextFormField emailField(context, mediaQuery) {
+    return PlatformTextFormField(
+      focusNode: emailFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) =>
+          FocusScope.of(context).requestFocus(ieltsFocusNode),
+      onSaved: (String? value) {
+        value = email.text;
+      },
+      onChanged: (String? value) {
+        value = email.text;
+      },
+      controller: email,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value?.isEmpty == true || value == null) {
+          return "Email can't be Empty";
+        }
+        return null;
+      },
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        placeholder: 'Enter Email *',
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.f_cursive_circle_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+              // size: 40,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
+        ),
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.f_cursive_circle_fill,
+            color: Theme.of(context).primaryColor,
+          ),
+          hintText: 'Enter Email *',
+          labelText: 'Enter Email *',
+        ),
+      ),
+    );
+  }
+
+  PlatformTextFormField genderField(context, mediaQuery) {
+    return PlatformTextFormField(
+      focusNode: genderFocusNode,
+      readOnly: true,
+      onSaved: (String? value) {
+        value = gender.text;
+      },
+      onChanged: (String? value) {
+        value = gender.text;
+      },
+      controller: gender,
+      validator: (value) {
+        if (value?.isEmpty == true || value == null) {
+          return "Gender can't be Empty";
+        }
+        return null;
+      },
+      style: platformThemeData(
+        context,
+        material: (data) => data.textTheme.headline3,
+        cupertino: (data) => data.textTheme.actionTextStyle,
+      ),
+      cupertino: (_, __) => CupertinoTextFormFieldData(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        placeholder: 'Gender *',
+        prefix: Row(
+          children: [
+            Icon(
+              CupertinoIcons.f_cursive_circle_fill,
+              color: CupertinoTheme.of(context).primaryColor,
+              // size: 40,
+            ),
+            SizedBox(
+              width: mediaQuery.width * 0.02,
+            ),
+          ],
+        ),
+      ),
+      material: (_, __) => MaterialTextFormFieldData(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            CupertinoIcons.star_fill,
+            // color: Colors.red,
+          ),
+          hintText: 'Gender *',
+          labelText: 'Gender *',
         ),
       ),
     );
@@ -676,6 +984,39 @@ class _CreateAccountState extends State<CreateAccount> {
             children: List.generate(purposeList.length, (index) {
               final isSelected = purposeIndex == index;
               final item = purposeList[index];
+              final color = isSelected
+                  ? CupertinoColors.activeBlue
+                  : CupertinoColors.black;
+              return Center(
+                child: Text(
+                  item,
+                  style: TextStyle(color: color),
+                ),
+              );
+            })),
+      ),
+    );
+  }
+
+  Widget genderSheet(mediaQuery, genderController) {
+    return Container(
+      height: mediaQuery.height * 0.25,
+      child: StatefulBuilder(
+        builder: (context, setState) => CupertinoPicker(
+            scrollController: genderController,
+            itemExtent: 50,
+            selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
+              background: CupertinoColors.activeBlue.withOpacity(0.2),
+            ),
+            onSelectedItemChanged: (index) {
+              setState(() {
+                genderIndex = index;
+                gender.text = genderList[index];
+              });
+            },
+            children: List.generate(genderList.length, (index) {
+              final isSelected = genderIndex == index;
+              final item = genderList[index];
               final color = isSelected
                   ? CupertinoColors.activeBlue
                   : CupertinoColors.black;

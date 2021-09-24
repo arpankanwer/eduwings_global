@@ -38,7 +38,8 @@ class _CounselorSupportState extends State<CounselorSupport> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',
+      otp: '');
 
   @override
   void initState() {

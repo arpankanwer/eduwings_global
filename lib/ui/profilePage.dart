@@ -40,7 +40,8 @@ class _ProfileState extends State<Profile> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',
+      otp: '');
   List<dynamic> educationList = [];
   @override
   void initState() {

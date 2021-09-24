@@ -1,109 +1,86 @@
+import 'package:eduwings_global/classes/user.dart';
+import 'package:eduwings_global/provider/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-import '../provider/login.dart';
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({Key? key}) : super(key: key);
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
   @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
+  _ChangePasswordState createState() => _ChangePasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
-  final forgotPasswordForm = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
-  bool isForgot = false;
+class _ChangePasswordState extends State<ChangePassword> {
+  final changePasswordForm = GlobalKey<FormState>();
+  User user = User(
+      ein: '',
+      studentName: '',
+      fName: '',
+      lName: '',
+      email: '',
+      countryName: '',
+      stateName: '',
+      cityName: '',
+      passport: '',
+      dob: '',
+      gender: '',
+      address: '',
+      profileImage: '',
+      mobNo: '',
+      counselorName: '',
+      counselorMobNo: '',
+      formId: '',
+      isLogged: '',
+      otp: '');
 
-  final TextEditingController ein = TextEditingController();
-  final TextEditingController mobNo = TextEditingController();
-  final TextEditingController dob = TextEditingController();
+  bool isChange = false;
+  bool newPasswordObscureText = true;
+  bool confirmPasswordObscureText = true;
 
-  FocusNode einFocusNode = FocusNode();
-  FocusNode mobNoFocusNode = FocusNode();
-  FocusNode dobFocusNode = FocusNode();
+  final TextEditingController newPassword = TextEditingController();
+  final TextEditingController confirmPassword = TextEditingController();
 
-  Future<Null> _selectDate(BuildContext context, mediaQuery) async {
-    final picked = await showCupertinoModalPopup(
-        context: context,
-        builder: (_) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20.0),
-                  topLeft: Radius.circular(20.0),
-                ),
-                color: Colors.grey[300],
-              ),
-              height: mediaQuery.height * 0.4,
-              // color: Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CupertinoButton(
-                          child: Text('Cancel'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        CupertinoButton(
-                          // color: Theme.of(context).primaryColor,
-                          child: Text('Done'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    height: 0,
-                    thickness: 1,
-                  ),
-                  Container(
-                    height: mediaQuery.height * 0.3,
-                    child: CupertinoDatePicker(
-                      maximumDate: DateTime.now().add(Duration(seconds: 1)),
-                      minimumYear: DateTime.now().year - 40,
-                      mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: (DateTime dateTime) {
-                        selectedDate = dateTime;
-                        dob.value = TextEditingValue(
-                          text: DateFormat('dd/MM/yyyy')
-                              .format(DateTime.parse(
-                                  "${dateTime.toLocal()}".split(' ')[0]))
-                              .toString(),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ));
+  FocusNode newPasswordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<LoginProvider>(context, listen: false)
+        .getSharedData()
+        .then((value) {
+      setState(() {
+        user = value;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    newPasswordFocusNode.dispose();
+    confirmPasswordFocusNode.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return PlatformScaffold(
+      // resizeToAvoidBottomInset: true,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: PlatformAppBar(
         title: Text(
-          'Forgot Password',
-        ),
-        leading: IconButton(
-          icon: Icon(CupertinoIcons.back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          'Change Password',
         ),
         material: (_, __) => MaterialAppBarData(centerTitle: true),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        // onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
           height: mediaQuery.height,
           decoration: BoxDecoration(
@@ -124,19 +101,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(30))),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Form(
-                              key: forgotPasswordForm,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: mediaQuery.height * 0.01,
+                          ),
+                          SingleChildScrollView(
+                            child: Form(
+                              key: changePasswordForm,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: mediaQuery.width * 0.04),
+                                // color: Colors.white,
                                 child: Column(
-                                  children: [
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
                                     SizedBox(
-                                      height: mediaQuery.height * 0.03,
+                                      height: mediaQuery.height * 0.01,
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
@@ -146,44 +127,32 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         ]).createShader(
                                             Offset.zero & bounds.size);
                                       },
-                                      child: Text('Forgot Password',
+                                      child: Text('Change Your Password',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Exo2',
-                                              fontSize: 30,
+                                              fontSize: 25,
                                               fontWeight: FontWeight.bold)),
                                     ),
                                     SizedBox(
-                                      height: mediaQuery.height * 0.02,
+                                      height: mediaQuery.height * 0.01,
                                     ),
-                                    CircleAvatar(
-                                      maxRadius: 42,
-                                      child: Image.asset(
-                                          "assets/icons/imgforgot.png"),
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
+                                    Divider(
+                                      color: Colors.black,
                                     ),
-                                    SizedBox(
-                                      height: mediaQuery.height * 0.03,
-                                    ),
-                                    Container(
-                                        child: einField(context, mediaQuery)),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Container(
-                                        child: mobNoField(context, mediaQuery)),
+                                      child:
+                                          newPasswordField(context, mediaQuery),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
                                     Container(
-                                      child: GestureDetector(
-                                        onTap: () =>
-                                            _selectDate(context, mediaQuery),
-                                        child: AbsorbPointer(
-                                          child: dobField(context, mediaQuery),
-                                        ),
-                                      ),
+                                      child: confirmPasswordField(
+                                          context, mediaQuery),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
@@ -197,58 +166,57 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
-                                      onPressed: isForgot == true
+                                      onPressed: isChange == true
                                           ? null
                                           : () {
-                                              if (!forgotPasswordForm
+                                              if (!changePasswordForm
                                                   .currentState!
                                                   .validate()) {
                                                 return;
                                               }
-                                              forgotPasswordForm.currentState!
+                                              changePasswordForm.currentState!
                                                   .save();
                                               setState(() {
-                                                isForgot = true;
+                                                isChange = true;
                                               });
 
                                               Provider.of<LoginProvider>(
                                                       context,
                                                       listen: false)
-                                                  .forgotPassword(
-                                                ein.text,
-                                                mobNo.text,
-                                                dob.text,
+                                                  .changePassword(
+                                                user.ein,
+                                                newPassword.text,
                                               )
                                                   .then((value) {
                                                 setState(() {
-                                                  isForgot = false;
+                                                  isChange = false;
                                                 });
                                                 if (value.statusCode == 200) {
                                                   if (Provider.of<LoginProvider>(
                                                                   context,
                                                                   listen: false)
-                                                              .forgotResponse[
+                                                              .changePasswordResponse[
                                                           'success'] ==
                                                       1) {
-                                                    forgotPasswordForm
+                                                    changePasswordForm
                                                         .currentState
                                                         ?.reset();
+
+                                                    Navigator.of(context)
+                                                        .pushReplacementNamed(
+                                                            '/login');
                                                     Provider.of<LoginProvider>(
                                                             context,
                                                             listen: false)
-                                                        .saveOtp(int.parse(Provider
-                                                                    .of<LoginProvider>(
+                                                        .successDialog(
+                                                            context,
+                                                            Provider.of<LoginProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
-                                                                .forgotResponse[
-                                                            'message']));
-                                                    Navigator.of(context)
-                                                        .pushNamedAndRemoveUntil(
-                                                            '/otp',
-                                                            (Route<dynamic>
-                                                                    route) =>
-                                                                false);
+                                                                    .changePasswordResponse[
+                                                                'message'],
+                                                            mediaQuery);
                                                   } else {
                                                     Provider.of<LoginProvider>(
                                                             context,
@@ -259,13 +227,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                                         context,
                                                                         listen:
                                                                             false)
-                                                                    .forgotResponse[
+                                                                    .changePasswordResponse[
                                                                 'message'],
                                                             mediaQuery);
                                                   }
                                                 } else {
                                                   setState(() {
-                                                    isForgot = false;
+                                                    isChange = false;
                                                   });
                                                   Provider.of<LoginProvider>(
                                                           context,
@@ -279,9 +247,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                 }
                                               });
                                             },
-                                      child: isForgot == false
+                                      child: isChange == false
                                           ? Text(
-                                              'Forgot',
+                                              'Reset',
                                               style: platformThemeData(
                                                 context,
                                                 material: (data) =>
@@ -297,14 +265,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                             ),
                                     )),
                                     SizedBox(
-                                      height: mediaQuery.height * 0.02,
+                                      height: mediaQuery.height * 0.01,
                                     ),
                                   ],
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -317,26 +285,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  PlatformTextFormField einField(context, mediaQuery) {
+  PlatformTextFormField newPasswordField(context, mediaQuery) {
     return PlatformTextFormField(
-      focusNode: einFocusNode,
+      focusNode: newPasswordFocusNode,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) =>
-          FocusScope.of(context).requestFocus(mobNoFocusNode),
+          FocusScope.of(context).requestFocus(confirmPasswordFocusNode),
       onSaved: (String? value) {
-        value = ein.text;
+        value = newPassword.text;
       },
-      onChanged: (String? value) {
-        value = ein.text;
-      },
-      controller: ein,
-      keyboardType: TextInputType.phone,
+      controller: newPassword,
+      keyboardType: TextInputType.text,
       validator: (value) {
-        if (value?.isEmpty == true || value == null) {
-          return "EIN can't be Empty";
-        }
-        return null;
+        if (value!.length < 7) return 'Enter Minimum 7 Letters Password';
       },
+      obscureText: newPasswordObscureText,
       style: platformThemeData(
         context,
         material: (data) => data.textTheme.headline3,
@@ -347,13 +310,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           color: Colors.grey[200],
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
-        placeholder: 'Enter EIN *',
+        placeholder: 'Enter New Password *',
         prefix: Row(
           children: [
             Icon(
-              CupertinoIcons.number_circle_fill,
+              CupertinoIcons.lock_fill,
               color: CupertinoTheme.of(context).primaryColor,
-              // size: 40,
             ),
             SizedBox(
               width: mediaQuery.width * 0.02,
@@ -364,39 +326,45 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       material: (_, __) => MaterialTextFormFieldData(
         decoration: InputDecoration(
           prefixIcon: Icon(
-            CupertinoIcons.number_circle_fill,
+            CupertinoIcons.lock_fill,
             color: Theme.of(context).primaryColor,
           ),
-          hintText: 'Enter EIN *',
-          labelText: 'Enter EIN *',
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                newPasswordObscureText = !newPasswordObscureText;
+              });
+            },
+            child: Icon(
+              newPasswordObscureText
+                  ? CupertinoIcons.eye_slash_fill
+                  : CupertinoIcons.eye_fill,
+              semanticLabel:
+                  newPasswordObscureText ? 'Show Password' : 'Hide Password',
+            ),
+          ),
+          hintText: 'Enter New Password *',
+          labelText: 'Enter New Password *',
         ),
       ),
     );
   }
 
-  PlatformTextFormField mobNoField(context, mediaQuery) {
+  PlatformTextFormField confirmPasswordField(context, mediaQuery) {
     return PlatformTextFormField(
-      focusNode: mobNoFocusNode,
+      focusNode: confirmPasswordFocusNode,
       textInputAction: TextInputAction.done,
       onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
       onSaved: (String? value) {
-        value = mobNo.text;
+        value = confirmPassword.text;
       },
-      onChanged: (String? value) {
-        value = mobNo.text;
-      },
-      controller: mobNo,
-      keyboardType: TextInputType.phone,
+      controller: confirmPassword,
+      keyboardType: TextInputType.text,
       validator: (value) {
-        if (value?.isEmpty == true || value == null) {
-          return "Mobile No. can't be Empty";
-        } else if (value.length < 10) {
-          return 'Invalid Mobile Number';
-        } else if (value.length > 10) {
-          return "Invalid Mobile Number";
-        }
-        return null;
+        if (value!.length < 7) return 'Enter Minimum 7 Letters Password';
+        if (value != newPassword.text) return "Password doesn't match";
       },
+      obscureText: confirmPasswordObscureText,
       style: platformThemeData(
         context,
         material: (data) => data.textTheme.headline3,
@@ -407,13 +375,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           color: Colors.grey[200],
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
-        placeholder: 'Enter Mobile No. *',
+        placeholder: 'Confirm Password *',
         prefix: Row(
           children: [
             Icon(
-              CupertinoIcons.phone_fill,
+              CupertinoIcons.lock_fill,
               color: CupertinoTheme.of(context).primaryColor,
-              // size: 40,
             ),
             SizedBox(
               width: mediaQuery.width * 0.02,
@@ -424,65 +391,26 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       material: (_, __) => MaterialTextFormFieldData(
         decoration: InputDecoration(
           prefixIcon: Icon(
-            CupertinoIcons.phone_fill,
+            CupertinoIcons.lock_fill,
             color: Theme.of(context).primaryColor,
           ),
-          hintText: 'Enter Mobile No. *',
-          labelText: 'Enter Mobile No. *',
-        ),
-      ),
-    );
-  }
-
-  PlatformTextFormField dobField(context, mediaQuery) {
-    return PlatformTextFormField(
-      focusNode: dobFocusNode,
-      readOnly: true,
-      onSaved: (String? value) {
-        value = dob.text;
-      },
-      onChanged: (String? value) {
-        value = dob.text;
-      },
-      controller: dob,
-      validator: (value) {
-        if (value?.isEmpty == true || value == null) {
-          return "Dob can't be Empty";
-        }
-        return null;
-      },
-      style: platformThemeData(
-        context,
-        material: (data) => data.textTheme.headline3,
-        cupertino: (data) => data.textTheme.actionTextStyle,
-      ),
-      cupertino: (_, __) => CupertinoTextFormFieldData(
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        placeholder: 'Date of Birth *',
-        prefix: Row(
-          children: [
-            Icon(
-              CupertinoIcons.f_cursive_circle_fill,
-              color: CupertinoTheme.of(context).primaryColor,
-              // size: 40,
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                confirmPasswordObscureText = !confirmPasswordObscureText;
+              });
+            },
+            child: Icon(
+              confirmPasswordObscureText
+                  ? CupertinoIcons.eye_slash_fill
+                  : CupertinoIcons.eye_fill,
+              semanticLabel: confirmPasswordObscureText
+                  ? 'Show Password'
+                  : 'Hide Password',
             ),
-            SizedBox(
-              width: mediaQuery.width * 0.02,
-            ),
-          ],
-        ),
-      ),
-      material: (_, __) => MaterialTextFormFieldData(
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            CupertinoIcons.star_fill,
-            // color: Colors.red,
           ),
-          hintText: 'Date of Birth *',
-          labelText: 'Date of Birth *',
+          hintText: 'Confirm Password *',
+          labelText: 'Confirm Password *',
         ),
       ),
     );

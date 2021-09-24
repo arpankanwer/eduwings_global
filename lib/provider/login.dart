@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,8 +15,12 @@ class LoginProvider with ChangeNotifier {
   String loginServerApi = "CheckUsernamePassword.php";
   String resetPasswordApi = "resetPassword.php";
   String leadFormServerApi = "setLeadForm.php";
+  String forgotPasswordApi = "forgotPasswordSendOTP.php";
+  String forgotPasswordSubmitOtpApi = "forgotPasswordSubmitOTP.php";
   var resetResponse;
   var referResponse;
+  var forgotResponse;
+  var changePasswordResponse;
 
   final qualificationList = [
     '12th',
@@ -87,7 +92,8 @@ class LoginProvider with ChangeNotifier {
         counselorName: prefs.getString('counselorName').toString(),
         counselorMobNo: prefs.getString('counselorMobNo').toString(),
         formId: prefs.getString('formId').toString(),
-        isLogged: prefs.getString('isLogged').toString());
+        isLogged: prefs.getString('isLogged').toString(),
+        otp: prefs.getString('otp').toString());
   }
 
   Future resetPassword(formId, oldPassword, newPassword) async {
@@ -119,6 +125,51 @@ class LoginProvider with ChangeNotifier {
     return response;
   }
 
+  Future forgotPassword(ein, mobNo, dob) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('ein', ein.toString());
+    final dobDate = dob.split('/');
+    final finalDobDate = "${dobDate[2]}"
+        "-"
+        "${dobDate[1]}"
+        "-"
+        "${dobDate[0]}";
+    final response =
+        await http.post(Uri.parse('$urlBase' + '$forgotPasswordApi'), headers: {
+      'APIKEY': '$apiKey'
+    }, body: {
+      "appid": ein,
+      "mobileno": mobNo,
+      "dob": finalDobDate,
+    });
+    forgotResponse = json.decode(response.body);
+    return response;
+  }
+
+  Future saveOtp(otp) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('otp', otp.toString());
+  }
+
+  Future checkOtp(otp) async {
+    final prefs = await SharedPreferences.getInstance();
+    final serverOtp = prefs.getString('otp').toString();
+    print(serverOtp);
+    return serverOtp == otp;
+  }
+
+  Future changePassword(ein, newwPassword) async {
+    final response = await http
+        .post(Uri.parse('$urlBase' + '$forgotPasswordSubmitOtpApi'), headers: {
+      'APIKEY': '$apiKey'
+    }, body: {
+      "ein": ein,
+      "newpassword": newwPassword,
+    });
+    changePasswordResponse = json.decode(response.body);
+    return response;
+  }
+
   Future referFriend(stuFName, stuLName, stuMobNo, stuWhatsappMobNo, stuEmail,
       stuGender, stuQualification, stuIelts, stuPurpose, formID) async {
     final response =
@@ -144,9 +195,9 @@ class LoginProvider with ChangeNotifier {
 
   openWhatsapp(context, counselorMobNo) async {
     var whatsappAndroid =
-        "whatsapp://send?phone=+91" + counselorMobNo + "&text=hi";
+        "whatsapp://send?phone=+91" + counselorMobNo + "&text=Hi";
     var whatappIos =
-        "https://wa.me/+91${counselorMobNo}?text=${Uri.parse("hi")}";
+        "https://wa.me/+91${counselorMobNo}?text=${Uri.parse("Hi")}";
     if (Platform.isIOS) {
       // for iOS phone only
       if (await canLaunch(whatappIos)) {
@@ -195,5 +246,83 @@ class LoginProvider with ChangeNotifier {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  successDialog(context, message, mediaQuery) {
+    return showDialog(
+      useSafeArea: true,
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Column(
+          children: [
+            Container(
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: Colors.green),
+              child: Icon(
+                Icons.done_outline,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+            SizedBox(
+              height: mediaQuery.height * 0.01,
+            ),
+            Text("Success"),
+          ],
+        ),
+        content: Text(
+          message.toString(),
+        ),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              "OK",
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  errorDialog(context, message, mediaQuery) {
+    return showDialog(
+      useSafeArea: true,
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Column(
+          children: [
+            Container(
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+              child: Icon(
+                Icons.error_outline_outlined,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+            SizedBox(
+              height: mediaQuery.height * 0.01,
+            ),
+            Text("Please Try Again"),
+          ],
+        ),
+        content: Text(
+          message.toString(),
+        ),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              "OK",
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

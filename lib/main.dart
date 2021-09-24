@@ -1,3 +1,5 @@
+import 'package:eduwings_global/ui/changePassword.dart';
+import 'package:eduwings_global/ui/otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -100,6 +102,12 @@ class MyApp extends StatelessWidget {
                 case '/forgotPassword':
                   return CupertinoPageRoute(
                       builder: (_) => ForgotPassword(), settings: settings);
+                case '/otp':
+                  return CupertinoPageRoute(
+                      builder: (_) => Otp(), settings: settings);
+                case '/changePassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ChangePassword(), settings: settings);
               }
             },
             // routes: {

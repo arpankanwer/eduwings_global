@@ -64,7 +64,7 @@ class _DrawerPageState extends State<DrawerPage> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',otp:'');
 
   @override
   void initState() {

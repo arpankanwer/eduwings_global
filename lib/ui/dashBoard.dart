@@ -39,7 +39,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',otp:'');
 
   final urlImages = [
     "https://eduwingserp.com/Api/v1/mobile/images/sliders/slider1.jpg",

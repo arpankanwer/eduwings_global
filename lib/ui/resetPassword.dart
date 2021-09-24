@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
@@ -48,7 +49,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',
+      otp: '');
 
   successDialog(message) {
     return showDialog(
@@ -160,14 +162,14 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Scaffold(
+    return PlatformScaffold(
       // resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        centerTitle: true,
+      appBar: PlatformAppBar(
         title: Text(
           'Reset Password',
         ),
+        material: (_, __) => MaterialAppBarData(centerTitle: true),
         leading: IconButton(
           icon: Icon(CupertinoIcons.line_horizontal_3_decrease),
           onPressed: () => ZoomDrawer.of(context)!.toggle(),
@@ -248,93 +250,95 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       height: mediaQuery.height * 0.02,
                                     ),
                                     Container(
-                                      width: mediaQuery.width * 0.3,
-                                      height: mediaQuery.width * 0.11,
-                                      child: ElevatedButton(
-                                        style: TextButton.styleFrom(
-                                            backgroundColor:
-                                                Theme.of(context).primaryColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        onPressed: isReset == true
-                                            ? null
-                                            : () {
-                                                if (!resetPasswordForm
-                                                    .currentState!
-                                                    .validate()) {
-                                                  return;
-                                                }
-                                                resetPasswordForm.currentState!
-                                                    .save();
+                                        child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => data.primaryColor,
+                                        cupertino: (data) => data.primaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      onPressed: isReset == true
+                                          ? null
+                                          : () {
+                                              if (!resetPasswordForm
+                                                  .currentState!
+                                                  .validate()) {
+                                                return;
+                                              }
+                                              resetPasswordForm.currentState!
+                                                  .save();
+                                              setState(() {
+                                                isReset = true;
+                                              });
+                                              Provider.of<LoginProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .resetPassword(
+                                                      user.formId,
+                                                      oldPassword.text,
+                                                      newPassword.text)
+                                                  .then((value) {
                                                 setState(() {
-                                                  isReset = true;
+                                                  isReset = false;
                                                 });
-                                                Provider.of<LoginProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .resetPassword(
-                                                        user.formId,
-                                                        oldPassword.text,
-                                                        newPassword.text)
-                                                    .then((value) {
-                                                  setState(() {
-                                                    isReset = false;
-                                                  });
-                                                  if (value.statusCode == 200) {
-                                                    if (Provider.of<LoginProvider>(
-                                                                    context,
-                                                                    listen: false)
-                                                                .resetResponse[
-                                                            'success'] ==
-                                                        1) {
-                                                      Provider.of<LoginProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .logout()
-                                                          .then((value) {
-                                                        Navigator.of(context)
-                                                            .pushReplacementNamed(
-                                                                '/login');
-                                                        successDialog(Provider.of<
-                                                                        LoginProvider>(
-                                                                    context,
-                                                                    listen: false)
-                                                                .resetResponse[
-                                                            'message']);
-                                                      });
-                                                    } else {
-                                                      errorDialog(Provider.of<
+                                                if (value.statusCode == 200) {
+                                                  if (Provider.of<LoginProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .resetResponse[
+                                                          'success'] ==
+                                                      1) {
+                                                    Provider.of<LoginProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .logout()
+                                                        .then((value) {
+                                                      Navigator.of(context)
+                                                          .pushReplacementNamed(
+                                                              '/login');
+                                                      successDialog(Provider.of<
                                                                       LoginProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .resetResponse[
                                                           'message']);
-                                                    }
-                                                  } else {
-                                                    setState(() {
-                                                      isReset = false;
                                                     });
-                                                    errorDialog(
-                                                        'Something went Wrong');
-                                                    throw Exception(
-                                                        'Failed to Connect');
+                                                  } else {
+                                                    errorDialog(Provider.of<
+                                                                LoginProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .resetResponse['message']);
                                                   }
-                                                });
-                                              },
-                                        child: isReset == false
-                                            ? Text(
-                                                'Reset ',
-                                                style: Theme.of(context)
+                                                } else {
+                                                  setState(() {
+                                                    isReset = false;
+                                                  });
+                                                  errorDialog(
+                                                      'Something went Wrong');
+                                                  throw Exception(
+                                                      'Failed to Connect');
+                                                }
+                                              });
+                                            },
+                                      child: isReset == false
+                                          ? Text(
+                                              'Reset',
+                                              style: platformThemeData(
+                                                context,
+                                                material: (data) =>
+                                                    data.textTheme.headline4,
+                                                cupertino: (data) => data
                                                     .textTheme
-                                                    .headline1,
-                                              )
-                                            : Center(
-                                                child:
-                                                    CircularProgressIndicator(),
+                                                    .navTitleTextStyle,
                                               ),
-                                      ),
-                                    ),
+                                            )
+                                          : Center(
+                                              child:
+                                                  CupertinoActivityIndicator(),
+                                            ),
+                                    )),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),

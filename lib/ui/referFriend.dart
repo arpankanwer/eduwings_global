@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -43,7 +45,7 @@ class _ReferFriendState extends State<ReferFriend> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '');
+      isLogged: '',otp:'');
 
   List qualificationList = [];
   List purposeList = [];
@@ -71,115 +73,10 @@ class _ReferFriendState extends State<ReferFriend> {
   FocusNode ieltsFocusNode = FocusNode();
   FocusNode purposeFocusNode = FocusNode();
 
-  successDialog(message) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        title: SizedBox(
-          height: 40,
-          width: 40,
-          child: Container(
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.green),
-            child: Icon(
-              Icons.done_outline,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-        ),
-        content: Container(
-            child: Text(
-          message.toString(),
-          style: Theme.of(context).textTheme.headline3,
-          textAlign: TextAlign.center,
-        )),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              "OK",
-              style: TextStyle(fontSize: 18, color: Colors.blue),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  errorDialog(message) {
-    return showDialog(
-      useSafeArea: true,
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text("Wrong Credentials"),
-        content: Text("Invalid EIN or Password"),
-        actions: [
-          CupertinoDialogAction(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              "OK",
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  // errorDialog(message) {
-  //   return showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context) => AlertDialog(
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(30.0),
-  //       ),
-  //       title: SizedBox(
-  //         height: 40,
-  //         width: 40,
-  //         child: Container(
-  //           decoration:
-  //               BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-  //           child: Icon(
-  //             Icons.error_outline_outlined,
-  //             color: Colors.white,
-  //             size: 30,
-  //           ),
-  //         ),
-  //       ),
-  //       content: Container(
-  //           child: Text(
-  //         message.toString(),
-  //         style: Theme.of(context).textTheme.headline3,
-  //         textAlign: TextAlign.center,
-  //       )),
-  //       actions: <Widget>[
-  //         TextButton(
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //             // widget.tabController.animateTo(0);
-  //           },
-  //           child: Text(
-  //             "OK",
-  //             style: TextStyle(fontSize: 18, color: Colors.blue),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   @override
   void initState() {
     super.initState();
-    errorDialog('message');
+
     qualificationList =
         Provider.of<LoginProvider>(context, listen: false).qualificationList;
     purposeList =
@@ -466,24 +363,49 @@ class _ReferFriendState extends State<ReferFriend> {
                                                               .referResponse[
                                                           'success'] ==
                                                       1) {
-                                                    successDialog(Provider.of<
-                                                                LoginProvider>(
+                                                    referFriendForm.currentState
+                                                        ?.reset();
+                                                    Navigator.of(context)
+                                                        .pushReplacementNamed(
+                                                            '/homePage');
+
+                                                    Provider.of<LoginProvider>(
                                                             context,
                                                             listen: false)
-                                                        .referResponse['message']);
+                                                        .successDialog(
+                                                            context,
+                                                            Provider.of<LoginProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .referResponse[
+                                                                'message'],
+                                                            mediaQuery);
                                                   } else {
-                                                    errorDialog(Provider.of<
-                                                                LoginProvider>(
+                                                    Provider.of<LoginProvider>(
                                                             context,
                                                             listen: false)
-                                                        .referResponse['message']);
+                                                        .errorDialog(
+                                                            context,
+                                                            Provider.of<LoginProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .referResponse[
+                                                                'message'],
+                                                            mediaQuery);
                                                   }
                                                 } else {
                                                   setState(() {
                                                     isRefer = false;
                                                   });
-                                                  errorDialog(
-                                                      'Something went Wrong');
+                                                  Provider.of<LoginProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .errorDialog(
+                                                          context,
+                                                          'Something went Wrong',
+                                                          mediaQuery);
                                                   throw Exception(
                                                       'Failed to Connect');
                                                 }
@@ -1185,4 +1107,5 @@ class _ReferFriendState extends State<ReferFriend> {
       ),
     );
   }
+
 }
