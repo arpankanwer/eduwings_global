@@ -102,208 +102,215 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         material: (_, __) => MaterialAppBarData(centerTitle: true),
       ),
-      body: Container(
-        height: mediaQuery.height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40.0),
-            topLeft: Radius.circular(40.0),
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Container(
+          height: mediaQuery.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(40.0),
+              topLeft: Radius.circular(40.0),
+            ),
+            color: Colors.grey[300],
           ),
-          color: Colors.grey[300],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(mediaQuery.height * 0.01),
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Form(
-                            key: forgotPasswordForm,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.04),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.03,
-                                  ),
-                                  ShaderMask(
-                                    shaderCallback: (bounds) {
-                                      return LinearGradient(colors: [
-                                        Color.fromRGBO(97, 6, 165, 1.0),
-                                        Color.fromRGBO(45, 160, 240, 1.0)
-                                      ]).createShader(
-                                          Offset.zero & bounds.size);
-                                    },
-                                    child: Text('Forgot Password',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Exo2',
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.02,
-                                  ),
-                                  CircleAvatar(
-                                    maxRadius: 42,
-                                    child: Image.asset(
-                                        "assets/icons/imgforgot.png"),
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.03,
-                                  ),
-                                  Container(
-                                      child: einField(context, mediaQuery)),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                      child: mobNoField(context, mediaQuery)),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          _selectDate(context, mediaQuery),
-                                      child: AbsorbPointer(
-                                        child: dobField(context, mediaQuery),
+          child: Padding(
+            padding: EdgeInsets.all(mediaQuery.height * 0.01),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Form(
+                              key: forgotPasswordForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: mediaQuery.width * 0.04),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.03,
+                                    ),
+                                    ShaderMask(
+                                      shaderCallback: (bounds) {
+                                        return LinearGradient(colors: [
+                                          Color.fromRGBO(97, 6, 165, 1.0),
+                                          Color.fromRGBO(45, 160, 240, 1.0)
+                                        ]).createShader(
+                                            Offset.zero & bounds.size);
+                                      },
+                                      child: Text('Forgot Password',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Exo2',
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
+                                    ),
+                                    CircleAvatar(
+                                      maxRadius: 42,
+                                      child: Image.asset(
+                                          "assets/icons/imgforgot.png"),
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.03,
+                                    ),
+                                    Container(
+                                        child: einField(context, mediaQuery)),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                        child: mobNoField(context, mediaQuery)),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            _selectDate(context, mediaQuery),
+                                        child: AbsorbPointer(
+                                          child: dobField(context, mediaQuery),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.02,
-                                  ),
-                                  Container(
-                                      child: CupertinoButton(
-                                    disabledColor: Colors.white,
-                                    color: platformThemeData(
-                                      context,
-                                      material: (data) => data.primaryColor,
-                                      cupertino: (data) => data.primaryColor,
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
                                     ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    onPressed: isForgot == true
-                                        ? null
-                                        : () {
-                                            if (!forgotPasswordForm
-                                                .currentState!
-                                                .validate()) {
-                                              return;
-                                            }
-                                            forgotPasswordForm.currentState!
-                                                .save();
-                                            setState(() {
-                                              isForgot = true;
-                                            });
-                                            // Provider.of<LoginProvider>(context,
-                                            //         listen: false)
-                                            //     .login(mobNo.text, password.text)
-                                            //     .then(
-                                            //   (response) {
-                                            //     setState(() {
-                                            //       isRegister = false;
-                                            //     });
-                                            //     if (response.statusCode == 200) {
-                                            //       var userData =
-                                            //           json.decode(response.body);
-                                            //       if (userData.length == 0) {
-                                            //         // ScaffoldMessenger.of(
-                                            //         //         context)
-                                            //         //     .showSnackBar(
-                                            //         //   SnackBar(
-                                            //         //     content: Text(
-                                            //         //         'Invalid Mobile No. or Password'),
-                                            //         //     backgroundColor:
-                                            //         //         Colors.red,
-                                            //         //   ),
-                                            //         // );
-                                            //         showDialog(
-                                            //           useSafeArea: true,
-                                            //           barrierDismissible: false,
-                                            //           context: context,
-                                            //           builder: (BuildContext
-                                            //                   context) =>
-                                            //               CupertinoAlertDialog(
-                                            //             title: Text(
-                                            //                 "Wrong Credentials"),
-                                            //             content: Text(
-                                            //                 "Invalid EIN or Password"),
-                                            //             actions: [
-                                            //               CupertinoDialogAction(
-                                            //                 onPressed: () =>
-                                            //                     Navigator.of(
-                                            //                             context)
-                                            //                         .pop(),
-                                            //                 child: Text(
-                                            //                   "Close",
-                                            //                   style: TextStyle(
-                                            //                       color:
-                                            //                           Colors.red),
-                                            //                 ),
-                                            //               ),
-                                            //             ],
-                                            //           ),
-                                            //         );
-                                            //       } else {
-                                            //         Provider.of<LoginProvider>(
-                                            //                 context,
-                                            //                 listen: false)
-                                            //             .setSharedData(
-                                            //                 userData[0])
-                                            //             .then((value) => Navigator
-                                            //                     .of(context)
-                                            //                 .pushReplacementNamed(
-                                            //                     '/homePage'));
-                                            //       }
-                                            //     } else {
-                                            //       throw Exception(
-                                            //           'Failed to Connect');
-                                            //     }
-                                            // },
-                                            // );
-                                          },
-                                    child: isForgot == false
-                                        ? Text(
-                                            'Forgot',
-                                            style: platformThemeData(
-                                              context,
-                                              material: (data) =>
-                                                  data.textTheme.headline4,
-                                              cupertino: (data) => data
-                                                  .textTheme.navTitleTextStyle,
+                                    Container(
+                                        child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => data.primaryColor,
+                                        cupertino: (data) => data.primaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      onPressed: isForgot == true
+                                          ? null
+                                          : () {
+                                              if (!forgotPasswordForm
+                                                  .currentState!
+                                                  .validate()) {
+                                                return;
+                                              }
+                                              forgotPasswordForm.currentState!
+                                                  .save();
+                                              setState(() {
+                                                isForgot = true;
+                                              });
+                                              // Provider.of<LoginProvider>(context,
+                                              //         listen: false)
+                                              //     .login(mobNo.text, password.text)
+                                              //     .then(
+                                              //   (response) {
+                                              //     setState(() {
+                                              //       isRegister = false;
+                                              //     });
+                                              //     if (response.statusCode == 200) {
+                                              //       var userData =
+                                              //           json.decode(response.body);
+                                              //       if (userData.length == 0) {
+                                              //         // ScaffoldMessenger.of(
+                                              //         //         context)
+                                              //         //     .showSnackBar(
+                                              //         //   SnackBar(
+                                              //         //     content: Text(
+                                              //         //         'Invalid Mobile No. or Password'),
+                                              //         //     backgroundColor:
+                                              //         //         Colors.red,
+                                              //         //   ),
+                                              //         // );
+                                              //         showDialog(
+                                              //           useSafeArea: true,
+                                              //           barrierDismissible: false,
+                                              //           context: context,
+                                              //           builder: (BuildContext
+                                              //                   context) =>
+                                              //               CupertinoAlertDialog(
+                                              //             title: Text(
+                                              //                 "Wrong Credentials"),
+                                              //             content: Text(
+                                              //                 "Invalid EIN or Password"),
+                                              //             actions: [
+                                              //               CupertinoDialogAction(
+                                              //                 onPressed: () =>
+                                              //                     Navigator.of(
+                                              //                             context)
+                                              //                         .pop(),
+                                              //                 child: Text(
+                                              //                   "Close",
+                                              //                   style: TextStyle(
+                                              //                       color:
+                                              //                           Colors.red),
+                                              //                 ),
+                                              //               ),
+                                              //             ],
+                                              //           ),
+                                              //         );
+                                              //       } else {
+                                              //         Provider.of<LoginProvider>(
+                                              //                 context,
+                                              //                 listen: false)
+                                              //             .setSharedData(
+                                              //                 userData[0])
+                                              //             .then((value) => Navigator
+                                              //                     .of(context)
+                                              //                 .pushReplacementNamed(
+                                              //                     '/homePage'));
+                                              //       }
+                                              //     } else {
+                                              //       throw Exception(
+                                              //           'Failed to Connect');
+                                              //     }
+                                              // },
+                                              // );
+                                            },
+                                      child: isForgot == false
+                                          ? Text(
+                                              'Forgot',
+                                              style: platformThemeData(
+                                                context,
+                                                material: (data) =>
+                                                    data.textTheme.headline4,
+                                                cupertino: (data) => data
+                                                    .textTheme
+                                                    .navTitleTextStyle,
+                                              ),
+                                            )
+                                          : Center(
+                                              child:
+                                                  CupertinoActivityIndicator(),
                                             ),
-                                          )
-                                        : Center(
-                                            child: CupertinoActivityIndicator(),
-                                          ),
-                                  )),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.02,
-                                  ),
-                                ],
+                                    )),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

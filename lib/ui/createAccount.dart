@@ -21,20 +21,8 @@ class _CreateAccountState extends State<CreateAccount> {
   int purposeIndex = 0;
   bool isRegister = false;
 
-  final qualificationList = [
-    '12th',
-    'Diploma',
-    'Graduate',
-    'Post Graduate',
-    'Others',
-  ];
-  final purposeList = [
-    'Study Visa',
-    'PR',
-    'Tourist Visa',
-    'Business Visa',
-    'Others',
-  ];
+  List qualificationList = [];
+  List purposeList = [];
 
   final TextEditingController fullName = TextEditingController();
   final TextEditingController mobNo = TextEditingController();
@@ -51,6 +39,10 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void initState() {
     super.initState();
+    qualificationList =
+        Provider.of<LoginProvider>(context, listen: false).qualificationList;
+    purposeList =
+        Provider.of<LoginProvider>(context, listen: false).purposeList;
     qualificationController =
         FixedExtentScrollController(initialItem: qualificationIndex);
     purposeController = FixedExtentScrollController(initialItem: purposeIndex);
@@ -59,6 +51,10 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void dispose() {
     super.dispose();
+    fullNameFocusNode.dispose();
+    mobNoFocusNode.dispose();
+    qualificationFocusNode.dispose();
+    ieltsFocusNode.dispose();
     qualificationController.dispose();
     purposeController.dispose();
   }
@@ -67,271 +63,279 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return PlatformScaffold(
-      // backgroundColor: Theme.of(context).primaryColor,
       appBar: PlatformAppBar(
         title: Text(
           'Registration Form',
         ),
         material: (_, __) => MaterialAppBarData(centerTitle: true),
       ),
-      body: Container(
-        height: mediaQuery.height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40.0),
-            topLeft: Radius.circular(40.0),
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Container(
+          height: mediaQuery.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(40.0),
+              topLeft: Radius.circular(40.0),
+            ),
+            color: Colors.grey[300],
           ),
-          color: Colors.grey[300],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(mediaQuery.height * 0.01),
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Form(
-                            key: createAccountForm,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.04),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.03,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Have you registed already? "),
-                                      InkWell(
+          child: Padding(
+            padding: EdgeInsets.all(mediaQuery.height * 0.01),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Form(
+                              key: createAccountForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: mediaQuery.width * 0.04),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.03,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text("Have you registed already? "),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed('/login');
+                                          },
+                                          child: Text(
+                                            "Login Here",
+                                            style: TextStyle(
+                                                color: Colors.deepOrange),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.03,
+                                    ),
+                                    Container(
+                                      child: fullNameField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: mobNoField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context)
-                                              .pushReplacementNamed('/login');
+                                          qualificationController.dispose();
+                                          qualificationController =
+                                              FixedExtentScrollController(
+                                                  initialItem:
+                                                      qualificationIndex);
+                                          showCupertinoModalPopup(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CupertinoActionSheet(
+                                                      actions: [
+                                                        qualificationSheet(
+                                                            mediaQuery,
+                                                            qualificationController)
+                                                      ],
+                                                      cancelButton:
+                                                          CupertinoActionSheetAction(
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
+                                                              child: Text(
+                                                                  'Cancel'))));
                                         },
-                                        child: Text(
-                                          "Login Here",
-                                          style: TextStyle(
-                                              color: Colors.deepOrange),
+                                        child: AbsorbPointer(
+                                          child: qualificationField(
+                                              context, mediaQuery),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.03,
-                                  ),
-                                  Container(
-                                    child: fullNameField(context, mediaQuery),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                    child: mobNoField(context, mediaQuery),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        qualificationController.dispose();
-                                        qualificationController =
-                                            FixedExtentScrollController(
-                                                initialItem:
-                                                    qualificationIndex);
-                                        showCupertinoModalPopup(
-                                            context: context,
-                                            builder: (context) =>
-                                                CupertinoActionSheet(
-                                                    actions: [
-                                                      qualificationSheet(
-                                                          mediaQuery,
-                                                          qualificationController)
-                                                    ],
-                                                    cancelButton:
-                                                        CupertinoActionSheetAction(
-                                                            onPressed: () =>
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(),
-                                                            child: Text(
-                                                                'Cancel'))));
-                                      },
-                                      child: AbsorbPointer(
-                                        child: qualificationField(
-                                            context, mediaQuery),
-                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                    child: ieltsField(context, mediaQuery),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.01,
-                                  ),
-                                  Container(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        purposeController.dispose();
-                                        purposeController =
-                                            FixedExtentScrollController(
-                                                initialItem: purposeIndex);
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: ieltsField(context, mediaQuery),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Container(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          purposeController.dispose();
+                                          purposeController =
+                                              FixedExtentScrollController(
+                                                  initialItem: purposeIndex);
 
-                                        showCupertinoModalPopup(
-                                            context: context,
-                                            builder: (context) =>
-                                                CupertinoActionSheet(
-                                                    actions: [
-                                                      purposeSheet(mediaQuery,
-                                                          purposeController)
-                                                    ],
-                                                    cancelButton:
-                                                        CupertinoActionSheetAction(
-                                                            onPressed: () =>
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(),
-                                                            child: Text(
-                                                                'Cancel'))));
-                                      },
-                                      child: AbsorbPointer(
-                                        child:
-                                            purposeField(context, mediaQuery),
+                                          showCupertinoModalPopup(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CupertinoActionSheet(
+                                                      actions: [
+                                                        purposeSheet(mediaQuery,
+                                                            purposeController)
+                                                      ],
+                                                      cancelButton:
+                                                          CupertinoActionSheetAction(
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
+                                                              child: Text(
+                                                                  'Cancel'))));
+                                        },
+                                        child: AbsorbPointer(
+                                          child:
+                                              purposeField(context, mediaQuery),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.02,
-                                  ),
-                                  Container(
-                                      child: CupertinoButton(
-                                    disabledColor: Colors.white,
-                                    color: platformThemeData(
-                                      context,
-                                      material: (data) => data.primaryColor,
-                                      cupertino: (data) => data.primaryColor,
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
                                     ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    onPressed: isRegister == true
-                                        ? null
-                                        : () {
-                                            if (!createAccountForm.currentState!
-                                                .validate()) {
-                                              return;
-                                            }
-                                            createAccountForm.currentState!
-                                                .save();
-                                            setState(() {
-                                              isRegister = true;
-                                            });
-                                            // Provider.of<LoginProvider>(context,
-                                            //         listen: false)
-                                            //     .login(mobNo.text, password.text)
-                                            //     .then(
-                                            //   (response) {
-                                            //     setState(() {
-                                            //       isRegister = false;
-                                            //     });
-                                            //     if (response.statusCode == 200) {
-                                            //       var userData =
-                                            //           json.decode(response.body);
-                                            //       if (userData.length == 0) {
-                                            //         // ScaffoldMessenger.of(
-                                            //         //         context)
-                                            //         //     .showSnackBar(
-                                            //         //   SnackBar(
-                                            //         //     content: Text(
-                                            //         //         'Invalid Mobile No. or Password'),
-                                            //         //     backgroundColor:
-                                            //         //         Colors.red,
-                                            //         //   ),
-                                            //         // );
-                                            //         showDialog(
-                                            //           useSafeArea: true,
-                                            //           barrierDismissible: false,
-                                            //           context: context,
-                                            //           builder: (BuildContext
-                                            //                   context) =>
-                                            //               CupertinoAlertDialog(
-                                            //             title: Text(
-                                            //                 "Wrong Credentials"),
-                                            //             content: Text(
-                                            //                 "Invalid EIN or Password"),
-                                            //             actions: [
-                                            //               CupertinoDialogAction(
-                                            //                 onPressed: () =>
-                                            //                     Navigator.of(
-                                            //                             context)
-                                            //                         .pop(),
-                                            //                 child: Text(
-                                            //                   "Close",
-                                            //                   style: TextStyle(
-                                            //                       color:
-                                            //                           Colors.red),
-                                            //                 ),
-                                            //               ),
-                                            //             ],
-                                            //           ),
-                                            //         );
-                                            //       } else {
-                                            //         Provider.of<LoginProvider>(
-                                            //                 context,
-                                            //                 listen: false)
-                                            //             .setSharedData(
-                                            //                 userData[0])
-                                            //             .then((value) => Navigator
-                                            //                     .of(context)
-                                            //                 .pushReplacementNamed(
-                                            //                     '/homePage'));
-                                            //       }
-                                            //     } else {
-                                            //       throw Exception(
-                                            //           'Failed to Connect');
-                                            //     }
-                                            // },
-                                            // );
-                                          },
-                                    child: isRegister == false
-                                        ? Text(
-                                            'Register',
-                                            style: platformThemeData(
-                                              context,
-                                              material: (data) =>
-                                                  data.textTheme.headline4,
-                                              cupertino: (data) => data
-                                                  .textTheme.navTitleTextStyle,
+                                    Container(
+                                        child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => data.primaryColor,
+                                        cupertino: (data) => data.primaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      onPressed: isRegister == true
+                                          ? null
+                                          : () {
+                                              if (!createAccountForm
+                                                  .currentState!
+                                                  .validate()) {
+                                                return;
+                                              }
+                                              createAccountForm.currentState!
+                                                  .save();
+                                              setState(() {
+                                                isRegister = true;
+                                              });
+                                              // Provider.of<LoginProvider>(context,
+                                              //         listen: false)
+                                              //     .login(mobNo.text, password.text)
+                                              //     .then(
+                                              //   (response) {
+                                              //     setState(() {
+                                              //       isRegister = false;
+                                              //     });
+                                              //     if (response.statusCode == 200) {
+                                              //       var userData =
+                                              //           json.decode(response.body);
+                                              //       if (userData.length == 0) {
+                                              //         // ScaffoldMessenger.of(
+                                              //         //         context)
+                                              //         //     .showSnackBar(
+                                              //         //   SnackBar(
+                                              //         //     content: Text(
+                                              //         //         'Invalid Mobile No. or Password'),
+                                              //         //     backgroundColor:
+                                              //         //         Colors.red,
+                                              //         //   ),
+                                              //         // );
+                                              //         showDialog(
+                                              //           useSafeArea: true,
+                                              //           barrierDismissible: false,
+                                              //           context: context,
+                                              //           builder: (BuildContext
+                                              //                   context) =>
+                                              //               CupertinoAlertDialog(
+                                              //             title: Text(
+                                              //                 "Wrong Credentials"),
+                                              //             content: Text(
+                                              //                 "Invalid EIN or Password"),
+                                              //             actions: [
+                                              //               CupertinoDialogAction(
+                                              //                 onPressed: () =>
+                                              //                     Navigator.of(
+                                              //                             context)
+                                              //                         .pop(),
+                                              //                 child: Text(
+                                              //                   "Close",
+                                              //                   style: TextStyle(
+                                              //                       color:
+                                              //                           Colors.red),
+                                              //                 ),
+                                              //               ),
+                                              //             ],
+                                              //           ),
+                                              //         );
+                                              //       } else {
+                                              //         Provider.of<LoginProvider>(
+                                              //                 context,
+                                              //                 listen: false)
+                                              //             .setSharedData(
+                                              //                 userData[0])
+                                              //             .then((value) => Navigator
+                                              //                     .of(context)
+                                              //                 .pushReplacementNamed(
+                                              //                     '/homePage'));
+                                              //       }
+                                              //     } else {
+                                              //       throw Exception(
+                                              //           'Failed to Connect');
+                                              //     }
+                                              // },
+                                              // );
+                                            },
+                                      child: isRegister == false
+                                          ? Text(
+                                              'Register',
+                                              style: platformThemeData(
+                                                context,
+                                                material: (data) =>
+                                                    data.textTheme.headline4,
+                                                cupertino: (data) => data
+                                                    .textTheme
+                                                    .navTitleTextStyle,
+                                              ),
+                                            )
+                                          : Center(
+                                              child:
+                                                  CupertinoActivityIndicator(),
                                             ),
-                                          )
-                                        : Center(
-                                            child: CupertinoActivityIndicator(),
-                                          ),
-                                  )),
-                                  SizedBox(
-                                    height: mediaQuery.height * 0.02,
-                                  ),
-                                ],
+                                    )),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -412,6 +416,10 @@ class _CreateAccountState extends State<CreateAccount> {
       validator: (value) {
         if (value?.isEmpty == true || value == null) {
           return "Mobile No. can't be Empty";
+        } else if (value.length < 10) {
+          return 'Invalid Mobile Number';
+        } else if (value.length > 10) {
+          return "Invalid Mobile Number";
         }
         return null;
       },

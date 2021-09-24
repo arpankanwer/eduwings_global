@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
@@ -134,23 +135,26 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                     height: mediaQuery.height * 0.04,
                                   ),
                                   Container(
-                                    width: mediaQuery.width * 0.3,
-                                    height: mediaQuery.width * 0.11,
-                                    child: ElevatedButton(
-                                      style: TextButton.styleFrom(
-                                          backgroundColor:
-                                              Theme.of(context).primaryColor,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20))),
+                                    child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => data.primaryColor,
+                                        cupertino: (data) => data.primaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
                                       onPressed: () {
                                         launch('tel:${user.counselorMobNo}');
                                       },
                                       child: Text(
                                         'Call',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1,
+                                        style: platformThemeData(
+                                          context,
+                                          material: (data) =>
+                                              data.textTheme.headline1,
+                                          cupertino: (data) =>
+                                              data.textTheme.navTitleTextStyle,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -158,14 +162,15 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                     height: mediaQuery.height * 0.02,
                                   ),
                                   Container(
-                                    // width: mediaQuery.width * 0.3,
-                                    height: mediaQuery.width * 0.11,
-                                    child: ElevatedButton(
-                                      style: TextButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20))),
+                                    child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => Colors.green,
+                                        cupertino: (data) =>
+                                            CupertinoColors.activeGreen,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
                                       onPressed: () {
                                         Provider.of<LoginProvider>(context,
                                                 listen: false)
@@ -174,9 +179,13 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                       },
                                       child: Text(
                                         'Whatsapp',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1,
+                                        style: platformThemeData(
+                                          context,
+                                          material: (data) =>
+                                              data.textTheme.headline1,
+                                          cupertino: (data) =>
+                                              data.textTheme.navTitleTextStyle,
+                                        ),
                                       ),
                                     ),
                                   ),

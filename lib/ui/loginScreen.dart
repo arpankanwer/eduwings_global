@@ -108,6 +108,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Container(
                                       child: einField(context, mediaQuery),
                                     ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(
+                                    //       left: mediaQuery.width * 0.1,
+                                    //       right: mediaQuery.width * 0.01),
+                                    //   child: Divider(
+                                    //     color: Colors.black45,
+                                    //   ),
+                                    // ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
@@ -331,7 +339,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Icon(
               CupertinoIcons.number_circle_fill,
               color: CupertinoTheme.of(context).primaryColor,
-              // size: 40,
             ),
             SizedBox(
               width: mediaQuery.width * 0.02,
@@ -415,7 +422,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // TextFormField passwordField(context) {
+  // TextFormField passwordField(context, mediaQuery) {
   //   return TextFormField(
   //     focusNode: passwordFocusNode,
   //     textInputAction: TextInputAction.done,
@@ -434,35 +441,35 @@ class _LoginScreenState extends State<LoginScreen> {
   //       material: (data) => data.textTheme.headline3,
   //       cupertino: (data) => data.textTheme.actionTextStyle,
   //     ),
-  //     decoration: Theme.of(context)..inputDecorationTheme,
-  //     // decoration: InputDecoration(
-  //     //   isDense: Theme.of(context).inputDecorationTheme.isDense,
-  //     //   labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-  //     //   hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-  //     //   border: Theme.of(context).inputDecorationTheme.border,
-  //     //   focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-  //     //   enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-  //     //   errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
-  //     //   prefixIcon: Icon(
-  //     //     CupertinoIcons.lock_fill,
-  //     //     color: Theme.of(context).primaryColor,
-  //     //   ),
-  //     //   suffixIcon: GestureDetector(
-  //     //     onTap: () {
-  //     //       setState(() {
-  //     //         _obscureText = !_obscureText;
-  //     //       });
-  //     //     },
-  //     //     child: Icon(
-  //     //       _obscureText
-  //     //           ? CupertinoIcons.eye_slash_fill
-  //     //           : CupertinoIcons.eye_fill,
-  //     //       semanticLabel: _obscureText ? 'Show Password' : 'Hide Password',
-  //     //     ),
-  //     //   ),
-  //     //   hintText: 'Enter Password *',
-  //     //   labelText: 'Enter Password *',
-  //     // ),
+  //     // decoration: Theme.of(context).inputDecoration,
+  //     decoration: InputDecoration(
+  //       // isDense: Theme.of(context).inputDecorationTheme.isDense,
+  //       // labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+  //       // hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+  //       // border: Theme.of(context).inputDecorationTheme.border,
+  //       // focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+  //       // enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+  //       // errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
+  //       prefixIcon: Icon(
+  //         CupertinoIcons.lock_fill,
+  //         color: Theme.of(context).primaryColor,
+  //       ),
+  //       suffixIcon: GestureDetector(
+  //         onTap: () {
+  //           setState(() {
+  //             _obscureText = !_obscureText;
+  //           });
+  //         },
+  //         child: Icon(
+  //           _obscureText
+  //               ? CupertinoIcons.eye_slash_fill
+  //               : CupertinoIcons.eye_fill,
+  //           semanticLabel: _obscureText ? 'Show Password' : 'Hide Password',
+  //         ),
+  //       ),
+  //       hintText: 'Enter Password *',
+  //       labelText: 'Enter Password *',
+  //     ),
   //   );
   // }
 

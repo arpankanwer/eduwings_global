@@ -13,7 +13,29 @@ class LoginProvider with ChangeNotifier {
   String apiKey = "ZUthbndlckluZGlhTHVkaGlhbmE=";
   String loginServerApi = "CheckUsernamePassword.php";
   String resetPasswordApi = "resetPassword.php";
+  String leadFormServerApi = "setLeadForm.php";
   var resetResponse;
+  var referResponse;
+
+  final qualificationList = [
+    '12th',
+    'Diploma',
+    'Graduate',
+    'Post Graduate',
+    'Others',
+  ];
+  final purposeList = [
+    'Study Visa',
+    'PR',
+    'Tourist Visa',
+    'Business Visa',
+    'Others',
+  ];
+  final genderList = [
+    'Male',
+    'Female',
+    'Other',
+  ];
 
   Future setSharedData(userData) async {
     final prefs = await SharedPreferences.getInstance();
@@ -94,6 +116,29 @@ class LoginProvider with ChangeNotifier {
       "khatanaam": mobNo,
       "khatacode": password,
     });
+    return response;
+  }
+
+  Future referFriend(stuFName, stuLName, stuMobNo, stuWhatsappMobNo, stuEmail,
+      stuGender, stuQualification, stuIelts, stuPurpose, formID) async {
+    final response =
+        await http.post(Uri.parse('$urlBase' + '$leadFormServerApi'), headers: {
+      'APIKEY': '$apiKey'
+    }, body: {
+      "stdfName": stuFName,
+      "stdlName": stuLName,
+      "stdMobileNo": stuMobNo,
+      "stdWhatsappNo": stuWhatsappMobNo,
+      "stdEmail": stuEmail,
+      "stdGender": stuGender,
+      "stdQualification": stuQualification,
+      "stdIelts": stuIelts,
+      "stdPurpose": stuPurpose,
+      "cDate": null,
+      "source": 'StudentApp',
+      "reference": formID,
+    });
+    referResponse = json.decode(response.body);
     return response;
   }
 

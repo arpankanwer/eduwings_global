@@ -110,10 +110,10 @@ class MyThemes {
         color: Colors.white,
         fontSize: 20,
       ),
-      tabLabelTextStyle:TextStyle(
+      tabLabelTextStyle: TextStyle(
         fontSize: 17,
         color: Colors.black,
-      ) ,
+      ),
       textStyle: TextStyle(
         fontSize: 17,
         color: Colors.white,
