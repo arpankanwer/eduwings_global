@@ -7,7 +7,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 import '../provider/profileProvider.dart';
 
 class Profile extends StatefulWidget {
@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
 
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {

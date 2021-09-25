@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class AboutEduwings extends StatelessWidget {
   final bool fromDrawer;
@@ -167,7 +167,7 @@ class AboutEduwings extends StatelessWidget {
                             children: <Widget>[
                               InkWell(
                                 onTap: () {
-                                  Provider.of<LoginProvider>(context,
+                                  Provider.of<AppProvider>(context,
                                           listen: false)
                                       .websiteUrl();
                                 },
@@ -193,7 +193,7 @@ class AboutEduwings extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Provider.of<LoginProvider>(context,
+                                  Provider.of<AppProvider>(context,
                                           listen: false)
                                       .facebookUrl();
                                 },
@@ -219,7 +219,7 @@ class AboutEduwings extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Provider.of<LoginProvider>(context,
+                                  Provider.of<AppProvider>(context,
                                           listen: false)
                                       .instagramUrl();
                                 },

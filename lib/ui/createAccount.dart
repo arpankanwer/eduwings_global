@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -52,10 +52,10 @@ class _CreateAccountState extends State<CreateAccount> {
     super.initState();
 
     qualificationList =
-        Provider.of<LoginProvider>(context, listen: false).qualificationList;
+        Provider.of<AppProvider>(context, listen: false).qualificationList;
     purposeList =
-        Provider.of<LoginProvider>(context, listen: false).purposeList;
-    genderList = Provider.of<LoginProvider>(context, listen: false).genderList;
+        Provider.of<AppProvider>(context, listen: false).purposeList;
+    genderList = Provider.of<AppProvider>(context, listen: false).genderList;
 
     qualificationController =
         FixedExtentScrollController(initialItem: qualificationIndex);
@@ -125,13 +125,38 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: mediaQuery.height * 0.03,
+                                      height: mediaQuery.height * 0.02,
+                                    ),
+                                    ShaderMask(
+                                      shaderCallback: (bounds) {
+                                        return LinearGradient(colors: [
+                                          Color.fromRGBO(97, 6, 165, 1.0),
+                                          Color.fromRGBO(45, 160, 240, 1.0)
+                                        ]).createShader(
+                                            Offset.zero & bounds.size);
+                                      },
+                                      child: Text('Registration Form',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Exo2',
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.02,
                                     ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text("Have you registed already? "),
+                                        Text(
+                                          "Have you registed already? ",
+                                          style: platformThemeData(context,
+                                              material: (data) =>
+                                                  data.textTheme.headline3,
+                                              cupertino: (data) => data
+                                                  .textTheme.actionTextStyle),
+                                        ),
                                         InkWell(
                                           onTap: () {
                                             Navigator.of(context)
@@ -139,8 +164,17 @@ class _CreateAccountState extends State<CreateAccount> {
                                           },
                                           child: Text(
                                             "Login Here",
-                                            style: TextStyle(
-                                                color: Colors.deepOrange),
+                                            style: platformThemeData(context,
+                                                material: (data) => data
+                                                    .textTheme.headline3
+                                                    ?.copyWith(
+                                                        color:
+                                                            Colors.deepOrange),
+                                                cupertino: (data) => data
+                                                    .textTheme.actionTextStyle
+                                                    .copyWith(
+                                                        color:
+                                                            Colors.deepOrange)),
                                           ),
                                         ),
                                       ],
@@ -309,7 +343,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                               setState(() {
                                                 isRegister = true;
                                               });
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .referFriend(
@@ -328,7 +362,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                                   isRegister = false;
                                                 });
                                                 if (value.statusCode == 200) {
-                                                  if (Provider.of<LoginProvider>(
+                                                  if (Provider.of<AppProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .referResponse[
@@ -341,12 +375,12 @@ class _CreateAccountState extends State<CreateAccount> {
                                                         .pushReplacementNamed(
                                                             '/login');
 
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .successDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -354,12 +388,12 @@ class _CreateAccountState extends State<CreateAccount> {
                                                                 'message'],
                                                             mediaQuery);
                                                   } else {
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .errorDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -371,7 +405,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                                   setState(() {
                                                     isRegister = false;
                                                   });
-                                                  Provider.of<LoginProvider>(
+                                                  Provider.of<AppProvider>(
                                                           context,
                                                           listen: false)
                                                       .errorDialog(

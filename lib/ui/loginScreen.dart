@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -86,15 +86,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Text(
-                                      'Student Login',
-                                      style: platformThemeData(
-                                        context,
-                                        material: (data) =>
-                                            data.textTheme.subtitle2,
-                                        cupertino: (data) =>
-                                            data.textTheme.tabLabelTextStyle,
-                                      ),
+                                    ShaderMask(
+                                      shaderCallback: (bounds) {
+                                        return LinearGradient(colors: [
+                                          Color.fromRGBO(97, 6, 165, 1.0),
+                                          Color.fromRGBO(45, 160, 240, 1.0)
+                                        ]).createShader(
+                                            Offset.zero & bounds.size);
+                                      },
+                                      child: Text('Student Login',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Exo2',
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold)),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
@@ -128,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    GestureDetector(
+                                    InkWell(
                                         onTap: () {
                                           Navigator.of(context)
                                               .pushNamed("/forgotPassword");
@@ -150,8 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       height: mediaQuery.height * 0.02,
                                     ),
                                     Container(
-                                      // height: mediaQuery.height * 0.2,
-                                      // width: mediaQuery.width * 0.5,
                                       child: CupertinoButton(
                                         disabledColor: Colors.white,
                                         color: platformThemeData(
@@ -172,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 setState(() {
                                                   isLogin = true;
                                                 });
-                                                Provider.of<LoginProvider>(
+                                                Provider.of<AppProvider>(
                                                         context,
                                                         listen: false)
                                                     .login(mobNo.text,
@@ -228,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           ),
                                                         );
                                                       } else {
-                                                        Provider.of<LoginProvider>(
+                                                        Provider.of<AppProvider>(
                                                                 context,
                                                                 listen: false)
                                                             .setSharedData(
@@ -402,7 +405,7 @@ class _LoginScreenState extends State<LoginScreen> {
             CupertinoIcons.lock_fill,
             color: Theme.of(context).primaryColor,
           ),
-          suffixIcon: GestureDetector(
+          suffixIcon: InkWell(
             onTap: () {
               setState(() {
                 _obscureText = !_obscureText;

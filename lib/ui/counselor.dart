@@ -9,7 +9,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class CounselorSupport extends StatefulWidget {
   final bool fromDrawer;
@@ -44,7 +44,7 @@ class _CounselorSupportState extends State<CounselorSupport> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -173,7 +173,7 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: () {
-                                        Provider.of<LoginProvider>(context,
+                                        Provider.of<AppProvider>(context,
                                                 listen: false)
                                             .openWhatsapp(
                                                 context, user.counselorMobNo);

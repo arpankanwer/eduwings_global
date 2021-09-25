@@ -1,3 +1,4 @@
+import 'package:eduwings_global/ui/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       case DrawerItems.applicationStatus:
         return DashBoardPage();
       case DrawerItems.notifications:
-        return DashBoardPage();
+        return Notifications(fromDrawer: true);
       case DrawerItems.callCounselor:
         return CounselorSupport(fromDrawer: true);
       case DrawerItems.resetPassword:

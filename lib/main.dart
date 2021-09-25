@@ -1,4 +1,5 @@
 import 'package:eduwings_global/ui/changePassword.dart';
+import 'package:eduwings_global/ui/notifications.dart';
 import 'package:eduwings_global/ui/otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'provider/theme.dart';
 import 'screens/splashScreen.dart';
 
-import 'provider/login.dart';
+import 'provider/appProvider.dart';
 import 'provider/profileProvider.dart';
 
 import 'ui/loginScreen.dart';
@@ -22,6 +23,7 @@ import 'ui/profilePage.dart';
 import 'ui/resetPassword.dart';
 import 'ui/createAccount.dart';
 import 'ui/forgotPassword.dart';
+import 'ui/testimonial.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: LoginProvider(),
+          value: AppProvider(),
         ),
         ChangeNotifierProvider.value(
           value: ProfileProvider(),
@@ -108,6 +110,13 @@ class MyApp extends StatelessWidget {
                 case '/changePassword':
                   return CupertinoPageRoute(
                       builder: (_) => ChangePassword(), settings: settings);
+                case '/notifications':
+                  return CupertinoPageRoute(
+                      builder: (_) => Notifications(fromDrawer: false),
+                      settings: settings);
+                case '/testimonial':
+                  return CupertinoPageRoute(
+                      builder: (_) => Testimonial(), settings: settings);
               }
             },
             // routes: {
@@ -162,6 +171,16 @@ class MyApp extends StatelessWidget {
                 case '/forgotPassword':
                   return CupertinoPageRoute(
                       builder: (_) => ForgotPassword(), settings: settings);
+                case '/otp':
+                  return CupertinoPageRoute(
+                      builder: (_) => Otp(), settings: settings);
+                case '/changePassword':
+                  return CupertinoPageRoute(
+                      builder: (_) => ChangePassword(), settings: settings);
+                case '/notifications':
+                  return CupertinoPageRoute(
+                      builder: (_) => Notifications(fromDrawer: false),
+                      settings: settings);
               }
             },
           ),

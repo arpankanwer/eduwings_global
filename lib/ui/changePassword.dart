@@ -1,5 +1,5 @@
 import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
+import 'package:eduwings_global/provider/appProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -48,7 +48,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -180,7 +180,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                                 isChange = true;
                                               });
 
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .changePassword(
@@ -192,7 +192,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                                   isChange = false;
                                                 });
                                                 if (value.statusCode == 200) {
-                                                  if (Provider.of<LoginProvider>(
+                                                  if (Provider.of<AppProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .changePasswordResponse[
@@ -205,12 +205,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                                     Navigator.of(context)
                                                         .pushReplacementNamed(
                                                             '/login');
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .successDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -218,12 +218,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                                                                 'message'],
                                                             mediaQuery);
                                                   } else {
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .errorDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -235,7 +235,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                                   setState(() {
                                                     isChange = false;
                                                   });
-                                                  Provider.of<LoginProvider>(
+                                                  Provider.of<AppProvider>(
                                                           context,
                                                           listen: false)
                                                       .errorDialog(

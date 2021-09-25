@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -211,7 +211,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                 isForgot = true;
                                               });
 
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .forgotPassword(
@@ -224,7 +224,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                   isForgot = false;
                                                 });
                                                 if (value.statusCode == 200) {
-                                                  if (Provider.of<LoginProvider>(
+                                                  if (Provider.of<AppProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .forgotResponse[
@@ -233,11 +233,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                     forgotPasswordForm
                                                         .currentState
                                                         ?.reset();
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .saveOtp(int.parse(Provider
-                                                                    .of<LoginProvider>(
+                                                                    .of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -250,12 +250,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                                     route) =>
                                                                 false);
                                                   } else {
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .errorDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -267,7 +267,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                   setState(() {
                                                     isForgot = false;
                                                   });
-                                                  Provider.of<LoginProvider>(
+                                                  Provider.of<AppProvider>(
                                                           context,
                                                           listen: false)
                                                       .errorDialog(

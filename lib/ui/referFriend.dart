@@ -8,7 +8,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class ReferFriend extends StatefulWidget {
   final bool fromDrawer;
@@ -78,16 +78,16 @@ class _ReferFriendState extends State<ReferFriend> {
     super.initState();
 
     qualificationList =
-        Provider.of<LoginProvider>(context, listen: false).qualificationList;
+        Provider.of<AppProvider>(context, listen: false).qualificationList;
     purposeList =
-        Provider.of<LoginProvider>(context, listen: false).purposeList;
-    genderList = Provider.of<LoginProvider>(context, listen: false).genderList;
+        Provider.of<AppProvider>(context, listen: false).purposeList;
+    genderList = Provider.of<AppProvider>(context, listen: false).genderList;
 
     qualificationController =
         FixedExtentScrollController(initialItem: qualificationIndex);
     purposeController = FixedExtentScrollController(initialItem: purposeIndex);
     genderController = FixedExtentScrollController(initialItem: genderIndex);
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -338,7 +338,7 @@ class _ReferFriendState extends State<ReferFriend> {
                                               setState(() {
                                                 isRefer = true;
                                               });
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .referFriend(
@@ -357,7 +357,7 @@ class _ReferFriendState extends State<ReferFriend> {
                                                   isRefer = false;
                                                 });
                                                 if (value.statusCode == 200) {
-                                                  if (Provider.of<LoginProvider>(
+                                                  if (Provider.of<AppProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .referResponse[
@@ -369,12 +369,12 @@ class _ReferFriendState extends State<ReferFriend> {
                                                         .pushReplacementNamed(
                                                             '/homePage');
 
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .successDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -382,12 +382,12 @@ class _ReferFriendState extends State<ReferFriend> {
                                                                 'message'],
                                                             mediaQuery);
                                                   } else {
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .errorDialog(
                                                             context,
-                                                            Provider.of<LoginProvider>(
+                                                            Provider.of<AppProvider>(
                                                                         context,
                                                                         listen:
                                                                             false)
@@ -399,7 +399,7 @@ class _ReferFriendState extends State<ReferFriend> {
                                                   setState(() {
                                                     isRefer = false;
                                                   });
-                                                  Provider.of<LoginProvider>(
+                                                  Provider.of<AppProvider>(
                                                           context,
                                                           listen: false)
                                                       .errorDialog(

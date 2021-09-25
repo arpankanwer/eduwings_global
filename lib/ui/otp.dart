@@ -1,5 +1,5 @@
 import 'package:eduwings_global/classes/user.dart';
-import 'package:eduwings_global/provider/login.dart';
+import 'package:eduwings_global/provider/appProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -45,7 +45,7 @@ class _OtpState extends State<Otp> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -165,7 +165,7 @@ class _OtpState extends State<Otp> {
                                                 isOtp = true;
                                               });
 
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .checkOtp(
@@ -181,7 +181,7 @@ class _OtpState extends State<Otp> {
                                                       .pushReplacementNamed(
                                                           '/changePassword');
                                                 } else {
-                                                  Provider.of<LoginProvider>(
+                                                  Provider.of<AppProvider>(
                                                           context,
                                                           listen: false)
                                                       .errorDialog(

@@ -6,7 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -141,7 +141,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   void initState() {
     super.initState();
 
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -271,7 +271,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                               setState(() {
                                                 isReset = true;
                                               });
-                                              Provider.of<LoginProvider>(
+                                              Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
                                                   .resetPassword(
@@ -283,13 +283,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                                                   isReset = false;
                                                 });
                                                 if (value.statusCode == 200) {
-                                                  if (Provider.of<LoginProvider>(
+                                                  if (Provider.of<AppProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .resetResponse[
                                                           'success'] ==
                                                       1) {
-                                                    Provider.of<LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
                                                         .logout()
@@ -297,26 +297,43 @@ class _ResetPasswordState extends State<ResetPassword> {
                                                       Navigator.of(context)
                                                           .pushReplacementNamed(
                                                               '/login');
-                                                      successDialog(Provider.of<
-                                                                      LoginProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .resetResponse[
-                                                          'message']);
+                                                      Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .successDialog(
+                                                              context,
+                                                              Provider.of<AppProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .resetResponse['message'],
+                                                              mediaQuery);
                                                     });
                                                   } else {
-                                                    errorDialog(Provider.of<
-                                                                LoginProvider>(
+                                                    Provider.of<AppProvider>(
                                                             context,
                                                             listen: false)
-                                                        .resetResponse['message']);
+                                                        .errorDialog(
+                                                            context,
+                                                            Provider.of<AppProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .resetResponse[
+                                                                'message'],
+                                                            mediaQuery);
                                                   }
                                                 } else {
                                                   setState(() {
                                                     isReset = false;
                                                   });
-                                                  errorDialog(
-                                                      'Something went Wrong');
+                                                  Provider.of<AppProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .errorDialog(
+                                                          context,
+                                                          'Something went Wrong',
+                                                          mediaQuery);
                                                   throw Exception(
                                                       'Failed to Connect');
                                                 }

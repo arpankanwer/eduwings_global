@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../classes/drawerItem.dart';
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class DrawerItems {
   static const dashBoard = DrawerItem(
@@ -69,7 +69,7 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -138,7 +138,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   leading: Icon(CupertinoIcons.exclamationmark_octagon_fill, color: Colors.white),
                   title: Text('Logout', style: TextStyle(color: Colors.white)),
                   onTap: () {
-                    Provider.of<LoginProvider>(context, listen: false)
+                    Provider.of<AppProvider>(context, listen: false)
                         .logout()
                         .then((value) => Navigator.of(context)
                             .pushReplacementNamed('/login'));

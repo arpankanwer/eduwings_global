@@ -9,7 +9,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../classes/user.dart';
 
-import '../provider/login.dart';
+import '../provider/appProvider.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({Key? key}) : super(key: key);
@@ -39,7 +39,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
       counselorName: '',
       counselorMobNo: '',
       formId: '',
-      isLogged: '',otp:'');
+      isLogged: '',
+      otp: '');
 
   final urlImages = [
     "https://eduwingserp.com/Api/v1/mobile/images/sliders/slider1.jpg",
@@ -53,7 +54,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   void initState() {
     super.initState();
 
-    Provider.of<LoginProvider>(context, listen: false)
+    Provider.of<AppProvider>(context, listen: false)
         .getSharedData()
         .then((value) {
       setState(() {
@@ -281,7 +282,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                   children: <Widget>[
                                     // Notifications Sections
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/notifications');
+                                      },
                                       child: Column(
                                         children: <Widget>[
                                           ConstrainedBox(
@@ -426,7 +430,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Coding for empty Sections Ends Here
                                     InkWell(
                                       onTap: () {
-                                        // Function Calling From #SocialMediaLinks.dart# File
+                                        Navigator.of(context)
+                                            .pushNamed('/testimonial');
                                       },
                                       child: Column(
                                         children: <Widget>[
@@ -510,7 +515,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Website Sections
                                     InkWell(
                                       onTap: () {
-                                        Provider.of<LoginProvider>(context,
+                                        Provider.of<AppProvider>(context,
                                                 listen: false)
                                             .websiteUrl(); // Function Calling From #SocialMediaLinks.dart# File
                                       },
@@ -537,7 +542,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Facebook Sections
                                     InkWell(
                                       onTap: () {
-                                        Provider.of<LoginProvider>(context,
+                                        Provider.of<AppProvider>(context,
                                                 listen: false)
                                             .facebookUrl(); // Function Calling From #SocialMediaLinks.dart# File
                                       },
@@ -564,7 +569,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     // Instagram Section
                                     InkWell(
                                       onTap: () {
-                                        Provider.of<LoginProvider>(context,
+                                        Provider.of<AppProvider>(context,
                                                 listen: false)
                                             .instagramUrl(); // Fuctions Calling From #SocialMediaLinks.dart# File
                                       },
