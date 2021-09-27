@@ -194,7 +194,7 @@ class AppProvider with ChangeNotifier {
     return response;
   }
 
-  Future fetchTestimonals() async {
+  Future<List<Testimonials>> fetchTestimonals() async {
     final response = await http.get(
         Uri.parse("https://eduwingserp.com/Api/v1/mobile/getTestimonials.php"));
     if (response.statusCode == 200) {
@@ -206,6 +206,11 @@ class AppProvider with ChangeNotifier {
     } else {
       throw Exception('Failed to load photos');
     }
+  }
+
+  Stream<List<Testimonials>> streamTestimonial() {
+    return Stream.periodic(Duration(seconds: 1))
+        .asyncMap((event) => fetchTestimonals());
   }
 
   openWhatsapp(context, counselorMobNo) async {

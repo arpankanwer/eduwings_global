@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:eduwings_global/classes/testimonial.dart';
 import 'package:eduwings_global/provider/appProvider.dart';
@@ -21,20 +20,20 @@ class _TestimonialState extends State<Testimonial> {
   StreamController testimonialController = StreamController();
   bool isTestimonial = true;
 
-  List<Testimonials> testimonialList = [];
+  // List<Testimonials> testimonialList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<AppProvider>(context, listen: false)
-        .fetchTestimonals()
-        .then((value) {
-      setState(() {
-        testimonialList = value;
-        isTestimonial = false;
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<AppProvider>(context, listen: false)
+  //       .fetchTestimonals()
+  //       .then((value) {
+  //     setState(() {
+  //       testimonialList = value;
+  //       isTestimonial = false;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,102 +80,117 @@ class _TestimonialState extends State<Testimonial> {
                                 SizedBox(
                                   height: mediaQuery.height * 0.02,
                                 ),
-                                isTestimonial == false
-                                    ? Container(
-                                        height: mediaQuery.height * 0.8,
-                                        child: ListView.builder(
-                                          itemCount: testimonialList.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            print(testimonialList);
-                                            return Column(
-                                              children: <Widget>[
-                                                Card(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0)),
-                                                  elevation: 7.0,
-                                                  child: ListTile(
-                                                    onTap: () {},
-                                                    contentPadding:
-                                                        EdgeInsets.all(10.0),
-                                                    title: Text(
-                                                      testimonialList[index]
-                                                          .stuName,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    subtitle: Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Text(testimonialList[
-                                                                      index]
-                                                                  .countryName +
-                                                              ' - ' +
-                                                              testimonialList[
-                                                                      index]
-                                                                  .collegeName +
-                                                              ", " +
-                                                              testimonialList[
-                                                                      index]
-                                                                  .countryName),
-                                                          Text(testimonialList[
-                                                                  index]
-                                                              .remarks),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    leading: Container(
-                                                      height:
-                                                          mediaQuery.height *
-                                                              0.2,
-                                                      width: mediaQuery.width *
-                                                          0.2,
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          placeholder: (context,
-                                                                  url) =>
-                                                              Center(
-                                                                  child:
-                                                                      CupertinoActivityIndicator()),
-                                                          imageUrl: testimonialList[
-                                                                  index]
-                                                              .testimonialImage,
-                                                          fit: BoxFit.cover,
+                                Container(
+                                    height: mediaQuery.height * 0.8,
+                                    child: StreamBuilder(
+                                      stream: Provider.of<AppProvider>(context,
+                                              listen: false)
+                                          .streamTestimonial(),
+                                      builder: (context,
+                                          AsyncSnapshot<List<Testimonials>>
+                                              snapshot) {
+                                        switch (snapshot.connectionState) {
+                                          case ConnectionState.waiting:
+                                            return Center(
+                                                child:
+                                                    CupertinoActivityIndicator());
+
+                                          default:
+                                            if (snapshot.hasData) {
+                                              return ListView.builder(
+                                                itemCount:
+                                                    snapshot.data?.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  final testimonialList =
+                                                      snapshot.data![index];
+                                                  return Column(
+                                                    children: <Widget>[
+                                                      Card(
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0)),
+                                                        elevation: 7.0,
+                                                        child: ListTile(
+                                                          onTap: () {},
+                                                          contentPadding:
+                                                              EdgeInsets.all(
+                                                                  10.0),
+                                                          title: Text(
+                                                            testimonialList
+                                                                .stuName,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          subtitle: Container(
+                                                            child: Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(testimonialList.countryName +
+                                                                    ' - ' +
+                                                                    testimonialList
+                                                                        .collegeName +
+                                                                    ", " +
+                                                                    testimonialList
+                                                                        .countryName),
+                                                                Text(testimonialList
+                                                                    .remarks),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          leading: Container(
+                                                            height: mediaQuery
+                                                                    .height *
+                                                                0.2,
+                                                            width: mediaQuery
+                                                                    .width *
+                                                                0.2,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    Center(
+                                                                        child:
+                                                                            CupertinoActivityIndicator()),
+                                                                imageUrl:
+                                                                    testimonialList
+                                                                        .testimonialImage,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          ),
+//                                                     ),
                                                         ),
                                                       ),
-                                                    ),
-//                                                     leading: Container(
-//                                                       height: 140,
-//                                                       width: 100,
-//                                                       child: FadeInImage
-//                                                           .assetNetwork(
-//                                                         placeholder:
-//                                                             'assets/icons/loader.gif',
-//                                                         image: testimonialList[
-//                                                                 index]
-//                                                             .testimonialImage,
-//                                                         fit: BoxFit.cover,
-//                                                       ),
-// //
-//                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      )
-                                    : Center(
-                                        child: CupertinoActivityIndicator(),
-                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  'Something Went Wrong');
+                                            } else {
+                                              return Text(
+                                                  'Something Went Wrong');
+                                            }
+                                        }
+                                      },
+                                    )),
                               ],
                             ),
                           ),

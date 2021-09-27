@@ -320,7 +320,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 isEducationLoader == true
                                     ? Center(
-                                        child: CircularProgressIndicator(),
+                                        child: CupertinoActivityIndicator(),
                                       )
                                     : ListView.builder(
                                         physics: NeverScrollableScrollPhysics(),
