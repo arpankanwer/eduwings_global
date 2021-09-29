@@ -190,9 +190,39 @@ class _CounselorSupportState extends State<CounselorSupport> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: mediaQuery.height * 0.02,
+                                  ),
+                                  Container(
+                                    child: CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => Colors.blue,
+                                        cupertino: (data) =>
+                                            CupertinoColors.activeBlue,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      onPressed: () {
+                                        Provider.of<AppProvider>(context,
+                                                listen: false)
+                                            .openWhatsapp(
+                                                context, user.counselorMobNo);
+                                      },
+                                      child: Text(
+                                        'Call Support',
+                                        style: platformThemeData(
+                                          context,
+                                          material: (data) =>
+                                              data.textTheme.headline1,
+                                          cupertino: (data) =>
+                                              data.textTheme.navTitleTextStyle,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                              // Text(user.counselorMobNo),
                             ],
                           ),
                         )
