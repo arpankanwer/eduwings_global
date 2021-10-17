@@ -99,12 +99,12 @@ class AppProvider with ChangeNotifier {
 
   Future resetPassword(formId, oldPassword, newPassword) async {
     final response =
-        await http.post(Uri.parse('$urlBase' + '$resetPasswordApi'), headers: {
-      'APIKEY': '$apiKey'
+        await http.post(Uri.parse(urlBase + resetPasswordApi), headers: {
+      'APIKEY': apiKey
     }, body: {
-      "formid": '$formId',
-      "oldpassword": '$oldPassword',
-      "newpassword": '$newPassword',
+      "formid": formId,
+      "oldpassword": oldPassword,
+      "newpassword": newPassword,
     });
     resetResponse = json.decode(response.body);
     return response;
@@ -117,8 +117,8 @@ class AppProvider with ChangeNotifier {
 
   Future login(mobNo, password) async {
     final response =
-        await http.post(Uri.parse('$urlBase' + '$loginServerApi'), headers: {
-      'APIKEY': '$apiKey'
+        await http.post(Uri.parse(urlBase + loginServerApi), headers: {
+      'APIKEY': apiKey
     }, body: {
       "khatanaam": mobNo,
       "khatacode": password,
@@ -136,8 +136,8 @@ class AppProvider with ChangeNotifier {
         "-"
         "${dobDate[0]}";
     final response =
-        await http.post(Uri.parse('$urlBase' + '$forgotPasswordApi'), headers: {
-      'APIKEY': '$apiKey'
+        await http.post(Uri.parse(urlBase + forgotPasswordApi), headers: {
+      'APIKEY':apiKey
     }, body: {
       "appid": ein,
       "mobileno": mobNo,
@@ -155,14 +155,13 @@ class AppProvider with ChangeNotifier {
   Future checkOtp(otp) async {
     final prefs = await SharedPreferences.getInstance();
     final serverOtp = prefs.getString('otp').toString();
-    print(serverOtp);
     return serverOtp == otp;
   }
 
   Future changePassword(ein, newwPassword) async {
     final response = await http
-        .post(Uri.parse('$urlBase' + '$forgotPasswordSubmitOtpApi'), headers: {
-      'APIKEY': '$apiKey'
+        .post(Uri.parse(urlBase + forgotPasswordSubmitOtpApi), headers: {
+      'APIKEY': apiKey
     }, body: {
       "ein": ein,
       "newpassword": newwPassword,
@@ -174,8 +173,8 @@ class AppProvider with ChangeNotifier {
   Future referFriend(stuFName, stuLName, stuMobNo, stuWhatsappMobNo, stuEmail,
       stuGender, stuQualification, stuIelts, stuPurpose, formID) async {
     final response =
-        await http.post(Uri.parse('$urlBase' + '$leadFormServerApi'), headers: {
-      'APIKEY': '$apiKey'
+        await http.post(Uri.parse(urlBase + leadFormServerApi), headers: {
+      'APIKEY': apiKey
     }, body: {
       "stdfName": stuFName,
       "stdlName": stuLName,
@@ -217,7 +216,7 @@ class AppProvider with ChangeNotifier {
     var whatsappAndroid =
         "whatsapp://send?phone=+91" + counselorMobNo + "&text=Hi";
     var whatappIos =
-        "https://wa.me/+91${counselorMobNo}?text=${Uri.parse("Hi")}";
+        "https://wa.me/+91$counselorMobNo?text=${Uri.parse("Hi")}";
     if (Platform.isIOS) {
       // for iOS phone only
       if (await canLaunch(whatappIos)) {

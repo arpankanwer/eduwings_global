@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:eduwings_global/ui/forgotPassword.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(
@@ -154,117 +153,115 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                      child: CupertinoButton(
-                                        disabledColor: Colors.white,
-                                        color: platformThemeData(
-                                          context,
-                                          material: (data) => data.primaryColor,
-                                          cupertino: (data) =>
-                                              data.primaryColor,
-                                        ),
-                                        borderRadius: BorderRadius.circular(20),
-                                        onPressed: isLogin == true
-                                            ? null
-                                            : () {
-                                                if (!loginForm.currentState!
-                                                    .validate()) {
-                                                  return;
-                                                }
-                                                loginForm.currentState!.save();
-                                                setState(() {
-                                                  isLogin = true;
-                                                });
-                                                Provider.of<AppProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .login(mobNo.text,
-                                                        password.text)
-                                                    .then(
-                                                  (response) {
-                                                    setState(() {
-                                                      isLogin = false;
-                                                    });
-                                                    if (response.statusCode ==
-                                                        200) {
-                                                      var userData =
-                                                          json.decode(
-                                                              response.body);
-                                                      if (userData.length ==
-                                                          0) {
-                                                        // ScaffoldMessenger.of(
-                                                        //         context)
-                                                        //     .showSnackBar(
-                                                        //   SnackBar(
-                                                        //     content: Text(
-                                                        //         'Invalid Mobile No. or Password'),
-                                                        //     backgroundColor:
-                                                        //         Colors.red,
-                                                        //   ),
-                                                        // );
-                                                        showDialog(
-                                                          useSafeArea: true,
-                                                          barrierDismissible:
-                                                              false,
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                                  context) =>
-                                                              CupertinoAlertDialog(
-                                                            title: Text(
-                                                                "Wrong Credentials"),
-                                                            content: Text(
-                                                                "Invalid EIN or Password"),
-                                                            actions: [
-                                                              CupertinoDialogAction(
-                                                                onPressed: () =>
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop(),
-                                                                child: Text(
-                                                                  "Close",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .red),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      } else {
-                                                        Provider.of<AppProvider>(
-                                                                context,
-                                                                listen: false)
-                                                            .setSharedData(
-                                                                userData[0])
-                                                            .then((value) => Navigator
-                                                                    .of(context)
-                                                                .pushReplacementNamed(
-                                                                    '/homePage'));
-                                                      }
-                                                    } else {
-                                                      throw Exception(
-                                                          'Failed to Connect');
-                                                    }
-                                                  },
-                                                );
-                                              },
-                                        child: isLogin == false
-                                            ? Text(
-                                                'Login',
-                                                style: platformThemeData(
-                                                  context,
-                                                  material: (data) =>
-                                                      data.textTheme.headline4,
-                                                  cupertino: (data) => data
-                                                      .textTheme
-                                                      .navTitleTextStyle,
-                                                ),
-                                              )
-                                            : Center(
-                                                child:
-                                                    CupertinoActivityIndicator(),
-                                              ),
+                                    CupertinoButton(
+                                      disabledColor: Colors.white,
+                                      color: platformThemeData(
+                                        context,
+                                        material: (data) => data.primaryColor,
+                                        cupertino: (data) =>
+                                            data.primaryColor,
                                       ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      onPressed: isLogin == true
+                                          ? null
+                                          : () {
+                                              if (!loginForm.currentState!
+                                                  .validate()) {
+                                                return;
+                                              }
+                                              loginForm.currentState!.save();
+                                              setState(() {
+                                                isLogin = true;
+                                              });
+                                              Provider.of<AppProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .login(mobNo.text,
+                                                      password.text)
+                                                  .then(
+                                                (response) {
+                                                  setState(() {
+                                                    isLogin = false;
+                                                  });
+                                                  if (response.statusCode ==
+                                                      200) {
+                                                    var userData =
+                                                        json.decode(
+                                                            response.body);
+                                                    if (userData.length ==
+                                                        0) {
+                                                      // ScaffoldMessenger.of(
+                                                      //         context)
+                                                      //     .showSnackBar(
+                                                      //   SnackBar(
+                                                      //     content: Text(
+                                                      //         'Invalid Mobile No. or Password'),
+                                                      //     backgroundColor:
+                                                      //         Colors.red,
+                                                      //   ),
+                                                      // );
+                                                      showDialog(
+                                                        useSafeArea: true,
+                                                        barrierDismissible:
+                                                            false,
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            CupertinoAlertDialog(
+                                                          title: Text(
+                                                              "Wrong Credentials"),
+                                                          content: Text(
+                                                              "Invalid EIN or Password"),
+                                                          actions: [
+                                                            CupertinoDialogAction(
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
+                                                              child: Text(
+                                                                "Close",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .setSharedData(
+                                                              userData[0])
+                                                          .then((value) => Navigator
+                                                                  .of(context)
+                                                              .pushReplacementNamed(
+                                                                  '/homePage'));
+                                                    }
+                                                  } else {
+                                                    throw Exception(
+                                                        'Failed to Connect');
+                                                  }
+                                                },
+                                              );
+                                            },
+                                      child: isLogin == false
+                                          ? Text(
+                                              'Login',
+                                              style: platformThemeData(
+                                                context,
+                                                material: (data) =>
+                                                    data.textTheme.headline4,
+                                                cupertino: (data) => data
+                                                    .textTheme
+                                                    .navTitleTextStyle,
+                                              ),
+                                            )
+                                          : Center(
+                                              child:
+                                                  CupertinoActivityIndicator(),
+                                            ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.03,

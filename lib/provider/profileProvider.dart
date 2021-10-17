@@ -7,8 +7,8 @@ class ProfileProvider with ChangeNotifier {
   String serverApi = "getEducationalDetail.php";
 
   Future getEducationDetail(formId) async {
-    final response = await http.post(Uri.parse('$urlBase' + '$serverApi'),
-        headers: {'APIKEY': '$apiKey'}, body: {"formid": formId});
+    final response = await http.post(Uri.parse(urlBase + serverApi),
+        headers: {'APIKEY': apiKey}, body: {"formid": formId});
     return response;
   }
 }

@@ -5,7 +5,6 @@ import 'package:eduwings_global/provider/appProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -80,7 +79,7 @@ class _TestimonialState extends State<Testimonial> {
                                 SizedBox(
                                   height: mediaQuery.height * 0.02,
                                 ),
-                                Container(
+                                SizedBox(
                                     height: mediaQuery.height * 0.8,
                                     child: StreamBuilder(
                                       stream: Provider.of<AppProvider>(context,
@@ -131,23 +130,21 @@ class _TestimonialState extends State<Testimonial> {
                                                                     FontWeight
                                                                         .bold),
                                                           ),
-                                                          subtitle: Container(
-                                                            child: Column(
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(testimonialList.countryName +
-                                                                    ' - ' +
-                                                                    testimonialList
-                                                                        .collegeName +
-                                                                    ", " +
-                                                                    testimonialList
-                                                                        .countryName),
-                                                                Text(testimonialList
-                                                                    .remarks),
-                                                              ],
-                                                            ),
+                                                          subtitle: Column(
+                                                            children: <
+                                                                Widget>[
+                                                              Text(testimonialList.countryName +
+                                                                  ' - ' +
+                                                                  testimonialList
+                                                                      .collegeName +
+                                                                  ", " +
+                                                                  testimonialList
+                                                                      .countryName),
+                                                              Text(testimonialList
+                                                                  .remarks),
+                                                            ],
                                                           ),
-                                                          leading: Container(
+                                                          leading: SizedBox(
                                                             height: mediaQuery
                                                                     .height *
                                                                 0.2,

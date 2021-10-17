@@ -15,7 +15,7 @@ class Testimonials {
     required this.testimonialImage,
   });
   factory Testimonials.fromJson(Map<String, dynamic> json) {
-    return new Testimonials._(
+    return Testimonials._(
       stuName: json['student_name'],
       collegeName: json['college_name'],
       courseName: json['course_name'],

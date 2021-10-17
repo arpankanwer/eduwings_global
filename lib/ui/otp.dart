@@ -110,7 +110,7 @@ class _OtpState extends State<Otp> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(
@@ -144,71 +144,70 @@ class _OtpState extends State<Otp> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
-                                        context,
-                                        material: (data) => data.primaryColor,
-                                        cupertino: (data) => data.primaryColor,
+                                    context,
+                                    material: (data) => data.primaryColor,
+                                    cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: isOtp == true
-                                          ? null
-                                          : () {
-                                              if (!otpForm.currentState!
-                                                  .validate()) {
-                                                return;
-                                              }
-                                              otpForm.currentState!.save();
-                                              setState(() {
-                                                isOtp = true;
-                                              });
+                                      ? null
+                                      : () {
+                                          if (!otpForm.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          otpForm.currentState!.save();
+                                          setState(() {
+                                            isOtp = true;
+                                          });
 
+                                          Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .checkOtp(
+                                            otp.text,
+                                          )
+                                              .then((value) {
+                                            setState(() {
+                                              isOtp = false;
+                                            });
+                                            print(value);
+                                            if (value) {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      '/changePassword');
+                                            } else {
                                               Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
-                                                  .checkOtp(
-                                                otp.text,
-                                              )
-                                                  .then((value) {
-                                                setState(() {
-                                                  isOtp = false;
-                                                });
-                                                print(value);
-                                                if (value) {
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                          '/changePassword');
-                                                } else {
-                                                  Provider.of<AppProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .errorDialog(
-                                                          context,
-                                                          'Invalid OTP',
-                                                          mediaQuery);
-                                                }
-                                                // }
-                                              });
-                                            },
+                                                  .errorDialog(
+                                                      context,
+                                                      'Invalid OTP',
+                                                      mediaQuery);
+                                            }
+                                            // }
+                                          });
+                                        },
                                       child: isOtp == false
-                                          ? Text(
-                                              'Submit',
-                                              style: platformThemeData(
-                                                context,
-                                                material: (data) =>
-                                                    data.textTheme.headline4,
-                                                cupertino: (data) => data
-                                                    .textTheme
-                                                    .navTitleTextStyle,
-                                              ),
-                                            )
-                                          : Center(
-                                              child:
-                                                  CupertinoActivityIndicator(),
-                                            ),
-                                    )),
+                                      ? Text(
+                                          'Submit',
+                                          style: platformThemeData(
+                                            context,
+                                            material: (data) =>
+                                                data.textTheme.headline4,
+                                            cupertino: (data) => data
+                                                .textTheme
+                                                .navTitleTextStyle,
+                                          ),
+                                        )
+                                      : Center(
+                                          child:
+                                              CupertinoActivityIndicator(),
+                                        ),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),

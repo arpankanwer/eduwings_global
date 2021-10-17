@@ -114,30 +114,28 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 SizedBox(
                                   height: mediaQuery.height * 0.02,
                                 ),
-                                Container(
-                                  child: CarouselSlider.builder(
-                                    carouselController: imageController,
-                                    itemCount: urlImages.length,
-                                    options: CarouselOptions(
-                                      viewportFraction: 0.89,
-                                      initialPage: 0,
-                                      enlargeCenterPage: true,
-                                      enlargeStrategy:
-                                          CenterPageEnlargeStrategy.height,
-                                      enableInfiniteScroll: true,
-                                      height: mediaQuery.height * 0.2,
-                                      autoPlay: true,
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          activeIndex = index;
-                                        });
-                                      },
-                                    ),
-                                    itemBuilder: (context, index, realIndex) {
-                                      final urlImage = urlImages[index];
-                                      return buildImage(urlImage, index);
+                                CarouselSlider.builder(
+                                  carouselController: imageController,
+                                  itemCount: urlImages.length,
+                                  options: CarouselOptions(
+                                    viewportFraction: 0.89,
+                                    initialPage: 0,
+                                    enlargeCenterPage: true,
+                                    enlargeStrategy:
+                                        CenterPageEnlargeStrategy.height,
+                                    enableInfiniteScroll: true,
+                                    height: mediaQuery.height * 0.2,
+                                    autoPlay: true,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        activeIndex = index;
+                                      });
                                     },
                                   ),
+                                  itemBuilder: (context, index, realIndex) {
+                                    final urlImage = urlImages[index];
+                                    return buildImage(urlImage, index);
+                                  },
                                 ),
                                 SizedBox(
                                   height: mediaQuery.height * 0.01,
@@ -146,13 +144,11 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 SizedBox(
                                   height: mediaQuery.height * 0.02,
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Menu",
-                                    textAlign: TextAlign.justify,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
+                                Text(
+                                  "Menu",
+                                  textAlign: TextAlign.justify,
+                                  style:
+                                      Theme.of(context).textTheme.headline5,
                                 ),
                                 SizedBox(
                                   height: mediaQuery.height * 0.02,
@@ -633,21 +629,19 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 // Coding For News&Higglights Section Starts Here !
 
                                 // Coding For News&Higglights Section Ends Here !
-                                Container(
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   child: InkWell(
                                     onTap: () {},
                                     child: Column(
                                       children: <Widget>[
-                                        Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(top: 10),
-                                            child: new Text(
-                                              "News & Highlights",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 18,
-                                              ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child:  Text(
+                                            "News & Highlights",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18,
                                             ),
                                           ),
                                         ),

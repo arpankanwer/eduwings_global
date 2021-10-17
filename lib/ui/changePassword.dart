@@ -121,7 +121,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(
@@ -157,113 +157,112 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
-                                        context,
-                                        material: (data) => data.primaryColor,
-                                        cupertino: (data) => data.primaryColor,
+                                    context,
+                                    material: (data) => data.primaryColor,
+                                    cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: isChange == true
-                                          ? null
-                                          : () {
-                                              if (!changePasswordForm
-                                                  .currentState!
-                                                  .validate()) {
-                                                return;
-                                              }
-                                              changePasswordForm.currentState!
-                                                  .save();
-                                              setState(() {
-                                                isChange = true;
-                                              });
+                                      ? null
+                                      : () {
+                                          if (!changePasswordForm
+                                              .currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          changePasswordForm.currentState!
+                                              .save();
+                                          setState(() {
+                                            isChange = true;
+                                          });
 
+                                          Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .changePassword(
+                                            user.ein,
+                                            newPassword.text,
+                                          )
+                                              .then((value) {
+                                            setState(() {
+                                              isChange = false;
+                                            });
+                                            if (value.statusCode == 200) {
+                                              if (Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .changePasswordResponse[
+                                                      'success'] ==
+                                                  1) {
+                                                changePasswordForm
+                                                    .currentState
+                                                    ?.reset();
+
+                                                Navigator.of(context)
+                                                    .pushReplacementNamed(
+                                                        '/login');
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .successDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .changePasswordResponse[
+                                                            'message'],
+                                                        mediaQuery);
+                                              } else {
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .errorDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .changePasswordResponse[
+                                                            'message'],
+                                                        mediaQuery);
+                                              }
+                                            } else {
+                                              setState(() {
+                                                isChange = false;
+                                              });
                                               Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
-                                                  .changePassword(
-                                                user.ein,
-                                                newPassword.text,
-                                              )
-                                                  .then((value) {
-                                                setState(() {
-                                                  isChange = false;
-                                                });
-                                                if (value.statusCode == 200) {
-                                                  if (Provider.of<AppProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .changePasswordResponse[
-                                                          'success'] ==
-                                                      1) {
-                                                    changePasswordForm
-                                                        .currentState
-                                                        ?.reset();
-
-                                                    Navigator.of(context)
-                                                        .pushReplacementNamed(
-                                                            '/login');
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .successDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .changePasswordResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  } else {
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .errorDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .changePasswordResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  }
-                                                } else {
-                                                  setState(() {
-                                                    isChange = false;
-                                                  });
-                                                  Provider.of<AppProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .errorDialog(
-                                                          context,
-                                                          'Something went Wrong',
-                                                          mediaQuery);
-                                                  throw Exception(
-                                                      'Failed to Connect');
-                                                }
-                                              });
-                                            },
+                                                  .errorDialog(
+                                                      context,
+                                                      'Something went Wrong',
+                                                      mediaQuery);
+                                              throw Exception(
+                                                  'Failed to Connect');
+                                            }
+                                          });
+                                        },
                                       child: isChange == false
-                                          ? Text(
-                                              'Reset',
-                                              style: platformThemeData(
-                                                context,
-                                                material: (data) =>
-                                                    data.textTheme.headline4,
-                                                cupertino: (data) => data
-                                                    .textTheme
-                                                    .navTitleTextStyle,
-                                              ),
-                                            )
-                                          : Center(
-                                              child:
-                                                  CupertinoActivityIndicator(),
-                                            ),
-                                    )),
+                                      ? Text(
+                                          'Reset',
+                                          style: platformThemeData(
+                                            context,
+                                            material: (data) =>
+                                                data.textTheme.headline4,
+                                            cupertino: (data) => data
+                                                .textTheme
+                                                .navTitleTextStyle,
+                                          ),
+                                        )
+                                      : Center(
+                                          child:
+                                              CupertinoActivityIndicator(),
+                                        ),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),

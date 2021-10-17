@@ -66,7 +66,7 @@ class AboutEduwings extends StatelessWidget {
                                     fit: BoxFit.contain),
                               ),
                               title: Column(
-                                children: <Widget>[
+                                children: const <Widget>[
                                   Text(
                                     "Eduwings Global",
                                     style: TextStyle(
@@ -82,7 +82,7 @@ class AboutEduwings extends StatelessWidget {
                                       thickness: 1.0,
                                     ),
                                   ),
-                                  new Text(
+                                  Text(
                                     "Your Future With Trusted Leader",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -128,7 +128,7 @@ class AboutEduwings extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Icons.location_on),
-                            title: new Text(
+                            title:  Text(
                               "SCO-11, Model Town Extension, Ludhiana, Punjab, India - 141002",
                               style: TextStyle(
                                 color: Colors.black54,
@@ -140,7 +140,7 @@ class AboutEduwings extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Icons.phone_android),
-                            title: new Text(
+                            title:  Text(
                               "0161-4600041, 42, 43 \n 95016-26000",
                               style: TextStyle(
                                 color: Colors.black54,
@@ -152,7 +152,7 @@ class AboutEduwings extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Icons.email),
-                            title: new Text(
+                            title:  Text(
                               "admissions@eduwingsglobal.com",
                               style: TextStyle(
                                 color: Colors.black54,

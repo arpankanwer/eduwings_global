@@ -56,7 +56,6 @@ class _ProfileState extends State<Profile> {
       Provider.of<ProfileProvider>(context, listen: false)
           .getEducationDetail(user.formId)
           .then((response) {
-        print(response.body);
         if (response.statusCode == 200) {
           setState(() {
             educationList = json.decode(response.body);
@@ -124,183 +123,177 @@ class _ProfileState extends State<Profile> {
                                 SizedBox(
                                   height: mediaQuery.height * 0.01,
                                 ),
-                                Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      SizedBox(
-                                        height: mediaQuery.height * 0.01,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Personal Detail',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2,
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: mediaQuery.height * 0.01,
-                                      ),
-                                      DataTable(
-                                        headingRowHeight:
-                                            mediaQuery.height * 0.01,
-                                        dataRowHeight: mediaQuery.height * 0.05,
-                                        columns: [
-                                          DataColumn(
-                                              label: Expanded(
-                                            child: Text(
-                                              '',
-                                              softWrap: true,
-                                            ),
-                                          )),
-                                          DataColumn(
-                                              label: Text(
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Personal Detail',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    DataTable(
+                                      headingRowHeight:
+                                          mediaQuery.height * 0.01,
+                                      dataRowHeight: mediaQuery.height * 0.05,
+                                      columns: const [
+                                        DataColumn(
+                                            label: Expanded(
+                                          child: Text(
                                             '',
-                                          )),
-                                        ],
-                                        rows: [
-                                          if (user.ein.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('EIN')),
-                                              DataCell(Text(
-                                                user.ein,
-                                                overflow: TextOverflow.visible,
-                                                softWrap: true,
-                                              ))
-                                            ]),
-                                          if (user.fName.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('First Name')),
-                                              DataCell(Text(
-                                                user.fName,
-                                                overflow: TextOverflow.visible,
-                                                softWrap: true,
-                                              ))
-                                            ]),
-                                          if (user.lName.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Last Name')),
-                                              DataCell(Text(user.lName,
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                  softWrap: true))
-                                            ]),
-                                          if (user.email.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Email Id')),
-                                              DataCell(
-                                                Text(user.email),
-                                              )
-                                            ]),
-                                          if (user.mobNo.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Mobile No.')),
-                                              DataCell(Text(user.mobNo,
-                                                  softWrap: true))
-                                            ]),
-                                          if (user.dob.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('D.O.B')),
-                                              DataCell(Text(user.dob,
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                  softWrap: true))
-                                            ]),
-                                          if (user.gender.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Gender')),
-                                              DataCell(Text(
-                                                user.gender,
-                                                overflow: TextOverflow.visible,
-                                                softWrap: true,
-                                              ))
-                                            ]),
-                                          if (user.passport.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Passport No.')),
-                                              DataCell(Text(user.passport,
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                  softWrap: true))
-                                            ]),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: mediaQuery.height * 0.01,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Address Detail',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2,
+                                            softWrap: true,
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: mediaQuery.height * 0.01,
-                                      ),
-                                      DataTable(
-                                        headingRowHeight:
-                                            mediaQuery.height * 0.01,
-                                        dataRowHeight: mediaQuery.height * 0.05,
-                                        columns: [
-                                          DataColumn(
-                                              label: Expanded(
-                                            child: Text(
-                                              '',
+                                        )),
+                                        DataColumn(
+                                            label: Text(
+                                          '',
+                                        )),
+                                      ],
+                                      rows: [
+                                        if (user.ein.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('EIN')),
+                                            DataCell(Text(
+                                              user.ein,
+                                              overflow: TextOverflow.visible,
                                               softWrap: true,
-                                            ),
-                                          )),
-                                          DataColumn(
-                                              label: Text(
-                                            '',
-                                          )),
-                                        ],
-                                        rows: [
-                                          if (user.address.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Address')),
-                                              DataCell(Text(
-                                                user.address,
-                                              ))
-                                            ]),
-                                          if (user.countryName.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('Country')),
-                                              DataCell(Text(
-                                                user.countryName,
+                                            ))
+                                          ]),
+                                        if (user.fName.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('First Name')),
+                                            DataCell(Text(
+                                              user.fName,
+                                              overflow: TextOverflow.visible,
+                                              softWrap: true,
+                                            ))
+                                          ]),
+                                        if (user.lName.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Last Name')),
+                                            DataCell(Text(user.lName,
                                                 overflow: TextOverflow.visible,
-                                                softWrap: true,
-                                              ))
-                                            ]),
-                                          if (user.stateName.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('State')),
-                                              DataCell(Text(user.stateName,
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                  softWrap: true))
-                                            ]),
-                                          if (user.cityName.isNotEmpty)
-                                            DataRow(cells: [
-                                              DataCell(Text('City')),
-                                              DataCell(Text(user.cityName,
-                                                  softWrap: true))
-                                            ]),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                                softWrap: true))
+                                          ]),
+                                        if (user.email.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Email Id')),
+                                            DataCell(
+                                              Text(user.email),
+                                            )
+                                          ]),
+                                        if (user.mobNo.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Mobile No.')),
+                                            DataCell(Text(user.mobNo,
+                                                softWrap: true))
+                                          ]),
+                                        if (user.dob.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('D.O.B')),
+                                            DataCell(Text(user.dob,
+                                                overflow: TextOverflow.visible,
+                                                softWrap: true))
+                                          ]),
+                                        if (user.gender.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Gender')),
+                                            DataCell(Text(
+                                              user.gender,
+                                              overflow: TextOverflow.visible,
+                                              softWrap: true,
+                                            ))
+                                          ]),
+                                        if (user.passport.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Passport No.')),
+                                            DataCell(Text(user.passport,
+                                                overflow: TextOverflow.visible,
+                                                softWrap: true))
+                                          ]),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Address Detail',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: mediaQuery.height * 0.01,
+                                    ),
+                                    DataTable(
+                                      headingRowHeight:
+                                          mediaQuery.height * 0.01,
+                                      dataRowHeight: mediaQuery.height * 0.05,
+                                      columns: const [
+                                        DataColumn(
+                                            label: Expanded(
+                                          child: Text(
+                                            '',
+                                            softWrap: true,
+                                          ),
+                                        )),
+                                        DataColumn(
+                                            label: Text(
+                                          '',
+                                        )),
+                                      ],
+                                      rows: [
+                                        if (user.address.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Address')),
+                                            DataCell(Text(
+                                              user.address,
+                                            ))
+                                          ]),
+                                        if (user.countryName.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('Country')),
+                                            DataCell(Text(
+                                              user.countryName,
+                                              overflow: TextOverflow.visible,
+                                              softWrap: true,
+                                            ))
+                                          ]),
+                                        if (user.stateName.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('State')),
+                                            DataCell(Text(user.stateName,
+                                                overflow: TextOverflow.visible,
+                                                softWrap: true))
+                                          ]),
+                                        if (user.cityName.isNotEmpty)
+                                          DataRow(cells: [
+                                            DataCell(Text('City')),
+                                            DataCell(Text(user.cityName,
+                                                softWrap: true))
+                                          ]),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: mediaQuery.height * 0.01,

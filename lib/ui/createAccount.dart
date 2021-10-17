@@ -129,7 +129,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(
@@ -213,69 +213,65 @@ class _CreateAccountState extends State<CreateAccount> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          genderController.dispose();
-                                          genderController =
-                                              FixedExtentScrollController(
-                                                  initialItem: genderIndex);
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        genderSheet(mediaQuery,
-                                                            genderController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child:
-                                              genderField(context, mediaQuery),
-                                        ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        genderController.dispose();
+                                        genderController =
+                                            FixedExtentScrollController(
+                                                initialItem: genderIndex);
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      genderSheet(mediaQuery,
+                                                          genderController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child:
+                                            genderField(context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          qualificationController.dispose();
-                                          qualificationController =
-                                              FixedExtentScrollController(
-                                                  initialItem:
-                                                      qualificationIndex);
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        qualificationSheet(
-                                                            mediaQuery,
-                                                            qualificationController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child: qualificationField(
-                                              context, mediaQuery),
-                                        ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        qualificationController.dispose();
+                                        qualificationController =
+                                            FixedExtentScrollController(
+                                                initialItem:
+                                                    qualificationIndex);
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      qualificationSheet(
+                                                          mediaQuery,
+                                                          qualificationController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child: qualificationField(
+                                            context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
@@ -287,153 +283,150 @@ class _CreateAccountState extends State<CreateAccount> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          purposeController.dispose();
-                                          purposeController =
-                                              FixedExtentScrollController(
-                                                  initialItem: purposeIndex);
+                                    GestureDetector(
+                                      onTap: () {
+                                        purposeController.dispose();
+                                        purposeController =
+                                            FixedExtentScrollController(
+                                                initialItem: purposeIndex);
 
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        purposeSheet(mediaQuery,
-                                                            purposeController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child:
-                                              purposeField(context, mediaQuery),
-                                        ),
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      purposeSheet(mediaQuery,
+                                                          purposeController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child:
+                                            purposeField(context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
-                                        context,
-                                        material: (data) => data.primaryColor,
-                                        cupertino: (data) => data.primaryColor,
+                                    context,
+                                    material: (data) => data.primaryColor,
+                                    cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: isRegister == true
-                                          ? null
-                                          : () {
-                                              if (!createAccountForm
-                                                  .currentState!
-                                                  .validate()) {
-                                                return;
+                                      ? null
+                                      : () {
+                                          if (!createAccountForm
+                                              .currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          createAccountForm.currentState!
+                                              .save();
+                                          setState(() {
+                                            isRegister = true;
+                                          });
+                                          Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .referFriend(
+                                                  fName.text,
+                                                  lName.text,
+                                                  mobNo.text,
+                                                  whatsappMobNo.text,
+                                                  email.text,
+                                                  gender.text,
+                                                  qualification.text,
+                                                  ielts.text,
+                                                  purpose.text,
+                                                  '0')
+                                              .then((value) {
+                                            setState(() {
+                                              isRegister = false;
+                                            });
+                                            if (value.statusCode == 200) {
+                                              if (Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .referResponse[
+                                                      'success'] ==
+                                                  1) {
+                                                createAccountForm
+                                                    .currentState
+                                                    ?.reset();
+                                                Navigator.of(context)
+                                                    .pushReplacementNamed(
+                                                        '/login');
+
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .successDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .referResponse[
+                                                            'message'],
+                                                        mediaQuery);
+                                              } else {
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .errorDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .referResponse[
+                                                            'message'],
+                                                        mediaQuery);
                                               }
-                                              createAccountForm.currentState!
-                                                  .save();
+                                            } else {
                                               setState(() {
-                                                isRegister = true;
+                                                isRegister = false;
                                               });
                                               Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
-                                                  .referFriend(
-                                                      fName.text,
-                                                      lName.text,
-                                                      mobNo.text,
-                                                      whatsappMobNo.text,
-                                                      email.text,
-                                                      gender.text,
-                                                      qualification.text,
-                                                      ielts.text,
-                                                      purpose.text,
-                                                      '0')
-                                                  .then((value) {
-                                                setState(() {
-                                                  isRegister = false;
-                                                });
-                                                if (value.statusCode == 200) {
-                                                  if (Provider.of<AppProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .referResponse[
-                                                          'success'] ==
-                                                      1) {
-                                                    createAccountForm
-                                                        .currentState
-                                                        ?.reset();
-                                                    Navigator.of(context)
-                                                        .pushReplacementNamed(
-                                                            '/login');
-
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .successDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .referResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  } else {
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .errorDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .referResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  }
-                                                } else {
-                                                  setState(() {
-                                                    isRegister = false;
-                                                  });
-                                                  Provider.of<AppProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .errorDialog(
-                                                          context,
-                                                          'Something went Wrong',
-                                                          mediaQuery);
-                                                  throw Exception(
-                                                      'Failed to Connect');
-                                                }
-                                              });
-                                            },
+                                                  .errorDialog(
+                                                      context,
+                                                      'Something went Wrong',
+                                                      mediaQuery);
+                                              throw Exception(
+                                                  'Failed to Connect');
+                                            }
+                                          });
+                                        },
                                       child: isRegister == false
-                                          ? Text(
-                                              'Register',
-                                              style: platformThemeData(
-                                                context,
-                                                material: (data) =>
-                                                    data.textTheme.headline4,
-                                                cupertino: (data) => data
-                                                    .textTheme
-                                                    .navTitleTextStyle,
-                                              ),
-                                            )
-                                          : Center(
-                                              child:
-                                                  CupertinoActivityIndicator(),
-                                            ),
-                                    )),
+                                      ? Text(
+                                          'Register',
+                                          style: platformThemeData(
+                                            context,
+                                            material: (data) =>
+                                                data.textTheme.headline4,
+                                            cupertino: (data) => data
+                                                .textTheme
+                                                .navTitleTextStyle,
+                                          ),
+                                        )
+                                      : Center(
+                                          child:
+                                              CupertinoActivityIndicator(),
+                                        ),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
@@ -967,7 +960,7 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   Widget qualificationSheet(mediaQuery, qualificationController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(
@@ -1000,7 +993,7 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   Widget purposeSheet(mediaQuery, purposeController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(
@@ -1033,7 +1026,7 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   Widget genderSheet(mediaQuery, genderController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(

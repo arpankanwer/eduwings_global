@@ -87,7 +87,7 @@ class _DrawerPageState extends State<DrawerPage> {
         color: Colors.indigo,
         width: mediaQuery.width * 0.7,
         child: SafeArea(
-            child: Container(
+            child: SizedBox(
           height: mediaQuery.height,
           child: SingleChildScrollView(
             child: Column(

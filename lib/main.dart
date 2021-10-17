@@ -27,16 +27,18 @@ import 'ui/testimonial.dart';
 
 void main() => runApp(MyApp());
 
-enum DeviceType { Phone, Tablet }
+enum DeviceType { phone, tablet }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   DeviceType getDeviceType(context) {
     double ratio =
         MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
     return (ratio >= 0.74) && (ratio < 1.5)
-        ? DeviceType.Tablet
-        : DeviceType.Phone;
+        ? DeviceType.tablet
+        : DeviceType.phone;
   }
 
   @override
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
             iosUsesMaterialWidgets: true,
             platformStyle: PlatformStyleData(android: PlatformStyle.Material)),
         builder: (context) => PlatformApp(
-          localizationsDelegates: [
+          localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

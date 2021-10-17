@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:http/http.dart' as http;
 
 class Notifications extends StatefulWidget {
   final bool fromDrawer;
@@ -65,7 +64,7 @@ class _NotificationsState extends State<Notifications> {
                                 ),
                                 ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(

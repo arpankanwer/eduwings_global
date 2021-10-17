@@ -25,8 +25,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   FocusNode mobNoFocusNode = FocusNode();
   FocusNode dobFocusNode = FocusNode();
 
-  Future<Null> _selectDate(BuildContext context, mediaQuery) async {
-    final picked = await showCupertinoModalPopup(
+  Future _selectDate(BuildContext context, mediaQuery) async {
+    return await showCupertinoModalPopup(
         context: context,
         builder: (_) => Container(
               decoration: BoxDecoration(
@@ -40,31 +40,29 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               // color: Color.fromARGB(255, 255, 255, 255),
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CupertinoButton(
-                          child: Text('Cancel'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        CupertinoButton(
-                          // color: Theme.of(context).primaryColor,
-                          child: Text('Done'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      CupertinoButton(
+                        child: Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      CupertinoButton(
+                        // color: Theme.of(context).primaryColor,
+                        child: Text('Done'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
                   ),
                   Divider(
                     height: 0,
                     thickness: 1,
                   ),
-                  Container(
+                  SizedBox(
                     height: mediaQuery.height * 0.3,
                     child: CupertinoDatePicker(
                       maximumDate: DateTime.now().add(Duration(seconds: 1)),
@@ -140,7 +138,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     ),
                                     ShaderMask(
                                       shaderCallback: (bounds) {
-                                        return LinearGradient(colors: [
+                                        return LinearGradient(colors: const [
                                           Color.fromRGBO(97, 6, 165, 1.0),
                                           Color.fromRGBO(45, 160, 240, 1.0)
                                         ]).createShader(
@@ -176,20 +174,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () =>
-                                            _selectDate(context, mediaQuery),
-                                        child: AbsorbPointer(
-                                          child: dobField(context, mediaQuery),
-                                        ),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          _selectDate(context, mediaQuery),
+                                      child: AbsorbPointer(
+                                        child: dobField(context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
                                         context,
@@ -211,8 +206,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                 isForgot = true;
                                               });
 
-                                              Provider.of<AppProvider>(
-                                                      context,
+                                              Provider.of<AppProvider>(context,
                                                       listen: false)
                                                   .forgotPassword(
                                                 ein.text,
@@ -295,7 +289,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                               child:
                                                   CupertinoActivityIndicator(),
                                             ),
-                                    )),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),

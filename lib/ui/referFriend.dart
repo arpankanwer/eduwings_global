@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -209,69 +207,65 @@ class _ReferFriendState extends State<ReferFriend> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          genderController.dispose();
-                                          genderController =
-                                              FixedExtentScrollController(
-                                                  initialItem: genderIndex);
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        genderSheet(mediaQuery,
-                                                            genderController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child:
-                                              genderField(context, mediaQuery),
-                                        ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        genderController.dispose();
+                                        genderController =
+                                            FixedExtentScrollController(
+                                                initialItem: genderIndex);
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      genderSheet(mediaQuery,
+                                                          genderController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child:
+                                            genderField(context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          qualificationController.dispose();
-                                          qualificationController =
-                                              FixedExtentScrollController(
-                                                  initialItem:
-                                                      qualificationIndex);
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        qualificationSheet(
-                                                            mediaQuery,
-                                                            qualificationController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child: qualificationField(
-                                              context, mediaQuery),
-                                        ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        qualificationController.dispose();
+                                        qualificationController =
+                                            FixedExtentScrollController(
+                                                initialItem:
+                                                    qualificationIndex);
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      qualificationSheet(
+                                                          mediaQuery,
+                                                          qualificationController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child: qualificationField(
+                                            context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
@@ -283,151 +277,148 @@ class _ReferFriendState extends State<ReferFriend> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
-                                    Container(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          purposeController.dispose();
-                                          purposeController =
-                                              FixedExtentScrollController(
-                                                  initialItem: purposeIndex);
+                                    GestureDetector(
+                                      onTap: () {
+                                        purposeController.dispose();
+                                        purposeController =
+                                            FixedExtentScrollController(
+                                                initialItem: purposeIndex);
 
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoActionSheet(
-                                                      actions: [
-                                                        purposeSheet(mediaQuery,
-                                                            purposeController)
-                                                      ],
-                                                      cancelButton:
-                                                          CupertinoActionSheetAction(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: Text(
-                                                                  'Cancel'))));
-                                        },
-                                        child: AbsorbPointer(
-                                          child:
-                                              purposeField(context, mediaQuery),
-                                        ),
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoActionSheet(
+                                                    actions: [
+                                                      purposeSheet(mediaQuery,
+                                                          purposeController)
+                                                    ],
+                                                    cancelButton:
+                                                        CupertinoActionSheetAction(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Text(
+                                                                'Cancel'))));
+                                      },
+                                      child: AbsorbPointer(
+                                        child:
+                                            purposeField(context, mediaQuery),
                                       ),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
-                                        context,
-                                        material: (data) => data.primaryColor,
-                                        cupertino: (data) => data.primaryColor,
+                                    context,
+                                    material: (data) => data.primaryColor,
+                                    cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: isRefer == true
-                                          ? null
-                                          : () {
-                                              if (!referFriendForm.currentState!
-                                                  .validate()) {
-                                                return;
+                                      ? null
+                                      : () {
+                                          if (!referFriendForm.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          referFriendForm.currentState!
+                                              .save();
+                                          setState(() {
+                                            isRefer = true;
+                                          });
+                                          Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .referFriend(
+                                                  fName.text,
+                                                  lName.text,
+                                                  mobNo.text,
+                                                  whatsappMobNo.text,
+                                                  email.text,
+                                                  gender.text,
+                                                  qualification.text,
+                                                  ielts.text,
+                                                  purpose.text,
+                                                  user.formId)
+                                              .then((value) {
+                                            setState(() {
+                                              isRefer = false;
+                                            });
+                                            if (value.statusCode == 200) {
+                                              if (Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .referResponse[
+                                                      'success'] ==
+                                                  1) {
+                                                referFriendForm.currentState
+                                                    ?.reset();
+                                                Navigator.of(context)
+                                                    .pushReplacementNamed(
+                                                        '/homePage');
+
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .successDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .referResponse[
+                                                            'message'],
+                                                        mediaQuery);
+                                              } else {
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .errorDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .referResponse[
+                                                            'message'],
+                                                        mediaQuery);
                                               }
-                                              referFriendForm.currentState!
-                                                  .save();
+                                            } else {
                                               setState(() {
-                                                isRefer = true;
+                                                isRefer = false;
                                               });
                                               Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
-                                                  .referFriend(
-                                                      fName.text,
-                                                      lName.text,
-                                                      mobNo.text,
-                                                      whatsappMobNo.text,
-                                                      email.text,
-                                                      gender.text,
-                                                      qualification.text,
-                                                      ielts.text,
-                                                      purpose.text,
-                                                      user.formId)
-                                                  .then((value) {
-                                                setState(() {
-                                                  isRefer = false;
-                                                });
-                                                if (value.statusCode == 200) {
-                                                  if (Provider.of<AppProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .referResponse[
-                                                          'success'] ==
-                                                      1) {
-                                                    referFriendForm.currentState
-                                                        ?.reset();
-                                                    Navigator.of(context)
-                                                        .pushReplacementNamed(
-                                                            '/homePage');
-
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .successDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .referResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  } else {
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .errorDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .referResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  }
-                                                } else {
-                                                  setState(() {
-                                                    isRefer = false;
-                                                  });
-                                                  Provider.of<AppProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .errorDialog(
-                                                          context,
-                                                          'Something went Wrong',
-                                                          mediaQuery);
-                                                  throw Exception(
-                                                      'Failed to Connect');
-                                                }
-                                              });
-                                            },
+                                                  .errorDialog(
+                                                      context,
+                                                      'Something went Wrong',
+                                                      mediaQuery);
+                                              throw Exception(
+                                                  'Failed to Connect');
+                                            }
+                                          });
+                                        },
                                       child: isRefer == false
-                                          ? Text(
-                                              'Refer',
-                                              style: platformThemeData(
-                                                context,
-                                                material: (data) =>
-                                                    data.textTheme.headline4,
-                                                cupertino: (data) => data
-                                                    .textTheme
-                                                    .navTitleTextStyle,
-                                              ),
-                                            )
-                                          : Center(
-                                              child:
-                                                  CupertinoActivityIndicator(),
-                                            ),
-                                    )),
+                                      ? Text(
+                                          'Refer',
+                                          style: platformThemeData(
+                                            context,
+                                            material: (data) =>
+                                                data.textTheme.headline4,
+                                            cupertino: (data) => data
+                                                .textTheme
+                                                .navTitleTextStyle,
+                                          ),
+                                        )
+                                      : Center(
+                                          child:
+                                              CupertinoActivityIndicator(),
+                                        ),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
@@ -1010,7 +1001,7 @@ class _ReferFriendState extends State<ReferFriend> {
   }
 
   Widget qualificationSheet(mediaQuery, qualificationController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(
@@ -1043,7 +1034,7 @@ class _ReferFriendState extends State<ReferFriend> {
   }
 
   Widget purposeSheet(mediaQuery, purposeController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(
@@ -1076,7 +1067,7 @@ class _ReferFriendState extends State<ReferFriend> {
   }
 
   Widget genderSheet(mediaQuery, genderController) {
-    return Container(
+    return SizedBox(
       height: mediaQuery.height * 0.25,
       child: StatefulBuilder(
         builder: (context, setState) => CupertinoPicker(

@@ -73,12 +73,11 @@ class _ResetPasswordState extends State<ResetPassword> {
             ),
           ),
         ),
-        content: Container(
-            child: Text(
+        content: Text(
           message.toString(),
           style: Theme.of(context).textTheme.headline3,
           textAlign: TextAlign.center,
-        )),
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -115,12 +114,11 @@ class _ResetPasswordState extends State<ResetPassword> {
             ),
           ),
         ),
-        content: Container(
-            child: Text(
+        content: Text(
           message.toString(),
           style: Theme.of(context).textTheme.headline3,
           textAlign: TextAlign.center,
-        )),
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -249,113 +247,112 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     SizedBox(
                                       height: mediaQuery.height * 0.02,
                                     ),
-                                    Container(
-                                        child: CupertinoButton(
+                                    CupertinoButton(
                                       disabledColor: Colors.white,
                                       color: platformThemeData(
-                                        context,
-                                        material: (data) => data.primaryColor,
-                                        cupertino: (data) => data.primaryColor,
+                                    context,
+                                    material: (data) => data.primaryColor,
+                                    cupertino: (data) => data.primaryColor,
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                       onPressed: isReset == true
-                                          ? null
-                                          : () {
-                                              if (!resetPasswordForm
-                                                  .currentState!
-                                                  .validate()) {
-                                                return;
+                                      ? null
+                                      : () {
+                                          if (!resetPasswordForm
+                                              .currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          resetPasswordForm.currentState!
+                                              .save();
+                                          setState(() {
+                                            isReset = true;
+                                          });
+                                          Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .resetPassword(
+                                                  user.formId,
+                                                  oldPassword.text,
+                                                  newPassword.text)
+                                              .then((value) {
+                                            setState(() {
+                                              isReset = false;
+                                            });
+                                            if (value.statusCode == 200) {
+                                              if (Provider.of<AppProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .resetResponse[
+                                                      'success'] ==
+                                                  1) {
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .logout()
+                                                    .then((value) {
+                                                  Navigator.of(context)
+                                                      .pushReplacementNamed(
+                                                          '/login');
+                                                  Provider.of<AppProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .successDialog(
+                                                          context,
+                                                          Provider.of<AppProvider>(
+                                                                  context,
+                                                                  listen:
+                                                                      false)
+                                                              .resetResponse['message'],
+                                                          mediaQuery);
+                                                });
+                                              } else {
+                                                Provider.of<AppProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .errorDialog(
+                                                        context,
+                                                        Provider.of<AppProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .resetResponse[
+                                                            'message'],
+                                                        mediaQuery);
                                               }
-                                              resetPasswordForm.currentState!
-                                                  .save();
+                                            } else {
                                               setState(() {
-                                                isReset = true;
+                                                isReset = false;
                                               });
                                               Provider.of<AppProvider>(
                                                       context,
                                                       listen: false)
-                                                  .resetPassword(
-                                                      user.formId,
-                                                      oldPassword.text,
-                                                      newPassword.text)
-                                                  .then((value) {
-                                                setState(() {
-                                                  isReset = false;
-                                                });
-                                                if (value.statusCode == 200) {
-                                                  if (Provider.of<AppProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .resetResponse[
-                                                          'success'] ==
-                                                      1) {
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .logout()
-                                                        .then((value) {
-                                                      Navigator.of(context)
-                                                          .pushReplacementNamed(
-                                                              '/login');
-                                                      Provider.of<AppProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .successDialog(
-                                                              context,
-                                                              Provider.of<AppProvider>(
-                                                                      context,
-                                                                      listen:
-                                                                          false)
-                                                                  .resetResponse['message'],
-                                                              mediaQuery);
-                                                    });
-                                                  } else {
-                                                    Provider.of<AppProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .errorDialog(
-                                                            context,
-                                                            Provider.of<AppProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .resetResponse[
-                                                                'message'],
-                                                            mediaQuery);
-                                                  }
-                                                } else {
-                                                  setState(() {
-                                                    isReset = false;
-                                                  });
-                                                  Provider.of<AppProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .errorDialog(
-                                                          context,
-                                                          'Something went Wrong',
-                                                          mediaQuery);
-                                                  throw Exception(
-                                                      'Failed to Connect');
-                                                }
-                                              });
-                                            },
+                                                  .errorDialog(
+                                                      context,
+                                                      'Something went Wrong',
+                                                      mediaQuery);
+                                              throw Exception(
+                                                  'Failed to Connect');
+                                            }
+                                          });
+                                        },
                                       child: isReset == false
-                                          ? Text(
-                                              'Reset',
-                                              style: platformThemeData(
-                                                context,
-                                                material: (data) =>
-                                                    data.textTheme.headline4,
-                                                cupertino: (data) => data
-                                                    .textTheme
-                                                    .navTitleTextStyle,
-                                              ),
-                                            )
-                                          : Center(
-                                              child:
-                                                  CupertinoActivityIndicator(),
-                                            ),
-                                    )),
+                                      ? Text(
+                                          'Reset',
+                                          style: platformThemeData(
+                                            context,
+                                            material: (data) =>
+                                                data.textTheme.headline4,
+                                            cupertino: (data) => data
+                                                .textTheme
+                                                .navTitleTextStyle,
+                                          ),
+                                        )
+                                      : Center(
+                                          child:
+                                              CupertinoActivityIndicator(),
+                                        ),
+                                    ),
                                     SizedBox(
                                       height: mediaQuery.height * 0.01,
                                     ),
